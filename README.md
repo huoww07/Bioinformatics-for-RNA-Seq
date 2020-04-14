@@ -9,7 +9,7 @@ This course will cover the basics for RNA sequencing and analysis using Tufts Hi
 - Intro to bioinformatics toos: BWA, samtools
 - Differential expression analysis using R and DESeq2
 
-<img src="img/workflow.png" width="200">
+<img src="img/workflow.png" width="400">
 
 ## Prerequisites
 
