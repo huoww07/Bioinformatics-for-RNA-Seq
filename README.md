@@ -16,7 +16,7 @@ This course will cover the basics for RNA sequencing and analysis using Tufts Hi
 ### Computational skills needed
 - Introduction to [Linux](https://tufts.box.com/s/x9aflewr2qw59pcbgcghbo9muykbi4ju)
 - Introduction to [HPC](https://tufts.box.com/s/yubnzxnpih14hd80mbfxqrkdri8s2nws)
-- Introduction to R (link pending)
+- Introduction to [R] (https://learn.datacamp.com/courses/free-introduction-to-r)
 
 ### Materials Needed
 - Chrome web browser
