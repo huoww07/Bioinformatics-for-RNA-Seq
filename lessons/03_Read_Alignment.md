@@ -47,7 +47,7 @@ We'll create the genome index (note: this step take 1.6G of storage, please make
 
 You'll see the first 10 lines of the file `genome.fa`:
 ```buildoutcfg
->chrI   <-- '>' charachter followed by sequence name
+>chrI            <-- '>' charachter followed by sequence name
 CCACACCACACCCACACACCCACACACCACACCACACACCACACCACACC
 CACACACACACATCCTAACACTACCCTAACACAGCCCTAATCTAACCCTG
 GCCAACCTGTCTCTCAACTTACCCTCCATTACCCTGCCTCCACTCGTTAC
@@ -125,7 +125,7 @@ mkdir results
 
 Open the script ./scripts/sbatch_star_align.sh in a text editor with `vi`
 
-<img src="../img/STAR_align.png" width="300">
+<img src="../img/STAR_align.png" width="600">
 
 Let's look at the options we've given to STAR:
 1. `-runThreadsN 4`: STAR runs four parallel threads. Alignment is a task that is easy to parallelize
@@ -172,7 +172,7 @@ most splice junctions are annotated. Further QC options are available with RSEQC
 
 ## BAM format
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
-<img src="../img/BAM_format.png" width="300">
+<img src="../img/BAM_format.png" width="500">
 
 Take a look at the output file:
 ```markdown
@@ -183,8 +183,8 @@ The file has two sections
 
 Header:
 ```markdown
-@HD VN:1.4 SO:coordinate          <-- Format version (VN) and Sorting order of alignments (SO)
-@SQ SN:chrI LN:230218        <-- Reference sequence name (SN) and length (LN)
+@HD VN:1.4 SO:coordinate             <-- Format version (VN) and Sorting order of alignments (SO)
+@SQ SN:chrI LN:230218             <-- Reference sequence name (SN) and length (LN)
 ```
 
 Alignment:
@@ -195,43 +195,67 @@ ERR458496.427513 16 chrI 3782 255 51M * 0 0 CAGTAAAGGCTTGGTAGTAACCATA     <-- Te
 FLAG: The FLAG field is displayed as a single integer, but is the sum of bitwise flags to denote multiple attributes of a read alignment. For example, 16 means the read being reverse complemented.
 CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example: M represents an alignment match
 
-More information on BAM format: [https://samtools.github.io/hts-specs/SAMv1.pdf](https://samtools.github.io/hts-specs/SAMv1.pdf) and [https://en.wikipedia.org/wiki/SAM_(file_format)] (https://en.wikipedia.org/wiki/SAM_(file_format)).
+More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
 
 ## Visualizing reads using IGV (optional)
 
 Return to On Demand Dashboard tab:
+
 `https://ondemand.cluster.tufts.edu`
 
-Choose `Interactive Apps->IGV
+Choose
+
+`Interactive Apps->IGV
 hours: 1
 cores: 4
 memory: 64 Gb
 directory: < leave default>`
 
-Click `Launch`
+Click
 
-Click `"Launch noVNC in New Tab" when it appears`. If the genome browser is cut off, resize using Chrome.
+`Launch`
 
-In top menu click `View -> Preferences -> Alignments -> Track Display Options -> Splice Junction Track -> OK`
+Click
+
+`"Launch noVNC in New Tab" when it appears`.
+
+<img src="../img/IGV_launch.png" width="300">
+
+If the genome browser is cut off, resize using Chrome.
+
+<img src="../img/IGV_zoom.png" width="300">
+
+In top menu click
+
+`View -> Preferences -> Alignments -> Track Display Options -> Splice Junction Track -> OK`
+
+<img src="../img/IGV_preference.png" width="300">
+
+<img src="../img/IGV_alignment.png" width="300">
 
 Load reference genome:
+
 `Click in reference box, select "More" and type sacCer3. Leave "Download Sequence UNchecked")`
 
 Load BAM file:
+
 `Click "File-> Load from File"
 Choose the BAM files we
 generated under
 ~/bioinformatics-rnaseq/STAR/`
 
+<img src="../img/IGV_load_bam.png" width="600">
+
 Viewing splice junctions in IGV:
-<img src="../img/Cluster_IGV.png" width="300">
+
+<img src="../img/Cluster_IGV.png" width="500">
 
 
 ## Summary
 
 <img src="../img/alignment_summary.png" width="500">
 
-[Next: Gene Quantification](04_Gene_Quantification.md)
-
 [Previous: Process Raw Reads](02_Process_Raw_Reads.md)
+
+[Next: Gene Quantification](04_Gene_Quantification.md)

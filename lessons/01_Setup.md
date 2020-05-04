@@ -93,4 +93,4 @@ Sequencing: Illumina HiSeq, Single End, 50bp read length
 
 [Previous: Introduction](00_Introduction.md)
 
-[Next: Quality Control](02_Quality_Control.md)
+[Next: Process Raw Reads](02_Process_Raw_Reads.md)

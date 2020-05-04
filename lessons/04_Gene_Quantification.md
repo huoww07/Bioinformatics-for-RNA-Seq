@@ -4,7 +4,7 @@ Approximate time: 20 minutes
 
 - Use R to perform feature counts for each gene
 
-<img src="../img/workflow_cleanup.png" width="200">
+<img src="../img/workflow_gene_quant.png" width="200">
 
 ## Counting reads: featureCounts
 
@@ -230,6 +230,6 @@ Next, we'll explore the meaning of these variants.
 the hbc:
 https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionVI/lessons/01_alignment.md
 
+[Previous: Read Alignment ](03_Read_Alignment.md)
 
-[Next: Variant Calling](04_Variant_Calling.md)
-[Previous: Alignment Cleanup](04_Alignment_Cleanup.md)
+[Next: Differential Expression](05_Differential_Expression.md)

@@ -291,4 +291,4 @@ The result after trimming is much improved:
 
 [Previous: Setup](01_Setup.md)
 
-[Next: Alignment](03_Alignment.md)
+[Next: Read Alignment](03_Read_Alignment.md)
