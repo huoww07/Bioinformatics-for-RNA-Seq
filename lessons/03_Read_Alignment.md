@@ -4,7 +4,7 @@ Approximate time: 20 minutes
 - Align short reads to a references genome using STAR
 - View alignment using IGV
 
-<img src="../img/workflow_align.png" width="200">
+<img src="../img/workflow_align.png" width="400">
 
 # STAR Alignment
 
@@ -167,7 +167,12 @@ View result by typing in:
 -rw-rw-r-- 1 rbator01 biotools 46K Mar 25 15:45 WT_1_SJ.out.tab
 drwx------ 2 rbator01 biotools 4.0K Mar 25 15:43 WT_1__STARgenome
 ```
-The file WT_1_Log.final.out will give us a summary of the run. For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
+The file WT_1_Log.final.out will give us a summary of the run. Take a look at the summary by running:
+`cat STAR/WT_1_Log.final.out`
+
+<img src="../img/WT_1_log.final.out.png" width="500">
+
+For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
 most splice junctions are annotated. Further QC options are available with RSEQC and samtools packages (see scripts/bamqc.sh ).
 
 ## BAM format

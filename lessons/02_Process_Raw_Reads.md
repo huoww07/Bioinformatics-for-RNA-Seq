@@ -240,14 +240,13 @@ highly duplicated sequences.
 
 ###Adapter Content
 
-This module looks for common adapters in the sequence.
+This module looks for common adapters in the sequence. In this example, there is no over represented sequences.
 
-<img src="../img/fastqc_adapter.png" width="400">
+<img src="../img/fastqc_overrepresent_seq.png" width="600">
 
 ## Optional: Read trimming
 
-In our `Per base sequence quality` we saw that the read quality dropped towards the end of the read.
-This means that there are likely errors in the data.
+In our `Per base sequence quality`, if we see that the read quality dropped towards the end of the read, there are likely errors in the data.
 In order to ensure alignment and variant calling are as accurate as possible, we can perform quality trimming of reads.
 
 [Trim Galore](https://github.com/FelixKrueger/TrimGalore/blob/master/Docs/Trim_Galore_User_Guide.md) is a popular tool
@@ -286,7 +285,7 @@ Note that Trim Galore may trim adapters [even in the case where FastQC found no 
 This is because Trim Galore will remove partial adapters at the ends of reads.
 
 The result after trimming is much improved:
-<img src="../img/fastqc_dup.png" width="400">
+<img src="../img/fastqc_adapter.png" width="400">
 
 
 [Previous: Setup](01_Setup.md)
