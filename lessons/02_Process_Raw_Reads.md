@@ -84,7 +84,7 @@ Since FastQC can run on multiple files at once, we'll use a wildcard "*" to indi
 ```bash
 cd ..
 mkdir fastqc
-fastqc raw_data/* -o fastqc --extract
+fastqc raw_data/*/* -o fastqc --extract
 ```
 
 Result:
