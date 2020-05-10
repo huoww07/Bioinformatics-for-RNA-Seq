@@ -12,7 +12,8 @@ Approximate time: 20 minutes
 3. On the top menu bar choose Interactive Apps -> Rstudio
 <img src="../img/rstudio.png" width="400">
 4. Choose:
-```
+
+```markdown
 Number of hours: 4
 Number of cores: 1
 Amount of Memory: 32 Gb
@@ -68,4 +69,4 @@ If your organism is not within the above database, you will have to pick your ge
 
 [Previous: Read Alignment ](05_Differential_Expression.md)
 
-[Go back to Summary](../README.md)
+[Go back to Introduction](../README.md)
