@@ -20,7 +20,6 @@ Amount of Memory: 32 Gb
 R version: 3.5.0
 ```
 
-
 ## Load the previously save log2 fold change results
 ```markdown
 significant_results <- read.table("significant_padj_0.05.txt", sep="\t", header=TRUE, row.names = 1)
