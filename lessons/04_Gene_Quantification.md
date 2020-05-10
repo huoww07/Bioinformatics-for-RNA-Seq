@@ -35,7 +35,7 @@ REF_DIR=/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3
 featureCounts \
 -a ${REF_DIR}/Annotation/Genes/sacCer3.gtf \
 -o featurecounts/featurecounts_results.txt \
-STAR/`*`bam
+STAR/*bam
 ```
 
 
