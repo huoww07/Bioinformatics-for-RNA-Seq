@@ -35,8 +35,22 @@ REF_DIR=/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3
 featureCounts \
 -a ${REF_DIR}/Annotation/Genes/sacCer3.gtf \
 -o featurecounts/featurecounts_results.txt \
-STAR/*bam
+STAR/\*bam
 ```
+
+To run the script, type in:
+```markdown
+./scripts/featurecounts.sh
+```
+
+The output files will contain results and results summary.
+```markdown
+featurecounts/
+├── featurecounts_results.txt
+└── featurecounts_results.txt.summary
+```
+
+
 
 
 The mapped coordinates of each read are compared with the features in the GTF file.
