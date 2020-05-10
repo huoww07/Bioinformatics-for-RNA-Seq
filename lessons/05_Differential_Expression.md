@@ -207,6 +207,6 @@ res_unshrunken <- results(dds, contrast=contrast)
 res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ```
 
-[Previous: Read Alignment ](04_Gene_Quantification.md)
+[Previous: Gene Quantification ](04_Gene_Quantification.md)
 
-[Next: Differential Expression](06_Pathway_Enrichment.md)
+[Next: Pathway Enrichment](06_Pathway_Enrichment.md)

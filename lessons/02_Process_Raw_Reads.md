@@ -7,7 +7,7 @@ Approximate time: 20 minutes
 ## Take a look at our raw data
 
 ### Fastq format
-From our course directory `into-to-ngs` change into the raw data directory:
+From our course directory `intro-to-RNA-seq` change into the raw data directory:
 ```markdown
 cd raw_data
 ```
@@ -113,7 +113,7 @@ On the top menu bar choose Files->Home Directory
 Navigate to the `fastqc` folder in course directory, e.g.: `/home/username/intro-to-ngs/fastqc/`
 Right click on the file `na12878_1_fastqc.html` and select `Open in new tab`.
 
-<img src="../img/od_new_tab.png" width="400">
+<img src="../img/od_new_tab.png" width="600">
 
 The new tab that opens in the browser has the results of FastQC for the first reads in the sample.
 We'll go through each plot.  
@@ -142,7 +142,7 @@ calls on most platforms will degrade as the run progresses, so it is common to s
 calls falling into the orange area towards the end of a read.
 
 
-###Per sequence quality scores
+### Per sequence quality scores
 The per sequence quality score report allows you to see if a subset of your sequences
 have universally low quality values. It is often the case that a subset of sequences will
 have universally poor quality, often because they are poorly imaged (on the edge of the
@@ -151,11 +151,11 @@ sequences.
 
 <img src="../img/fastqc_per_sequence_qual.png" width="400">
 
-###Per base sequence content
+### Per base sequence content
 Per Base Sequence Content plots out the proportion of each base position in a file for
 which each of the four normal DNA bases has been called.
 
-<img src="../img/fastqc_per_seq_content.png" width="400">
+<img src="../img/fastqc_per_seq_content.png" width="800">
 
 In a random library you would expect that there would be little to no difference between
 the different bases of a sequence run, so the lines in this plot should run parallel with each
@@ -166,7 +166,7 @@ overrepresented sequence which is contaminating your library. A bias which is co
 across all bases either indicates that the original library was sequence biased, or that
 there was a systematic problem during the sequencing of the library.
 
-###Per sequence GC content
+### Per sequence GC content
 
 This module measures the GC content across the whole length of each sequence in a file
 and compares it to a modelled normal distribution of GC content.
@@ -183,7 +183,7 @@ which is independent of base position. If there is a systematic bias which creat
 normal distribution then this won't be flagged as an error by the module since it doesn't
 know what your genome's GC content should be.
 
-###Per base N content
+### Per base N content
 
 If a sequencer is unable to make a base call with sufficient confidence then it will normally
 substitute an N rather than a conventional base] call
@@ -192,7 +192,7 @@ called.
 
 <img src="../img/fastqc_n.png" width="400">
 
-###Sequence Length Distribution
+### Sequence Length Distribution
 
 Some high throughput sequencers generate sequence fragments of uniform length, but
 others can contain reads of wildly varying lengths. Even within uniform length libraries
@@ -202,7 +202,7 @@ was analysed
 
 <img src="../img/fastqc_length.png" width="400">
 
-###Sequence Duplication Levels
+### Sequence Duplication Levels
 
 In a diverse library most sequences will occur only once in the final set. A low level of
 duplication may indicate a very high level of coverage of the target sequence, but a high
@@ -214,7 +214,7 @@ plot showing the relative number of sequences with different degrees of duplicat
 
 <img src="../img/fastqc_dup.png" width="400">
 
-###Overrepresented sequences
+### Overrepresented sequences
 
 A normal high-throughput library will contain a diverse set of sequences, with no individual
 sequence making up a tiny fraction of the whole. Finding that a single sequence is very
@@ -238,11 +238,11 @@ purposes of this analysis. Even so, longer reads are more likely to contain sequ
 errors which will artificially increase the observed diversity and will tend to underrepresent
 highly duplicated sequences.
 
-###Adapter Content
+### Adapter Content
 
 This module looks for common adapters in the sequence. In this example, there is no over represented sequences.
 
-<img src="../img/fastqc_overrepresent_seq.png" width="600">
+<img src="../img/fastqc_overrepresent_seq.png" width="400">
 
 ## Optional: Read trimming
 
@@ -285,7 +285,8 @@ Note that Trim Galore may trim adapters [even in the case where FastQC found no 
 This is because Trim Galore will remove partial adapters at the ends of reads.
 
 The result after trimming is much improved:
-<img src="../img/fastqc_adapter.png" width="400">
+
+<img src="../img/fastqc_adapter.png" width="800">
 
 
 [Previous: Setup](01_Setup.md)

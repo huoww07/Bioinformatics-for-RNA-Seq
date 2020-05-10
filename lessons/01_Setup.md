@@ -59,26 +59,45 @@ Or, if you are using a project directory:
 `cd /cluster/tufts/labname/username/`
 
 3. Copy the course directory:
-`cp /cluster/tufts/bio/tools/intro-to-ngs.tar.gz .`
+`cp /cluster/tufts/isberg/whuo01/intro-to-RNA-seq.tar.gz ./`
 
 4. Unzip the course directory:
-`tar -xvzf intro-to-ngs.tar.gz`
+`tar -xvzf intro-to-RNA-seq.tar.gz`
 
 5. Take a look at the contents by typing:
-`tree intro-to-ngs`
+`tree intro-to-RNA-seq`
 
 You'll see a list of all files
 ```
-intro-to-ngs
-├── all_commands.sh          <-- Bash script with all commands
-├──intro_to_ngs_Dec2019.pdf  <-- Course slides
+intro-to-RNA-seq/
+├── ERP004763_info.txt                 <-- sample description
 ├── raw_data                 <-- Folder with paired end fastq files
-│   ├── na12878_1.fq         
-│   └── na12878_2.fq
-├── README.md                <-- Instructions
-└── ref_data                 <-- Folder with reference sequence
-    └── chr10.fa
-2 directories, 5 files
+│   ├── sample_info.txt
+│   ├── SNF2
+│   │   ├── ERR458500.fastq.gz
+│   │   ├── ERR458501.fastq.gz
+│   │   ├── ERR458502.fastq.gz
+│   │   ├── ERR458503.fastq.gz
+│   │   ├── ERR458504.fastq.gz
+│   │   ├── ERR458505.fastq.gz
+│   │   └── ERR458506.fastq.gz
+│   └── WT_1
+│       ├── ERR458493.fastq.gz
+│       ├── ERR458494.fastq.gz
+│       ├── ERR458495.fastq.gz
+│       ├── ERR458496.fastq.gz
+│       ├── ERR458497.fastq.gz
+│       ├── ERR458498.fastq.gz
+│       └── ERR458499.fastq.gz
+└── scripts                 <-- Folder with all commands
+    ├── fastqc.sh
+    ├── featurecounts.sh
+    ├── intro.R
+    ├── sbatch_star_align_individual.sh
+    ├── sbatch_star_align.sh
+    └── sbatch_star_align_SNF2.sh
+
+4 directories, 22 files
 ```
 
 ## Data for the class

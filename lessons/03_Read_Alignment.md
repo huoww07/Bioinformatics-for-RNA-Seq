@@ -225,19 +225,19 @@ Click
 
 `"Launch noVNC in New Tab" when it appears`.
 
-<img src="../img/IGV_launch.png" width="300">
+<img src="../img/IGV_launch.png" width="600">
 
 If the genome browser is cut off, resize using Chrome.
 
-<img src="../img/IGV_zoom.png" width="300">
+<img src="../img/IGV_zoom.png" width="600">
 
 In top menu click
 
 `View -> Preferences -> Alignments -> Track Display Options -> Splice Junction Track -> OK`
 
-<img src="../img/IGV_preference.png" width="300">
+<img src="../img/IGV_preference.png" width="600">
 
-<img src="../img/IGV_alignment.png" width="300">
+<img src="../img/IGV_alignment.png" width="600">
 
 Load reference genome:
 
@@ -254,7 +254,7 @@ generated under
 
 Viewing splice junctions in IGV:
 
-<img src="../img/Cluster_IGV.png" width="500">
+<img src="../img/Cluster_IGV.png" width="800">
 
 
 ## Summary

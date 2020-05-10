@@ -14,7 +14,7 @@ The mapped coordinates of each read are compared with the features in the GTF fi
 
 By default featurecounts will 1) count reads in features labeled as 'exon' in the GTF and 2) group all exons with a given 'gene_id'. An example of a transcript with multiple exons:
 
-<img src="../img/featurecount_multi_exons.png" width="400">
+<img src="../img/featurecount_multi_exons.png" width="600">
 
 ## Counting reads: running the script
 
@@ -56,7 +56,7 @@ To look at the result, type in
 cat featurecounts/featurecounts_results.txt.summary | column -t
 ```
 
-<img src="../img/featurecount_summary.png" width="400">
+<img src="../img/featurecount_summary.png" width="600">
 
 
 ## Tracking read numbers

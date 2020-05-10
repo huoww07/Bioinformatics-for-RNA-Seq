@@ -12,12 +12,12 @@ Approximate time: 20 minutes
 3. On the top menu bar choose Interactive Apps -> Rstudio
 <img src="../img/rstudio.png" width="400">
 4. Choose:
-```markdown
+``bash
 Number of hours: 4
 Number of cores: 1
 Amount of Memory: 32 Gb
 R version: 3.5.0
-```
+``
 
 ## Load the previously save log2 fold change results
 ```markdown
@@ -54,11 +54,11 @@ height = 20)
 <img src="../img/heatmap.png" width="400">
 
 ## Next step: Functinal Enrichment
-<img src="../img/workflow_cluster_profiler.png" width="300">
+<img src="../img/workflow_cluster_profiler.png" width="400">
 
 If your organism happens to be within the clusterprofiler database as shown below, you can easily use cluster profiler for functional enrichment analysis.
 
-<img src="../img/orgdb_annotation_databases.png" width="600">
+<img src="../img/orgdb_annotation_databases.png" width="500">
 
 A great tutorial to follow for functional enrichment is:
 https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html
