@@ -57,7 +57,8 @@ meta <- read.table("data/sample_info.txt", header=TRUE)
 ```
 
 You can view the data by typing `meta` or `view(meta)`
-<img src="../img/rstudio_meta.png" width="400">
+
+<img src="../img/rstudio_meta.png" width="200">
 
 Load preprocessed data set of 7 WT replicates and 7 SNF2 knockouts
 ```markdown
@@ -114,10 +115,12 @@ The design can include multiple factors that are columns in the metadata. In thi
 The number of sequenced reads mapped to a gene depends on: Gene Length, Sequencing depth, The expression level of other genes in the sample and Its own expression level. Normalization using DESeq2 accounts for both sequencing depth and composition.
 Step 1: creates a pseudo-reference sample (row-wise geometric mean).
 For each gene, a pseudo-reference sample is created that is equal to the geometric mean across all samples.
+
 <img src="../img/DESeq2_step1.png" width="400">
 
 Step 2: calculates ratio of each sample to the reference.
 Calculate the ratio of each sample to the pseudo-reference. Since most genes aren't differentially expressed, ratios should be similar.
+
 <img src="../img/DESeq2_step2.png" width="400">
 
 Step 3: calculate the normalization factor for each sample (size factor).
@@ -133,7 +136,7 @@ This is performed by dividing each raw count value in a given sample by that sam
 SampleA normalization factor = 2.08
 SampleB normalization factor = 0.66
 ```
-<img src="../img/DESeq2_normalization.png" width="800">
+<img src="../img/DESeq2_normalization.png" width="600">
 
 ## Unsupervised Clustering
 This step is to asses overall similarity between samples:
@@ -168,7 +171,7 @@ results <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ## Exploring results
 The summary of results after shrinkage can be viewed by typing `summary(results)` or `head(results)`. If you used `head(results)` you will be viewing the top few lines of the result containing log2 fold change and p-value. log2FoldChange = log2(SNF2count/WTcount)Estimated from the model. padj - Adjusted pvalue for the probability that the log2FoldChange is not zero.
 
-<img src="../img/DESeq2_res.png" width="400">
+<img src="../img/DESeq2_res.png" width="600">
 
 ### Plot single gene
 Now, you can explore individual genes that you might be interested in. A simple plot can be made to compare the expression level of a particular gene. For example, for gene "YOR290C":

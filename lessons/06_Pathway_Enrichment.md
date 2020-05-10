@@ -54,9 +54,10 @@ height = 20)
 <img src="../img/heatmap.png" width="400">
 
 ## Next step: Functinal Enrichment
-<img src="../img/workflow_cluster_profiler.png" width="600">
+<img src="../img/workflow_cluster_profiler.png" width="300">
 
 If your organism happens to be within the clusterprofiler database as shown below, you can easily use cluster profiler for functional enrichment analysis.
+
 <img src="../img/orgdb_annotation_databases.png" width="600">
 
 A great tutorial to follow for functional enrichment is:
