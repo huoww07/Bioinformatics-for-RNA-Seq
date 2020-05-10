@@ -50,7 +50,7 @@ featurecounts/
 └── featurecounts_results.txt.summary
 ```
 
-## Counting reads: results
+## Counting reads: Result summary
 To look at the result, type in
 ```markdown
 cat featurecounts/featurecounts_results.txt.summary | column -t
