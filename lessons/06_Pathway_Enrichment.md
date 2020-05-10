@@ -12,12 +12,11 @@ Approximate time: 20 minutes
 3. On the top menu bar choose Interactive Apps -> Rstudio
 <img src="../img/rstudio.png" width="400">
 4. Choose:
-``bash
 Number of hours: 4
 Number of cores: 1
 Amount of Memory: 32 Gb
 R version: 3.5.0
-``
+
 
 ## Load the previously save log2 fold change results
 ```markdown
