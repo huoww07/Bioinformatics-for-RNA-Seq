@@ -119,6 +119,10 @@ The new tab that opens in the browser has the results of FastQC for the first re
 We'll go through each plot.  
 Note that the plots shown below are for the entire sample in order to avoid artifacts of the small subsample.
 
+## Understand FASTQC report
+
+A video tutorial on understanding FASTQC report is strongly recommended and can be found on [Babraham bioinformatics](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+
 ### Per base sequence quality
 
 Explanations adapted from [https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf][https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf]
@@ -155,7 +159,7 @@ sequences.
 Per Base Sequence Content plots out the proportion of each base position in a file for
 which each of the four normal DNA bases has been called.
 
-<img src="../img/fastqc_per_seq_content.png" width="800">
+<img src="../img/fastqc_per_seq_content.png" width="400">
 
 In a random library you would expect that there would be little to no difference between
 the different bases of a sequence run, so the lines in this plot should run parallel with each

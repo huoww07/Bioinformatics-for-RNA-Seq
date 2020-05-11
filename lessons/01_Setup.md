@@ -8,6 +8,7 @@ Approximate time: 20 minutes
 1. Open a Chrome browser visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
 2. Log in with your Tufts Credentials
 3. On the top menu bar choose Clusters->HPC Shell Access
+
 <img src="../img/od_terminal.png" width="400">
 
 4. Type your password at the prompt (the password will be hidden for security purposes):
@@ -71,7 +72,7 @@ You'll see a list of all files
 ```
 intro-to-RNA-seq/
 ├── ERP004763_info.txt                 <-- sample description
-├── raw_data                 <-- Folder with paired end fastq files
+├── raw_data                           <-- Folder with paired end fastq files
 │   ├── sample_info.txt
 │   ├── SNF2
 │   │   ├── ERR458500.fastq.gz
@@ -89,7 +90,7 @@ intro-to-RNA-seq/
 │       ├── ERR458497.fastq.gz
 │       ├── ERR458498.fastq.gz
 │       └── ERR458499.fastq.gz
-└── scripts                 <-- Folder with all commands
+└── scripts                           <-- Folder with all commands
     ├── fastqc.sh
     ├── featurecounts.sh
     ├── intro.R
@@ -110,6 +111,6 @@ Organism: Saccharomyces cerevisiae
 
 Sequencing: Illumina HiSeq, Single End, 50bp read length
 
-[Previous: Introduction](00_Introduction.md)
+[Previous: Introduction](../README.md)
 
 [Next: Process Raw Reads](02_Process_Raw_Reads.md)

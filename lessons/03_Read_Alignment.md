@@ -10,7 +10,7 @@ Approximate time: 20 minutes
 
 The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
 
-Spliced Transcripts Alignment to a Reference ([START] (https://github.com/alexdobin/STAR)) is an aligner designed to specifically address many of the challenges of RNA-seq data mapping using a strategy to account for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is memory intensive.
+Spliced Transcripts Alignment to a Reference ([STAR](https://github.com/alexdobin/STAR)) is an aligner designed to specifically address many of the challenges of RNA-seq data mapping using a strategy to account for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is memory intensive.
 
 STAR algorithm consists of two major steps:
 - seed searching step: Find Maximum Mappable Prefixes
@@ -19,7 +19,7 @@ STAR algorithm consists of two major steps:
 
 <img src="../img/STAR_mapping.jpeg" width="300">
 
-More information can be found on the publication: ["STAR: ultrafast universal RNA-seq aligner"] (https://academic.oup.com/bioinformatics/article/29/1/15/272537).
+More information can be found on the publication: ["STAR: ultrafast universal RNA-seq aligner"](https://academic.oup.com/bioinformatics/article/29/1/15/272537).
 
 Aligning reads using STAR is a two step process:
 - Create a genome index
@@ -47,7 +47,7 @@ We'll create the genome index (note: this step take 1.6G of storage, please make
 
 You'll see the first 10 lines of the file `genome.fa`:
 ```buildoutcfg
->chrI            <-- '>' charachter followed by sequence name
+>chrI                                                          <-- '>' charachter followed by sequence name
 CCACACCACACCCACACACCCACACACCACACCACACACCACACCACACC
 CACACACACACATCCTAACACTACCCTAACACAGCCCTAATCTAACCCTG
 GCCAACCTGTCTCTCAACTTACCCTCCATTACCCTGCCTCCACTCGTTAC
@@ -58,9 +58,11 @@ ACTACCACTCACCCACCGTTACCCTCCAATTACCCATATCCAACCCACTG             <-- sequence
 This is an example of fasta format
 
 3. Run STAR in "genomeGenerate" mode
-`STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 12`
+```markdown
+STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 12
+```
 
-Result:
+The STAR program will start running and show the process as below:
 ```markdown
 Apr 18 17:45:35 ..... started STAR run
 Apr 18 17:45:36 ... starting to generate Genome files
@@ -120,12 +122,12 @@ Since our alignment command will have multiple arguments, it will be convenient 
 
 Make a new directory for our results
 ```markdown
-mkdir results
+mkdir STAR
 ```
 
 Open the script ./scripts/sbatch_star_align.sh in a text editor with `vi`
 
-<img src="../img/STAR_align.png" width="600">
+<img src="../img/STAR_align.png" width="800">
 
 Let's look at the options we've given to STAR:
 1. `-runThreadsN 4`: STAR runs four parallel threads. Alignment is a task that is easy to parallelize

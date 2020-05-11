@@ -10,7 +10,9 @@ Approximate time: 60 minutes
 1. Open a Chrome browser and visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
 2. Log in with your Tufts Credentials
 3. On the top menu bar choose Interactive Apps -> Rstudio
+
 <img src="../img/rstudio.png" width="400">
+
 4. Choose:
 
 ```markdown
@@ -71,6 +73,7 @@ view(data)
 ```
 
 Similarly, you can view the data by typing `data` or `view(data)`
+
 <img src="../img/rstudio_data.png" width="500">
 
 ## DESeq2: Create DESeq2 Dataset object
@@ -122,7 +125,7 @@ For each gene, a pseudo-reference sample is created that is equal to the geometr
 Step 2: calculates ratio of each sample to the reference.
 Calculate the ratio of each sample to the pseudo-reference. Since most genes aren't differentially expressed, ratios should be similar.
 
-<img src="../img/DESeq2_step2.png" width="400">
+<img src="../img/DESeq2_step2.png" width="600">
 
 Step 3: calculate the normalization factor for each sample (size factor).
 The median value of all ratios for a given sample is taken as the normalization factor (size factor) for that sample:
@@ -161,6 +164,8 @@ contrast <- c("condition", "SNF2", "WT")
 res_unshrunken <- results(dds, contrast=contrast)
 summary(res_unshrunken)
 ```
+Here shows a summary of up- or down-regulated genes:
+
 <img src="../img/result_unshrunken.png" width="400">
 
 ## Shrinkage of the log2 fold changes
