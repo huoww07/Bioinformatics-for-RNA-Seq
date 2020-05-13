@@ -1,5 +1,7 @@
 ## A Tufts University Research Technology Workshop
 
+This is a test.
+
 ## Description:
 This course will cover the basics for RNA sequencing and analysis using command line tools and R on Tufts High Performance Compute Cluster (HPC). Topics covered include quality control, read alignment, feature counts, differential expression and pathway analysis. There will be a 1-hour introductory session after which students will follow online self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will have to install [Rstudio](https://rstudio.com) on your personal computer or laptop. If you are using Windows, please also install a terminal emulator (such as [cygwin](https://www.cygwin.com)).
 
