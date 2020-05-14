@@ -238,10 +238,10 @@ The result after trimming is much improved:
 <img src="../img/fastqc_adapter.png" width="800">
 
 ## Workshop Schedule
-- [Introduction](../README.md)]
-- [Setup using Tufts HPC](lessons/01_Setup.md)
-- Currently at [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
-- Next: [Read Alignment](lessons/03_Read_Alignment.md)
-- [Gene Quantification](lessons/04_Gene_Quantification.md)
-- [Differential Expression](lessons/05_Differential_Expression.md)
-- [Pathway Enrichment](lessons/06_Pathway_Enrichment.md)
+- [Introduction](../README.md)
+- [Setup using Tufts HPC](01_Setup.md)
+- Currently at: Process Raw Reads
+- Next: [Read Alignment](03_Read_Alignment.md)
+- [Gene Quantification](04_Gene_Quantification.md)
+- [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)

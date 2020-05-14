@@ -66,10 +66,10 @@ As the analysis progresses you should keep track of the following:
 
 
 ## Workshop Schedule
-- [Introduction](../README.md)]
-- [Setup using Tufts HPC](lessons/01_Setup.md)
-- [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
-- [Read Alignment](lessons/03_Read_Alignment.md)
-- Currently at [Gene Quantification](lessons/04_Gene_Quantification.md)
-- Next: [Differential Expression](lessons/05_Differential_Expression.md)
-- [Pathway Enrichment](lessons/06_Pathway_Enrichment.md)
+- [Introduction](../README.md)
+- [Setup using Tufts HPC](01_Setup.md)
+- [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Read Alignment](03_Read_Alignment.md)
+- Currently at: Gene Quantification
+- Next: [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)

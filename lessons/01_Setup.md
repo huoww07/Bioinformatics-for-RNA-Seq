@@ -113,10 +113,10 @@ Sequencing: Illumina HiSeq, Single End, 50bp read length
 
 
 ## Workshop Schedule
-- [Introduction](../README.md)]
-- Currently at [Setup using Tufts HPC](lessons/01_Setup.md)
-- Next: [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
-- [Read Alignment](lessons/03_Read_Alignment.md)
-- [Gene Quantification](lessons/04_Gene_Quantification.md)
-- [Differential Expression](lessons/05_Differential_Expression.md)
-- [Pathway Enrichment](lessons/06_Pathway_Enrichment.md)
+- [Introduction](../README.md)
+- Currently at: Setup using Tufts HPC
+- Next: [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Read Alignment](03_Read_Alignment.md)
+- [Gene Quantification](04_Gene_Quantification.md)
+- [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)
