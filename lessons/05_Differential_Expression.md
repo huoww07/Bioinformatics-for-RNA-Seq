@@ -213,6 +213,11 @@ res_unshrunken <- results(dds, contrast=contrast)
 res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ```
 
-[Previous: Gene Quantification ](04_Gene_Quantification.md)
-
-[Next: Pathway Enrichment](06_Pathway_Enrichment.md)
+## Workshop Schedule
+- [Introduction](../README.md)]
+- [Setup using Tufts HPC](lessons/01_Setup.md)
+- [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
+- [Read Alignment](lessons/03_Read_Alignment.md)
+- [Gene Quantification](lessons/04_Gene_Quantification.md)
+- Currently at [Differential Expression](lessons/05_Differential_Expression.md)
+- Next: [Pathway Enrichment](lessons/06_Pathway_Enrichment.md)

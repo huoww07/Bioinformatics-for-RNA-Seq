@@ -67,6 +67,11 @@ A great tutorial to follow for functional enrichment can be found at
 
 If your organism is not within the above database, you will have to pick your gene of interest (using log2 fold change cutoff and/or padj cutoff) and analyze the functional enrichment using [String](https://string-db.org) or [Blast2Go](https://www.blast2go.com).
 
-[Previous: Read Alignment ](05_Differential_Expression.md)
-
-[Go back to Introduction](../README.md)
+## Workshop Schedule
+- [Introduction](../README.md)]
+- [Setup using Tufts HPC](lessons/01_Setup.md)
+- [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
+- [Read Alignment](lessons/03_Read_Alignment.md)
+- [Gene Quantification](lessons/04_Gene_Quantification.md)
+- [Differential Expression](lessons/05_Differential_Expression.md)
+- Currently at [Pathway Enrichment](lessons/06_Pathway_Enrichment.md)
