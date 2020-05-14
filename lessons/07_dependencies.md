@@ -16,11 +16,11 @@ To follow along with the practice in this course, you will use command line tool
 [R studio](https://www.google.com/search?client=safari&rls=en&q=r+studio&ie=UTF-8&oe=UTF-8)
 
     Bioconductr libraries (check out each library for installation guide):
-  - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
-  - [vsn](https://bioconductor.org/packages/release/bioc/html/vsn.html)
-  - [DEGreport](https://bioconductor.org/packages/release/bioc/html/DEGreport.html)
-  - [org.Sc.sgd.db](https://bioconductor.org/packages/release/data/annotation/html/org.Sc.sgd.db.html)
-  - [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
+    - [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+    - [vsn](https://bioconductor.org/packages/release/bioc/html/vsn.html)
+    - [DEGreport](https://bioconductor.org/packages/release/bioc/html/DEGreport.html)
+    - [org.Sc.sgd.db](https://bioconductor.org/packages/release/data/annotation/html/org.Sc.sgd.db.html)
+    - [clusterProfiler](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
 
     Regular libraries (install by entering `install.packages("name")`):
 
