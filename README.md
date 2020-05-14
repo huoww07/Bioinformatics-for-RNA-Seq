@@ -27,6 +27,10 @@ If you are a Tufts member and have access to Tufts HPC:
 If you don't have access to Tufts HPC:
 - [Here is the list of full dependencies you will need to install](lessons/07_dependencies.md)
 
+All scripts you will be using:
+- [Command line scripts](lessons/08_bash_scripts.md)
+- [R scripts](lessons/09_R_scripts.md)
+
 
 ## Schedule
 - Introduction

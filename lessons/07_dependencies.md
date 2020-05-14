@@ -30,6 +30,10 @@ To follow along with the practice in this course, you will use command line tool
     - [ggrepel](https://cran.r-project.org/web/packages/ggrepel/vignettes/ggrepel.html#installation)
     - pheatmap
 
+## Scripts you will be using:
+- [Command line scripts](08_bash_scripts.md)
+- [R scripts](09_R_scripts.md)
+
 
 ## Workshop Schedule
 - [Introduction](../README.md)
