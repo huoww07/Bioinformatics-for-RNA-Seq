@@ -54,6 +54,8 @@ If you don't know whether you have project space, please email [tts-research@tuf
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
+Note that if you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
+
 2. Change to your home directory
 `cd ~`
 Or, if you are using a project directory:
@@ -115,7 +117,7 @@ Sequencing: Illumina HiSeq, Single End, 50bp read length
 ## Workshop Schedule
 - [Introduction](../README.md)
 - Currently at: Setup using Tufts HPC
-- Next: [Process Raw Reads](02_Process_Raw_Reads.md)
+- Next: [Quality Control](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
 - [Gene Quantification](04_Gene_Quantification.md)
 - [Differential Expression](05_Differential_Expression.md)

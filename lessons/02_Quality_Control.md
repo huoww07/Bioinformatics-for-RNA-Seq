@@ -226,7 +226,9 @@ In our `Per base sequence quality`, if we see that the read quality dropped towa
 Quality trimming: Trims low quality bases from the 3' end of the read
 Adapter trimming: Automatically detects and removes known Illumina adapters that may be present in the data
 
-To perform trimming on the data, we first load the software:
+To perform trimming on the data, we first load the software which is installed as an a conda environment.
+For more information on using anaconda on the HPC, see [this tutorial](https://sites.tufts.edu/biotools/files/2019/07/conda_on_hpc.pdf).
+
 ```
 module load anaconda/3
 source activate /cluster/tufts/bio/tools/conda_envs/trim_galore/
@@ -263,7 +265,7 @@ The result after trimming is much improved:
 ## Workshop Schedule
 - [Introduction](../README.md)
 - [Setup using Tufts HPC](01_Setup.md)
-- Currently at: Process Raw Reads
+- Currently at: Quality Control
 - Next: [Read Alignment](03_Read_Alignment.md)
 - [Gene Quantification](04_Gene_Quantification.md)
 - [Differential Expression](05_Differential_Expression.md)

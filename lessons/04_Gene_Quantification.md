@@ -2,7 +2,7 @@ Approximate time: 20 minutes
 
 ## Learning Objectives
 
-- Use Subread to perform feature counts for each gene
+- Use `Subread` packkage to perform feature quantification for each gene
 
 <img src="../img/workflow_gene_quant.png" width="400">
 
@@ -68,7 +68,7 @@ As the analysis progresses you should keep track of the following:
 ## Workshop Schedule
 - [Introduction](../README.md)
 - [Setup using Tufts HPC](01_Setup.md)
-- [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Process Raw Reads](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
 - Currently at: Gene Quantification
 - Next: [Differential Expression](05_Differential_Expression.md)
