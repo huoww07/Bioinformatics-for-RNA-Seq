@@ -60,7 +60,7 @@ Or, if you are using a project directory:
 `cd /cluster/tufts/labname/username/`
 
 3. Copy the course directory:
-`cp /cluster/tufts/isberg/whuo01/intro-to-RNA-seq.tar.gz ./`
+`cp /cluster/tufts/bio/tools/training/bioinformatics-for-rna-seq/intro-to-RNA-seq.tar.gz ./`
 
 4. Unzip the course directory:
 `tar -xvzf intro-to-RNA-seq.tar.gz`
@@ -72,10 +72,10 @@ You'll see a list of all files
 ```
 intro-to-RNA-seq/
 ├── ERP004763_info.txt                 <-- sample description
-├── raw_data                           <-- Folder with paired end fastq files
+├── raw_data                           <-- Folder with fastq files
 │   ├── sample_info.txt
 │   ├── SNF2
-│   │   ├── ERR458500.fastq.gz
+│   │   ├── ERR458500.fastq.gz         <-- gzip compressed fastq files
 │   │   ├── ERR458501.fastq.gz
 │   │   ├── ERR458502.fastq.gz
 │   │   ├── ERR458503.fastq.gz
