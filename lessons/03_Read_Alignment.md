@@ -2,11 +2,12 @@ Approximate time: 20 minutes
 
 ## Goals
 - Align short reads to a references genome using Spliced Transcripts Alignment to a Reference (STAR) aligner
+- Review Gene annotation and GTF format
 - View alignment using Integrative Genome Viewer (IGV)
 
 <img src="../img/workflow_align.png" width="400">
 
-# STAR Alignment
+# STAR Aligner
 
 The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the 
 read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. 
@@ -44,13 +45,13 @@ In that directory there are both genome sequence, genome indicies for various al
 
 We'll re-create the STAR genome index in our own directory in order to practice:
 
-0. Get an interaction session on a compute node if you haven't done so
+1. Get an interaction session on a compute node if you haven't done so
 `srun --pty -t 3:00:00  --mem 32G  -N 1 -n 4 bash`
 
-1. load the module
+2. load the module
 `module load STAR/2.7.0a`
 
-2. create a directory to store the index in
+3. create a directory to store the index in
 `mkdir genome`
 
 You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
@@ -70,7 +71,7 @@ ACTACCACTCACCCACCGTTACCCTCCAATTACCCATATCCAACCCACTG             <-- sequence
 ```
 This is an example of FASTA format.
 
-3. Run STAR in "genomeGenerate" mode
+4. Run STAR in "genomeGenerate" mode
 ```
 STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 4
 ```
@@ -103,8 +104,51 @@ When it's done, take a look at the files produced by typing `ls genome`:
 -rw-rw---- 1 whuo01 isberg 1.5G Apr 18 17:45 SAindex
 ```
 
-## STAR alignment
+## Gene annotation source
 
+STAR can use an annotation file gives the location and structure of genes in order to improve alignment in known splice junctions.
+Annotation is dynamic and there are at least three major sources of annotation: RefGene, Ensembl, and UCSC.
+
+The intersection among the three sources is shown in the figure below. 
+RefGene has the fewest unique genes, while more than 50% of genes in Ensembl are unique
+
+<img src="../img/ann_0.png" width="500">
+
+(Figure references [Zhao et al Bioinformatics 2015](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-1308-8))
+
+It is important to be consistent with your choice of annotation source throughout an analysis.
+
+
+## GTF files on the HPC
+
+Tufts HPC hosts genome reference data from various sources.
+The annotation information for `sacCer3` from `UCSCC` source can be found at the following location:
+```
+/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/
+```
+
+Gene Transfer Format (GTF) is the most widely used file format to store information about gene location and structure with 
+respect to a given reference genome.
+
+We will use the GTF file located here
+```
+/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Annotation/Genes
+```
+
+An example of the format is shown below, where header line is added for clarity.
+
+| SequenceName | Source           | Feature       | Start | End | Score  | Strand | Frame |  Group  |            |               |            |             |      |         |              |
+|--------------|------------------|---------------|-----|-------|--------|-------|-------|---------|------------|---------------|------------|-------------|------|---------|--------------|
+| chrI         | sacCer3.genepred | transcript    | 335 | 649   | .      | +     | .     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; |             |      |         |              |
+| chrI         | sacCer3.genepred | exon          | 335 | 649   | .      | +     | .     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | CDS           | 335 | 646   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | start_codon   | 335 | 337   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | stop_codon    | 647 | 649   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+
+The table shows the location of all types of features in a Gene (transcript, exon, CDS, start_codon, and stop codons)
+It also uses the last four columns to provide annotation about the transcript and gene identifiers.
+
+## STAR alignment
 Let's check the usage instructions for STAR by typing `STAR`
 
 ```
@@ -179,7 +223,7 @@ because alignment of a read is independent of other reads.
 2. `-alignIntronMin/Max`: Optional arguments to specify novel
 intron size
 
-3. `-sjdbGTFfile" `: gft annotation file for the gene expression calculation.
+3. `-sjdbGTFfile" `: GTF annotation file for the gene expression calculation
 
 4. `-sjdbOverhang`:  Place the output in the results folder and give it a name
 
@@ -215,11 +259,47 @@ drwx------ 2 rbator01 biotools 4.0K Mar 25 15:43 WT_1__STARgenome
 The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
 `cat STAR/WT_1_Log.final.out`
 
-## replace
+```
+                                 Started job on |	May 15 12:11:50
+                             Started mapping on |	May 15 12:12:00
+                                    Finished on |	May 15 12:12:45
+       Mapping speed, Million of reads per hour |	561.17
+
+                          Number of input reads |	7014609
+                      Average input read length |	51
+                                    UNIQUE READS:
+                   Uniquely mapped reads number |	6014703
+                        Uniquely mapped reads % |	85.75%
+                          Average mapped length |	50.72
+                       Number of splices: Total |	55354
+            Number of splices: Annotated (sjdb) |	47840
+                       Number of splices: GT/AG |	50848
+                       Number of splices: GC/AG |	50
+                       Number of splices: AT/AC |	3
+               Number of splices: Non-canonical |	4453
+                      Mismatch rate per base, % |	0.36%
+                         Deletion rate per base |	0.00%
+                        Deletion average length |	0.00
+                        Insertion rate per base |	0.00%
+                       Insertion average length |	1.04
+                             MULTI-MAPPING READS:
+        Number of reads mapped to multiple loci |	0
+             % of reads mapped to multiple loci |	0.00%
+        Number of reads mapped to too many loci |	792806
+             % of reads mapped to too many loci |	11.30%
+                                  UNMAPPED READS:
+       % of reads unmapped: too many mismatches |	0.00%
+                 % of reads unmapped: too short |	2.92%
+                     % of reads unmapped: other |	0.04%
+                                  CHIMERIC READS:
+                       Number of chimeric reads |	0
+                            % of chimeric reads |	0.00%
+```
 <img src="../img/WT_1_log.final.out.png" width="500">
 
 For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
-most splice junctions are annotated. Further QC options are available with `RSEQC` and `samtools` packages (see scripts/bamqc.sh).
+that most splice junctions are annotated. 
+Further QC options are available with `RSEQC` and `samtools` packages (see scripts/bamqc.sh).
 
 
 ## BAM format
