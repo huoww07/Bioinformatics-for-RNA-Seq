@@ -263,6 +263,11 @@ Viewing splice junctions in IGV:
 
 <img src="../img/alignment_summary.png" width="500">
 
-[Previous: Process Raw Reads](02_Process_Raw_Reads.md)
-
-[Next: Gene Quantification](04_Gene_Quantification.md)
+## Workshop Schedule
+- [Introduction](../README.md)
+- [Setup using Tufts HPC](01_Setup.md)
+- [Process Raw Reads](02_Process_Raw_Reads.md)
+- Currently at: Read Alignment
+- Next: [Gene Quantification](04_Gene_Quantification.md)
+- [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)

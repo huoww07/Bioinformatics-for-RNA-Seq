@@ -111,6 +111,12 @@ Organism: Saccharomyces cerevisiae
 
 Sequencing: Illumina HiSeq, Single End, 50bp read length
 
-[Previous: Introduction](../README.md)
 
-[Next: Process Raw Reads](02_Process_Raw_Reads.md)
+## Workshop Schedule
+- [Introduction](../README.md)
+- Currently at: Setup using Tufts HPC
+- Next: [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Read Alignment](03_Read_Alignment.md)
+- [Gene Quantification](04_Gene_Quantification.md)
+- [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)

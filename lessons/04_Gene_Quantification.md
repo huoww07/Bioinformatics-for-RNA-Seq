@@ -65,6 +65,11 @@ As the analysis progresses you should keep track of the following:
 <img src="../img/featurecount_read_summary.png" width="400">
 
 
-[Previous: Read Alignment ](03_Read_Alignment.md)
-
-[Next: Differential Expression](05_Differential_Expression.md)
+## Workshop Schedule
+- [Introduction](../README.md)
+- [Setup using Tufts HPC](01_Setup.md)
+- [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Read Alignment](03_Read_Alignment.md)
+- Currently at: Gene Quantification
+- Next: [Differential Expression](05_Differential_Expression.md)
+- [Pathway Enrichment](06_Pathway_Enrichment.md)

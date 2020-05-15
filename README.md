@@ -3,7 +3,7 @@
 This is a test.
 
 ## Description:
-This course will cover the basics for RNA sequencing and analysis using command line tools and R on Tufts High Performance Compute Cluster (HPC). Topics covered include quality control, read alignment, feature counts, differential expression and pathway analysis. There will be a 1-hour introductory session after which students will follow online self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will have to install [Rstudio](https://rstudio.com) on your personal computer or laptop. If you are using Windows, please also install a terminal emulator (such as [cygwin](https://www.cygwin.com)).
+This course will cover the basics for RNA sequencing and analysis using command line tools and R on Tufts High Performance Compute Cluster (HPC). Topics covered include quality control, read alignment, feature counts, differential expression and pathway analysis. There will be a 1-hour introductory session after which students will follow online self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
 
 ## Goals
 - Writing and running bash scripts
@@ -21,18 +21,22 @@ This course will cover the basics for RNA sequencing and analysis using command 
 - Introduction to [R](https://learn.datacamp.com/courses/free-introduction-to-r)
 
 ### Materials Needed
-If you are a Tufts member:
+If you are a Tufts member and have access to Tufts HPC:
 - Chrome web browser
 - Account on [Tufts HPC](https://access.tufts.edu/research-cluster-account)
 - [VPN](https://access.tufts.edu/vpn) if accessing the HPC from off campus
 
 If you don't have access to Tufts HPC:
-- [R studio](https://rstudio.com) installation
-- For Windows users, also install a terminal emulator of your choice  
+- [Here is the list of full dependencies you will need to install](lessons/07_dependencies.md)
+
+All scripts you will be using:
+- [Command line scripts](lessons/08_bash_scripts.md)
+- [R scripts](lessons/09_R_scripts.md)
+
 
 ## Schedule
 - Introduction
-- [Setup](lessons/01_Setup.md)
+- [Setup using Tufts HPC](lessons/01_Setup.md)
 - [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
 - [Read Alignment](lessons/03_Read_Alignment.md)
 - [Gene Quantification](lessons/04_Gene_Quantification.md)
