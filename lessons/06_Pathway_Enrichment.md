@@ -74,7 +74,7 @@ If your organism is not within the above database, you will have to pick your ge
 ## Workshop Schedule
 - [Introduction](../README.md)
 - [Setup using Tufts HPC](01_Setup.md)
-- [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Process Raw Reads](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
 - [Gene Quantification](04_Gene_Quantification.md)
 - [Differential Expression](05_Differential_Expression.md)

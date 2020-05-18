@@ -1,16 +1,22 @@
 Approximate time: 20 minutes
 
 ## Goals
-- Align short reads to a references genome using STAR
-- View alignment using IGV
+- Align short reads to a references genome using Spliced Transcripts Alignment to a Reference (STAR) aligner
+- Review Gene annotation and GTF format
+- View alignment using Integrative Genome Viewer (IGV)
 
 <img src="../img/workflow_align.png" width="400">
 
-# STAR Alignment
+# STAR Aligner
 
-The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
+The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the 
+read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. 
+The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
 
-Spliced Transcripts Alignment to a Reference ([STAR](https://github.com/alexdobin/STAR)) is an aligner designed to specifically address many of the challenges of RNA-seq data mapping using a strategy to account for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is memory intensive.
+[STAR](https://github.com/alexdobin/STAR) is an aligner designed to specifically address many of the challenges of RNA-seq 
+data mapping using a strategy to account for spliced alignments. 
+STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is 
+memory intensive.
 
 STAR algorithm consists of two major steps:
 - seed searching step: Find Maximum Mappable Prefixes
@@ -30,23 +36,31 @@ Tufts HPC hosts genome reference data from UCSC at the following location
 ```markdown
 /cluster/tufts/bio/data/genomes
 ```
-We will need reference files from Saccharomyces_cerevisiae genome version sacCer3:
+We will need reference files from Saccharomyces_cerevisiae genome version sacCer3, stored here:
 ```markdown
-cd /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/
+/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/
 ```
 
-We'll create the genome index (note: this step take 1.6G of storage, please make sure you have enough storage before proceeding.)
-0. Get an interaction session on a compute node if you haven't done so
-`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
+In that directory there are both genome sequence, genome indicies for various aligners, and some annotation data.
 
-1. load the module
-`module load STAR/2.6.1d`
+We'll re-create the STAR genome index in our own directory in order to practice:
 
-2. create a directory to store the index in
+1. Get an interaction session on a compute node if you haven't done so
+`srun --pty -t 3:00:00  --mem 32G  -N 1 -n 4 bash`
+
+2. load the module
+`module load STAR/2.7.0a`
+
+3. create a directory to store the index in
 `mkdir genome`
 
-You'll see the first 10 lines of the file `genome.fa`:
-```buildoutcfg
+You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
+```
+head /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa 
+```
+
+Result, arrows on the right explain format:
+```
 >chrI                                                          <-- '>' charachter followed by sequence name
 CCACACCACACCCACACACCCACACACCACACCACACACCACACCACACC
 CACACACACACATCCTAACACTACCCTAACACAGCCCTAATCTAACCCTG
@@ -55,15 +69,15 @@ CCTGTCCCATTCAACCATACCACTCCGAACCACCATCCATCCCTCTACTT
 ACTACCACTCACCCACCGTTACCCTCCAATTACCCATATCCAACCCACTG             <-- sequence
 …
 ```
-This is an example of fasta format
+This is an example of FASTA format.
 
-3. Run STAR in "genomeGenerate" mode
-```markdown
-STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 12
+4. Run STAR in "genomeGenerate" mode
+```
+STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 4
 ```
 
 The STAR program will start running and show the process as below:
-```markdown
+```
 Apr 18 17:45:35 ..... started STAR run
 Apr 18 17:45:36 ... starting to generate Genome files
 Apr 18 17:45:37 ... starting to sort Suffix Array. This may take a long time...
@@ -78,8 +92,8 @@ Apr 18 17:45:45 ... writing SAindex to disk
 Apr 18 17:45:46 ..... finished successfully
 ```
 
-When it's done, take a look at the files produced by typing `ls ./genome`:
-```markdown
+When it's done, take a look at the files produced by typing `ls genome`:
+```
 -rw-rw---- 1 whuo01 isberg  107 Apr 18 17:45 chrName.txt
 -rw-rw---- 1 whuo01 isberg  122 Apr 18 17:45 chrLength.txt
 -rw-rw---- 1 whuo01 isberg  142 Apr 18 17:45 chrStart.txt
@@ -90,11 +104,54 @@ When it's done, take a look at the files produced by typing `ls ./genome`:
 -rw-rw---- 1 whuo01 isberg 1.5G Apr 18 17:45 SAindex
 ```
 
-## STAR alignment
+## Gene annotation source
 
+STAR can use an annotation file gives the location and structure of genes in order to improve alignment in known splice junctions.
+Annotation is dynamic and there are at least three major sources of annotation: RefGene, Ensembl, and UCSC.
+
+The intersection among the three sources is shown in the figure below. 
+RefGene has the fewest unique genes, while more than 50% of genes in Ensembl are unique
+
+<img src="../img/ann_0.png" width="500">
+
+(Figure references [Zhao et al Bioinformatics 2015](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-1308-8))
+
+It is important to be consistent with your choice of annotation source throughout an analysis.
+
+
+## GTF files on the HPC
+
+Tufts HPC hosts genome reference data from various sources.
+The annotation information for `sacCer3` from `UCSCC` source can be found at the following location:
+```
+/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/
+```
+
+Gene Transfer Format (GTF) is the most widely used file format to store information about gene location and structure with 
+respect to a given reference genome.
+
+We will use the GTF file located here
+```
+/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Annotation/Genes
+```
+
+An example of the format is shown below, where header line is added for clarity.
+
+| SequenceName | Source           | Feature       | Start | End | Score  | Strand | Frame |  Group  |            |               |            |             |      |         |              |
+|--------------|------------------|---------------|-----|-------|--------|-------|-------|---------|------------|---------------|------------|-------------|------|---------|--------------|
+| chrI         | sacCer3.genepred | transcript    | 335 | 649   | .      | +     | .     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; |             |      |         |              |
+| chrI         | sacCer3.genepred | exon          | 335 | 649   | .      | +     | .     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | CDS           | 335 | 646   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | start_codon   | 335 | 337   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+| chrI         | sacCer3.genepred | stop_codon    | 647 | 649   | .      | +     | 0     | gene_id | "YAL069W"; | transcript_id | "YAL069W"; | exon_number | "1"; | exon_id | "YAL069W.1"; |
+
+The table shows the location of all types of features in a Gene (transcript, exon, CDS, start_codon, and stop codons)
+It also uses the last four columns to provide annotation about the transcript and gene identifiers.
+
+## STAR alignment
 Let's check the usage instructions for STAR by typing `STAR`
 
-```markdown
+```
 Usage: STAR  [options]... --genomeDir REFERENCE   --readFilesIn R1.fq R2.fq
 Spliced Transcripts Alignment to a Reference (c) Alexander Dobin, 2009-2015
 
@@ -125,18 +182,48 @@ Make a new directory for our results
 mkdir STAR
 ```
 
-Open the script ./scripts/sbatch_star_align.sh in a text editor with `vi`
+Open the script ./scripts/star_align.sh in a text editor with `nano`
 
-<img src="../img/STAR_align.png" width="800">
+```
+## Use STAR aligner to align fastq files
+module load STAR/2.7.0a
+mkdir -p STAR
 
-Let's look at the options we've given to STAR:
+## Fastq files to align, separated by commas for multiple lanes of a single sample
+FASTQ="raw_data/WT_1/ERR458493.fastq.gz,raw_data/WT_1/ERR458494.fastq.gz,raw_data/WT_1/ERR458495.fastq.gz,raw_data/WT_1/ERR458496.fastq.gz,raw_data/WT_1/ERR458497.fastq.gz,raw_data/WT_1/ERR458498.fastq.gz,raw_data/WT_1/ERR458499.fastq.gz"
+
+## Name the output file
+OUT="WT_1"
+
+## Defing reference genome directory
+REF_DIR="/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3"
+
+# execute STAR in the runMode "alignReads"
+STAR --genomeDir ${REF_DIR}/Sequence/STAR \
+--readFilesIn ${FASTQ} \
+--readFilesCommand zcat \
+--outFileNamePrefix STAR/${OUT}_ \
+--outFilterMultimapNmax 1 \
+--outSAMtype BAM SortedByCoordinate \
+--runThreadN 4 \
+--alignIntronMin 1 \
+--alignIntronMax 2500 \
+--sjdbGTFfile ${REF_DIR}/Annotation/Genes/sacCer3.gtf \
+--sjdbOverhang 49
+```
+We have defined the following variables for convenience:
+- `FASTQ` to store the comma-separated list of names and locations of all input files for this sample
+- `OUT` to store the name of our output files
+- `REF_DIR` in order to give the location of the reference data.
+
+We've given the following arguments to `STAR`:
 1. `-runThreadsN 4`: STAR runs four parallel threads. Alignment is a task that is easy to parallelize
 because alignment of a read is independent of other reads.
 
 2. `-alignIntronMin/Max`: Optional arguments to specify novel
 intron size
 
-3. `-sjdbGTFfile" `: gft annotation file for the gene expression calculation.
+3. `-sjdbGTFfile" `: GTF annotation file for the gene expression calculation
 
 4. `-sjdbOverhang`:  Place the output in the results folder and give it a name
 
@@ -145,37 +232,75 @@ intron size
 Exit vi by typing `ESC` and `:wq` to save and name the file.
 
 Now we can run our script using sbatch.
-```markdown
-sbatch scripts/sbatch_star_align.sh
 ```
-Check the result of your job submission:
-```markdown
-squeue -u <your user name>
+sh star_align.sh
 ```
-View the outputs of your job while it's running like this:
-```markdown
-cat <job-number>.err
-cat <job-number>.out
+Result:
+```
+May 15 11:35:38 ..... started STAR run
+May 15 11:35:38 ..... loading genome
+May 15 11:35:39 ..... processing annotations GTF
+May 15 11:35:39 ..... inserting junctions into the genome indices
+May 15 11:35:47 ..... started mapping
+May 15 11:36:40 ..... started sorting BAM
+May 15 11:36:48 ..... finished successfully
 ```
 
 View result by typing in:
 `ls -lh STAR/`
 ```markdown
 -rw-rw-r-- 1 rbator01 biotools 272M Mar 25 15:45 WT_1_Aligned.sortedByCoord.out.bam
--rw-rw-r-- 1 rbator01 biotools 34K Mar 25 15:45 WT_1_Aligned.sortedByCoord.out.bam.bai
 -rw-rw-r-- 1 rbator01 biotools 1.8K Mar 25 15:45 WT_1_Log.final.out
 -rw-rw-r-- 1 rbator01 biotools 24K Mar 25 15:45 WT_1_Log.out
 -rw-rw-r-- 1 rbator01 biotools 364 Mar 25 15:45 WT_1_Log.progress.out
 -rw-rw-r-- 1 rbator01 biotools 46K Mar 25 15:45 WT_1_SJ.out.tab
 drwx------ 2 rbator01 biotools 4.0K Mar 25 15:43 WT_1__STARgenome
 ```
-The file WT_1_Log.final.out will give us a summary of the run. Take a look at the summary by running:
+The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
 `cat STAR/WT_1_Log.final.out`
 
+```
+                                 Started job on |	May 15 12:11:50
+                             Started mapping on |	May 15 12:12:00
+                                    Finished on |	May 15 12:12:45
+       Mapping speed, Million of reads per hour |	561.17
+
+                          Number of input reads |	7014609
+                      Average input read length |	51
+                                    UNIQUE READS:
+                   Uniquely mapped reads number |	6014703
+                        Uniquely mapped reads % |	85.75%
+                          Average mapped length |	50.72
+                       Number of splices: Total |	55354
+            Number of splices: Annotated (sjdb) |	47840
+                       Number of splices: GT/AG |	50848
+                       Number of splices: GC/AG |	50
+                       Number of splices: AT/AC |	3
+               Number of splices: Non-canonical |	4453
+                      Mismatch rate per base, % |	0.36%
+                         Deletion rate per base |	0.00%
+                        Deletion average length |	0.00
+                        Insertion rate per base |	0.00%
+                       Insertion average length |	1.04
+                             MULTI-MAPPING READS:
+        Number of reads mapped to multiple loci |	0
+             % of reads mapped to multiple loci |	0.00%
+        Number of reads mapped to too many loci |	792806
+             % of reads mapped to too many loci |	11.30%
+                                  UNMAPPED READS:
+       % of reads unmapped: too many mismatches |	0.00%
+                 % of reads unmapped: too short |	2.92%
+                     % of reads unmapped: other |	0.04%
+                                  CHIMERIC READS:
+                       Number of chimeric reads |	0
+                            % of chimeric reads |	0.00%
+```
 <img src="../img/WT_1_log.final.out.png" width="500">
 
 For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
-most splice junctions are annotated. Further QC options are available with RSEQC and samtools packages (see scripts/bamqc.sh ).
+that most splice junctions are annotated. 
+Further QC options are available with `RSEQC` and `samtools` packages (see scripts/bamqc.sh).
+
 
 ## BAM format
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
@@ -183,7 +308,7 @@ The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) fi
 
 Take a look at the output file:
 ```markdown
-module load samtools/1.2
+module load samtools/1.9
 samtools view -h STAR/WT_1_Aligned.sortedByCoord.out.bam | less
 ```
 The file has two sections
@@ -204,69 +329,82 @@ CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example
 
 More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
+## Create index for BAM file
+In order to visualize our BAM file in IGV we will need a BAM index.
+This enables fast searching and display.
+We'll generate one using `samtools`.
+
+```
+samtools index STAR/WT_1_Aligned.sortedByCoord.out.bam
+```
+
+The result is a file with the extension `bai`:
+```
+WT_1_Aligned.sortedByCoord.out.bam.bai
+```
 
 ## Visualizing reads using IGV (optional)
+1. Return to On Demand Dashboard tab: `https://ondemand.cluster.tufts.edu`
 
-Return to On Demand Dashboard tab:
+2. On the top grey menu bar, choose `Interactive Apps->IGV`:
 
-`https://ondemand.cluster.tufts.edu`
-
-Choose
-
-`Interactive Apps->IGV
+3. Set the following parameters:
+```
 hours: 1
 cores: 4
 memory: 64 Gb
 directory: < leave default>`
+```
 
-Click
+4. Click: `Launch`
 
-`Launch`
-
-Click
-
-`"Launch noVNC in New Tab" when it appears`.
+5. Click: `Launch noVNC in New Tab` when it appears.
 
 <img src="../img/IGV_launch.png" width="600">
 
-If the genome browser is cut off, resize using Chrome.
+6. If the genome browser is cut off, resize using Chrome:
 
 <img src="../img/IGV_zoom.png" width="600">
 
-In top menu click
-
-`View -> Preferences -> Alignments -> Track Display Options -> Splice Junction Track -> OK`
+7. Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
+a. `View -> Preferences` 
 
 <img src="../img/IGV_preference.png" width="600">
 
+b. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
 <img src="../img/IGV_alignment.png" width="600">
 
-Load reference genome:
+8. Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
 
-`Click in reference box, select "More" and type sacCer3. Leave "Download Sequence UNchecked")`
+9. Scroll down to `Sacromyces ceerevicea (sacCer3)` -> leave `Download Sequence` UNchecked -> click `OK`
 
-Load BAM file:
+<img src="../img/IGV_select_genome.png" width="600">
 
-`Click "File-> Load from File"
-Choose the BAM files we
-generated under
-~/bioinformatics-rnaseq/STAR/`
+9. Load BAM file:
 
-<img src="../img/IGV_load_bam.png" width="600">
+Click `File-> Load from File`
+Choose the sorted and indexed BAM files we generated:
+`~/intro-to-RNA-seq/STAR/WT_1_Aligned.sortedByCoord.out.bam`
 
-Viewing splice junctions in IGV:
+<img src="../img/IGV_select.png" width="600">
 
+In the genome coordinate box (shown below) type the gene name `SUS1`.
+We can see that another name of this gene is `YBR111W-A`.
+
+Here is a summary of the fields and tracks present in IGV:
 <img src="../img/Cluster_IGV.png" width="800">
 
+If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
+We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the 
+area of the intron is missing as expected.  
 
 ## Summary
-
 <img src="../img/alignment_summary.png" width="500">
 
 ## Workshop Schedule
 - [Introduction](../README.md)
 - [Setup using Tufts HPC](01_Setup.md)
-- [Process Raw Reads](02_Process_Raw_Reads.md)
+- [Process Raw Reads](02_Quality_Control.md)
 - Currently at: Read Alignment
 - Next: [Gene Quantification](04_Gene_Quantification.md)
 - [Differential Expression](05_Differential_Expression.md)

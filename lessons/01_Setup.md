@@ -54,13 +54,15 @@ If you don't know whether you have project space, please email [tts-research@tuf
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
+Note that if you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
+
 2. Change to your home directory
 `cd ~`
 Or, if you are using a project directory:
 `cd /cluster/tufts/labname/username/`
 
 3. Copy the course directory:
-`cp /cluster/tufts/isberg/whuo01/intro-to-RNA-seq.tar.gz ./`
+`cp /cluster/tufts/bio/tools/training/bioinformatics-for-rna-seq/intro-to-RNA-seq.tar.gz ./`
 
 4. Unzip the course directory:
 `tar -xvzf intro-to-RNA-seq.tar.gz`
@@ -72,10 +74,10 @@ You'll see a list of all files
 ```
 intro-to-RNA-seq/
 ├── ERP004763_info.txt                 <-- sample description
-├── raw_data                           <-- Folder with paired end fastq files
+├── raw_data                           <-- Folder with fastq files
 │   ├── sample_info.txt
 │   ├── SNF2
-│   │   ├── ERR458500.fastq.gz
+│   │   ├── ERR458500.fastq.gz         <-- gzip compressed fastq files
 │   │   ├── ERR458501.fastq.gz
 │   │   ├── ERR458502.fastq.gz
 │   │   ├── ERR458503.fastq.gz
@@ -115,7 +117,7 @@ Sequencing: Illumina HiSeq, Single End, 50bp read length
 ## Workshop Schedule
 - [Introduction](../README.md)
 - Currently at: Setup using Tufts HPC
-- Next: [Process Raw Reads](02_Process_Raw_Reads.md)
+- Next: [Quality Control](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
 - [Gene Quantification](04_Gene_Quantification.md)
 - [Differential Expression](05_Differential_Expression.md)

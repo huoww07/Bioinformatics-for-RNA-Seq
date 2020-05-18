@@ -1,13 +1,19 @@
 ## A Tufts University Research Technology Workshop
 
 ## Description:
-This course will cover the basics for RNA sequencing and analysis using command line tools and R on Tufts High Performance Compute Cluster (HPC). Topics covered include quality control, read alignment, feature counts, differential expression and pathway analysis. There will be a 1-hour introductory session after which students will follow online self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
+This course will cover the basics of bioinformaticsc for RNA sequencing and analysis using command line tools and R on 
+the Tufts  High Performance Compute Cluster (HPC). 
+Topics covered include quality control, read alignment, feature quantification, differential expression and pathway analysis. 
+There will be a 1-hour introductory session after which students will follow online self-guided online material. 
+The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). 
+If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
 
 ## Goals
 - Writing and running bash scripts
 - Intro to RNA sequencing logistics
-- Intro to bioinformatics toos: BWA, samtools
-- Differential expression analysis using R and DESeq2
+- Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), 
+[STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
+- Differential expression analysis [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)
 
 <img src="img/workflow.png" width="400">
 
@@ -33,9 +39,9 @@ All scripts you will be using:
 
 
 ## Schedule
-- Introduction
+- [Introduction](slides/Introduction.pdf)
 - [Setup using Tufts HPC](lessons/01_Setup.md)
-- [Process Raw Reads](lessons/02_Process_Raw_Reads.md)
+- [Quality Control](lessons/02_Quality_Control.md)
 - [Read Alignment](lessons/03_Read_Alignment.md)
 - [Gene Quantification](lessons/04_Gene_Quantification.md)
 - [Differential Expression](lessons/05_Differential_Expression.md)
