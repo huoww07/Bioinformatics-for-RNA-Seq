@@ -1,4 +1,4 @@
-## A Tufts University Research Technology Workshop
+### A Tufts University Research Technology Workshop
 
 ## Description:
 This course will cover the basics of bioinformaticsc for RNA sequencing and analysis using command line tools and R on

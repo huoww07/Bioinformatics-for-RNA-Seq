@@ -21,13 +21,42 @@ Amount of Memory: 32 Gb
 R version: 3.5.0
 ```
 
-## Load the previously save log2 fold change results
-```markdown
-significant_results <- read.table("significant_padj_0.05.txt", sep="\t", header=TRUE, row.names = 1)
-```
+## Load the previously saved R project
+Set up R studio on the Tufts HPC cluster via "On Demand" [as shown in the previous step.](05_Differential_Expression.md) You should automatically see the previous work. If not, you can load the previous session following these steps:
+Go to `File`, choose `Open Project...`, navigate to your folder and selected the previously saved file with extension of `.Rproj`. All previously saved variables and libraries will be loaded.
 
 ## Visualization of DeSeq2 result
-### Plot multiple genes in a heatmap
+### Volcano plot to visualize up- and down- regulated Genes
+```markdown
+# load necessary library ggplot2
+library(ggplot2)
+
+# add another column in the results table to label the significant genes using threshold of padj<0.05 and absolute value of log2foldchange >=1
+res_table <- results %>%
+  data.frame() %>%
+  rownames_to_column(var="gene") %>%
+  as_tibble()
+res_table <- res_table %>%
+  mutate(threshold_OE =  padj < 0.05 & abs(log2FoldChange) >= 1)
+# you can view the modified table
+view(res_table)
+# make volcano plot, the significant genes will be labeled in red
+ggplot(res_table) +
+  geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_OE)) +
+  scale_color_manual(values=c("black", "red")) +  # black v.s. red dots
+  ggtitle("WT v.s. SNF2") +                       # this line defines the title of the plot
+  xlab("log2 fold change") +                      # this line defines the name of the x-axis
+  ylab("-log10 adjusted p-value") +               # name of y-axis
+  scale_x_continuous(limits = c(-7.5,7.5)) +      # the axis range is set to be from -7.5 to 7.5
+  theme(legend.position = "none", #c(0.9, 0.9),
+        plot.title = element_text(size = rel(1.5), hjust = 0.5),
+        axis.title = element_text(size = rel(1.25)))  
+```
+The commands will generate a volcano plot as shown below
+
+<img src="../img/volcanoplot.png" width="400">
+
+### Plot top 50 significant genes in a heatmap
 Sort the rows from smallest to largest padj and take the top 50 genes:
 ```markdown
 significant_results_sorted <- significant_results[order(significant_results$padj), ]

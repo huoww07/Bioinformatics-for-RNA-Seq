@@ -8,15 +8,15 @@ Approximate time: 20 minutes
 
 ## Counting reads: featureCounts
 
-The mapped coordinates of each read are compared with the features in the GTF file. 
-Reads that overlap with a gene by >=1 bp are counted as belonging to that feature. 
+The mapped coordinates of each read are compared with the features in the GTF file.
+Reads that overlap with a gene by >=1 bp are counted as belonging to that feature.
 Ambiguous reads will be discarded and the output will be a matrix of genes and samples.
 
 <img src="../img/featurecount_ambiguous.png" width="400">
 
-By default featurecounts will 
-1) count reads in features labeled as 'exon' in the GTF and 
-2) group all exons with a given 'gene_id'. 
+By default featurecounts will
+1) count reads in features labeled as 'exon' in the GTF and
+2) group all exons with a given 'gene_id'.
 
 An example of a transcript with multiple exons:
 
@@ -24,7 +24,7 @@ An example of a transcript with multiple exons:
 
 ## Counting reads: running the script
 
-Create a new script called `featureccounts.sh` using the nano text editor `nano featurecounts.sh` and enter the following 
+Create a new script called `featureccounts.sh` using the vi text editor `vi featurecounts.sh` and enter the following
 content:
 
 ```
@@ -44,26 +44,42 @@ featureCounts \
 STAR/*bam
 ```
 
+Exit vi by typing `ESC` and `:wq` to save and name the file.
+
 To run the script, type in:
 ```
-sh scripts/featurecounts.sh
+sh featurecounts.sh
 ```
 
 Result:
 ```
+(base) [whuo01@pcomp45 intro-to-RNA-seq]$ bash ./scripts/featurecounts.sh
 
         ==========     _____ _    _ ____  _____  ______          _____  
-        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \ 
+        =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \
           =====      | (___ | |  | | |_) | |__) | |__     /  \  | |  | |
             ====      \___ \| |  | |  _ <|  _  /|  __|   / /\ \ | |  | |
               ====    ____) | |__| | |_) | | \ \| |____ / ____ \| |__| |
         ==========   |_____/ \____/|____/|_|  \_\______/_/    \_\_____/
-	  v1.6.3
+          v1.6.3
 
 //========================== featureCounts setting ===========================\\
 ||                                                                            ||
-||             Input files : 1 BAM file                                       ||
-||                           S WT_1_Aligned.sortedByCoord.out.bam             ||
+||             Input files : 14 BAM files                                     ||
+||                           S SNF2_ERR458500_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458501_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458502_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458503_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458504_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458505_Aligned.sortedByCoord.out.bam   ||
+||                           S SNF2_ERR458506_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458493_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458494_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458495_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458496_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458497_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458498_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_1_ERR458499_Aligned.sortedByCoord.out.bam   ||
 ||                                                                            ||
 ||             Output file : featurecounts_results.txt                        ||
 ||                 Summary : featurecounts_results.txt.summary                ||
@@ -86,12 +102,103 @@ Result:
 ||    Meta-features : 6692                                                    ||
 ||    Chromosomes/contigs : 17                                                ||
 ||                                                                            ||
-|| Process BAM file WT_1_Aligned.sortedByCoord.out.bam...                     ||
+|| Process BAM file SNF2_ERR458500_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
-||    Total alignments : 6014703                                              ||
-||    Successfully assigned alignments : 5395145 (89.7%)                      ||
-||    Running time : 0.12 minutes                                             ||
+||    Total alignments : 1688319                                              ||
+||    Successfully assigned alignments : 1480922 (87.7%)                      ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458501_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1674380                                              ||
+||    Successfully assigned alignments : 1468599 (87.7%)                      ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458502_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1659719                                              ||
+||    Successfully assigned alignments : 1456027 (87.7%)                      ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458503_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1519066                                              ||
+||    Successfully assigned alignments : 1331784 (87.7%)                      ||
+||    Running time : 0.02 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458504_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1311306                                              ||
+||    Successfully assigned alignments : 1150143 (87.7%)                      ||
+||    Running time : 0.02 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458505_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1313563                                              ||
+||    Successfully assigned alignments : 1151917 (87.7%)                      ||
+||    Running time : 0.02 minutes                                             ||
+||                                                                            ||
+|| Process BAM file SNF2_ERR458506_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 1688061                                              ||
+||    Successfully assigned alignments : 1481499 (87.8%)                      ||
+||    Running time : 0.03 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458493_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 938174                                               ||
+||    Successfully assigned alignments : 842074 (89.8%)                       ||
+||    Running time : 0.02 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458494_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 924491                                               ||
+||    Successfully assigned alignments : 829144 (89.7%)                       ||
+||    Running time : 0.02 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458495_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 914201                                               ||
+||    Successfully assigned alignments : 820229 (89.7%)                       ||
+||    Running time : 0.01 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458496_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 844737                                               ||
+||    Successfully assigned alignments : 757537 (89.7%)                       ||
+||    Running time : 0.01 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458497_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 725805                                               ||
+||    Successfully assigned alignments : 651026 (89.7%)                       ||
+||    Running time : 0.01 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458498_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 730269                                               ||
+||    Successfully assigned alignments : 654642 (89.6%)                       ||
+||    Running time : 0.01 minutes                                             ||
+||                                                                            ||
+|| Process BAM file WT_1_ERR458499_Aligned.sortedByCoord.out.bam...           ||
+||    Single-end reads are included.                                          ||
+||    Assign alignments to features...                                        ||
+||    Total alignments : 937026                                               ||
+||    Successfully assigned alignments : 840493 (89.7%)                       ||
+||    Running time : 0.02 minutes                                             ||
 ||                                                                            ||
 ||                                                                            ||
 || Summary of counting results can be found in file "featurecounts/featureco  ||
@@ -110,35 +217,32 @@ featurecounts/
 ## Counting reads: Result summary
 To look at the result, type:
 ```
-cat featurecounts/featurecounts_results.txt.summary | column -t
+cat featurecounts/featurecounts_results.txt.summary
 ```
-
-The code after the bash pipe `|` serves to provide nice tab-separated formatting.
-To see the effect of `| column -t`, try removing it and compare the output.
 
 Result:
+
+<img src="../img/featurecount_txt_summary.png" width="800">
+
+The top line is the column names for this table. They are the name of each individule aligned file. The left most line is the row names, or the statistics of the alignment. From the table, we see that most of the reads fall within "assigned" features, meaning most of the aligned reads were transformed into gene expression value.
+
+## Counting reads: Feature count for each genes
+To take a look at the calculated feature count, type:
 ```
-Status                         STAR/WT_1_Aligned.sortedByCoord.out.bam
-Assigned                       5395145
-Unassigned_Unmapped            0
-Unassigned_MappingQuality      0
-Unassigned_Chimera             0
-Unassigned_FragmentLength      0
-Unassigned_Duplicate           0
-Unassigned_MultiMapping        0
-Unassigned_Secondary           0
-Unassigned_Nonjunction         0
-Unassigned_NoFeatures          232980
-Unassigned_Overlapping_Length  0
-Unassigned_Ambiguity           386578
+head featurecounts/featurecounts_results.txt
 ```
+Here, we are only looking at the top 10 lines in the featurecounts_results.txt file using `head` command.
+Result:
 
-We see that 5395145 reads have been assigned to the features present in our gtf file.
+<img src="../img/featurecount_txt_head.png" width="800">
 
-## Tracking read numbers
-As the analysis progresses you should keep track of the following:
+The very top line started with # shows the command that was used to run featurecount. Starting on the second line, it shows a table with sample names as column names and transcript names as row names. Each cell within the table shows how many reads from a sample were assigned to that transcript.
 
-<img src="../img/featurecount_read_summary.png" width="400">
+You will notice the sample names are too long and contained unwanted strings. In order clean the file further for the DESeq2 analysis, we run the below command:
+```
+cat featurecounts/featurecounts_results.txt |sed "2s/STAR\///g" | sed "2s/\_Aligned.sortedByCoord.out.bam//g" > featurecounts/featurecounts_results.mod.txt
+```
+This line of command will modify the column names to simplified names. Now you are ready for the next step.
 
 ## Workshop Schedule
 - [Introduction](../README.md)

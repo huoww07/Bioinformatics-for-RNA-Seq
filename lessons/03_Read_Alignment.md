@@ -9,13 +9,13 @@ Approximate time: 20 minutes
 
 # STAR Aligner
 
-The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the 
-read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. 
+The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the
+read alignment using one of several splice-aware alignment tools such as STAR or HISAT2.
 The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
 
-[STAR](https://github.com/alexdobin/STAR) is an aligner designed to specifically address many of the challenges of RNA-seq 
-data mapping using a strategy to account for spliced alignments. 
-STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is 
+[STAR](https://github.com/alexdobin/STAR) is an aligner designed to specifically address many of the challenges of RNA-seq
+data mapping using a strategy to account for spliced alignments.
+STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is
 memory intensive.
 
 STAR algorithm consists of two major steps:
@@ -56,7 +56,7 @@ We'll re-create the STAR genome index in our own directory in order to practice:
 
 You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
 ```
-head /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa 
+head /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa
 ```
 
 Result, arrows on the right explain format:
@@ -109,7 +109,7 @@ When it's done, take a look at the files produced by typing `ls genome`:
 STAR can use an annotation file gives the location and structure of genes in order to improve alignment in known splice junctions.
 Annotation is dynamic and there are at least three major sources of annotation: RefGene, Ensembl, and UCSC.
 
-The intersection among the three sources is shown in the figure below. 
+The intersection among the three sources is shown in the figure below.
 RefGene has the fewest unique genes, while more than 50% of genes in Ensembl are unique
 
 <img src="../img/ann_0.png" width="500">
@@ -127,7 +127,7 @@ The annotation information for `sacCer3` from `UCSCC` source can be found at the
 /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/
 ```
 
-Gene Transfer Format (GTF) is the most widely used file format to store information about gene location and structure with 
+Gene Transfer Format (GTF) is the most widely used file format to store information about gene location and structure with
 respect to a given reference genome.
 
 We will use the GTF file located here
@@ -182,7 +182,7 @@ Make a new directory for our results
 mkdir STAR
 ```
 
-Open the script ./scripts/star_align.sh in a text editor with `nano`
+Open the script ./scripts/star_align.sh in a text editor with `vi`
 
 ```
 ## Use STAR aligner to align fastq files
@@ -202,7 +202,7 @@ REF_DIR="/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3"
 STAR --genomeDir ${REF_DIR}/Sequence/STAR \
 --readFilesIn ${FASTQ} \
 --readFilesCommand zcat \
---outFileNamePrefix STAR/${OUT}_ \
+--outFileNamePrefix STAR_WT/${OUT}_ \
 --outFilterMultimapNmax 1 \
 --outSAMtype BAM SortedByCoordinate \
 --runThreadN 4 \
@@ -247,7 +247,7 @@ May 15 11:36:48 ..... finished successfully
 ```
 
 View result by typing in:
-`ls -lh STAR/`
+`ls -lh STAR_WT/`
 ```markdown
 -rw-rw-r-- 1 rbator01 biotools 272M Mar 25 15:45 WT_1_Aligned.sortedByCoord.out.bam
 -rw-rw-r-- 1 rbator01 biotools 1.8K Mar 25 15:45 WT_1_Log.final.out
@@ -257,7 +257,7 @@ View result by typing in:
 drwx------ 2 rbator01 biotools 4.0K Mar 25 15:43 WT_1__STARgenome
 ```
 The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
-`cat STAR/WT_1_Log.final.out`
+`cat STAR_WT/WT_1_Log.final.out`
 
 ```
                                  Started job on |	May 15 12:11:50
@@ -298,7 +298,7 @@ The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at 
 <img src="../img/WT_1_log.final.out.png" width="500">
 
 For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
-that most splice junctions are annotated. 
+that most splice junctions are annotated.
 Further QC options are available with `RSEQC` and `samtools` packages (see scripts/bamqc.sh).
 
 
@@ -309,7 +309,7 @@ The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) fi
 Take a look at the output file:
 ```markdown
 module load samtools/1.9
-samtools view -h STAR/WT_1_Aligned.sortedByCoord.out.bam | less
+samtools view -h STAR_WT/WT_1_Aligned.sortedByCoord.out.bam | less
 ```
 The file has two sections
 
@@ -335,7 +335,7 @@ This enables fast searching and display.
 We'll generate one using `samtools`.
 
 ```
-samtools index STAR/WT_1_Aligned.sortedByCoord.out.bam
+samtools index STAR_WT/WT_1_Aligned.sortedByCoord.out.bam
 ```
 
 The result is a file with the extension `bai`:
@@ -367,7 +367,7 @@ directory: < leave default>`
 <img src="../img/IGV_zoom.png" width="600">
 
 7. Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
-a. `View -> Preferences` 
+a. `View -> Preferences`
 
 <img src="../img/IGV_preference.png" width="600">
 
@@ -384,7 +384,7 @@ b. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
-`~/intro-to-RNA-seq/STAR/WT_1_Aligned.sortedByCoord.out.bam`
+`~/intro-to-RNA-seq/STAR_WT/WT_1_Aligned.sortedByCoord.out.bam`
 
 <img src="../img/IGV_select.png" width="600">
 
@@ -395,8 +395,58 @@ Here is a summary of the fields and tracks present in IGV:
 <img src="../img/Cluster_IGV.png" width="800">
 
 If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
-We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the 
+We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the
 area of the intron is missing as expected.  
+
+
+## Break time: Pre-processing of all reads from two conditions (WT and SNF2)
+
+In the previous steps, we learned how to do quality control and read alignment using WT as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+
+In order to process all reads for the following analysis, run the following commands:
+`sbatch ./scripts/sbatch_star_align_individual.sh`
+
+This step will automatically align individual fastq files to reference and use samtools to create indexes. This step will take a few hours to finish depending on how busy the computing resource is.
+
+After the alignment is finished, type in
+`tree ./STAR`
+ and you will see the aligned reads in STAR folder:
+ ```
+ (base) [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                <--command
+STAR                                                                <--folder name: STAR
+├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for SNF2 sample ERR458500
+├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
+├── SNF2_ERR458500_Log.final.out                                    <--Alignment statistics
+├── SNF2_ERR458500_Log.out                                          <--STAR alignment setting
+├── SNF2_ERR458500_Log.progress.out
+├── SNF2_ERR458500_SJ.out.tab
+├── SNF2_ERR458500__STARgenome
+│   ├── exonGeTrInfo.tab
+│   ├── exonInfo.tab
+│   ├── geneInfo.tab
+│   ├── sjdbInfo.txt
+│   ├── sjdbList.fromGTF.out.tab
+│   ├── sjdbList.out.tab
+│   └── transcriptInfo.tab
+...
+├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for WT sample ERR458494
+├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
+├── WT_1_ERR458494_Log.final.out
+├── WT_1_ERR458494_Log.out
+├── WT_1_ERR458494_Log.progress.out
+├── WT_1_ERR458494_SJ.out.tab
+├── WT_1_ERR458494__STARgenome
+│   ├── exonGeTrInfo.tab
+│   ├── exonInfo.tab
+│   ├── geneInfo.tab
+│   ├── sjdbInfo.txt
+│   ├── sjdbList.fromGTF.out.tab
+│   ├── sjdbList.out.tab
+│   └── transcriptInfo.tab
+...
+```
+
+Now you are ready for the next step.
 
 ## Summary
 <img src="../img/alignment_summary.png" width="500">

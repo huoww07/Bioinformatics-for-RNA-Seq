@@ -54,7 +54,22 @@ If you don't know whether you have project space, please email [tts-research@tuf
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-Note that if you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
+Once you hit enter, you will see something like below showing it is requesting for the session:
+```
+(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
+srun: job 55918493 queued and waiting for resources
+```
+If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
+
+```
+(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p preempt bash
+(base) [whuo01@pcomp45 ~]$
+```
+
+The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. This is an indication that you may proceed to the next step.
+
+Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
+
 
 2. Change to your home directory
 `cd ~`

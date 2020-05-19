@@ -56,7 +56,7 @@ library(tidyverse)
 ## Rstudio: Read in Data
 To read in the metadata for our experiment:
 ```markdown
-meta <- read.table("data/sample_info.txt", header=TRUE)
+meta <- read.table("./raw_data/sample_info.txt", header=TRUE)
 ```
 
 You can view the data by typing `meta` or `view(meta)`
@@ -67,7 +67,7 @@ Load preprocessed data set of 7 WT replicates and 7 SNF2 knockouts
 ```markdown
 feature_count <- read.table("./featurecounts/featurecounts_results.mod.txt",
                             header=TRUE, row.names = 1)
-# remove first 6 columns by select the column 6 to 19
+# First 6 columns contain information about the transcripts. Here we only need the feature count informat. So we will remove first 6 columns by select the column 6 to 19
 data <- feature_count[,6:19]
 view(data)
 ```
@@ -84,19 +84,14 @@ Before running DESeq2, load all required libraries by running below:
 # load required libraries
 library(DESeq2)
 library(vsn)
-library(ggplot2)
 library(dplyr)
 library(tidyverse)
 library(ggrepel)
 library(DEGreport)
 library(pheatmap)
-library(org.Sc.sgd.db)
-library(clusterProfiler)
 ```
 To run DESeq2 analysis, you have to check to make sure that all rows labels in meta are columns in data:
 ```markdown
-# modify column names in data
-names(data) <- gsub(".bam", "", names(data))
 all(colnames(data) == rownames(meta))
 ```
 
@@ -188,15 +183,20 @@ plotCounts(dds, gene="YOR290C", intgroup="condition")
 
 ## Saving the result
 Now you have the table with log2 fold change and you might want to save it for future analysis. A adj value cutoff can be applied here. For example, here p-adj 0.05 is used.
+
 ```markdown
 ## Filtering to find significant genes
 padj.cutoff <- 0.05 # False Discovery Rate cutoff
-significant_results <- results[which(results$padj < padj.cutoff),]
+significant_results <- res[which(res$padj < padj.cutoff),]
+
 ## save results using customized file_name
 file_name = 'significant_padj_0.05.txt'
 write.table(significant_results, file_name, quote=FALSE)
 ```
-Now you have your analyzed result saved.
+Now you have your analyzed result saved in txt file, which can be imported to Excel.
+
+## Exit R and save the work space
+If you want to take a break and exit R, type `q()`. The workspace will be automatically saved with the extension of `.Rproj`.
 
 ## Review DeSeq2 workflow
 These comprise the full workflow
@@ -211,6 +211,8 @@ contrast <- c("condition", "SNF2", "WT")
 res_unshrunken <- results(dds, contrast=contrast)
 # Shrink log fold changes for genes with high dispersion
 res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
+# Regularized log transformation (rlog)
+rld <- rlog(dds, blind=TRUE)
 ```
 
 ## Workshop Schedule

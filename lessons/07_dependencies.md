@@ -12,7 +12,9 @@ To follow along with the practice in this course, you will use command line tool
 [samtools](http://www.htslib.org/download/)
 [subread](http://subread.sourceforge.net)
 
- 3. R and its libraries for differential expression analysis:
+ 3. Download and install [Interactive Genome Viewer (IGV)](https://software.broadinstitute.org/software/igv/download)
+
+ 4. R and its libraries for differential expression analysis:
 [R studio](https://www.google.com/search?client=safari&rls=en&q=r+studio&ie=UTF-8&oe=UTF-8)
 
     Bioconductr libraries (check out each library for installation guide):
