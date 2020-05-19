@@ -295,7 +295,6 @@ The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at 
                        Number of chimeric reads |	0
                             % of chimeric reads |	0.00%
 ```
-<img src="../img/WT_1_log.final.out.png" width="500">
 
 For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
 that most splice junctions are annotated.
@@ -386,7 +385,7 @@ Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
 `~/intro-to-RNA-seq/STAR_WT/WT_1_Aligned.sortedByCoord.out.bam`
 
-<img src="../img/IGV_select.png" width="600">
+<img src="../img/IGV_select_bam.png" width="600">
 
 In the genome coordinate box (shown below) type the gene name `SUS1`.
 We can see that another name of this gene is `YBR111W-A`.

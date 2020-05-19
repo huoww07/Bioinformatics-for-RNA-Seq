@@ -22,7 +22,7 @@ R version: 3.5.0
 ```
 
 ## Load the previously saved R project
-Set up R studio on the Tufts HPC cluster via "On Demand" [as shown in the previous step.](05_Differential_Expression.md) You should automatically see the previous work. If not, you can load the previous session following these steps:
+You should automatically see the previous work. If not, you can load the previous session following these steps:
 Go to `File`, choose `Open Project...`, navigate to your folder and selected the previously saved file with extension of `.Rproj`. All previously saved variables and libraries will be loaded.
 
 ## Visualization of DeSeq2 result
