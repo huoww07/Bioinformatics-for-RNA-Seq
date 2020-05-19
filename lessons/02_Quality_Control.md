@@ -147,7 +147,7 @@ A video tutorial on understanding FASTQC report is strongly recommended and can 
 
 ### Per base sequence quality
 
-Explanations adapted from [https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf][https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf]
+Explanations adapted from [https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf](https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf).
 
 This view shows an overview of the range of quality values across all bases at each position in the FastQ file
 
