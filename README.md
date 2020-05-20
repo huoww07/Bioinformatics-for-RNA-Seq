@@ -21,7 +21,7 @@ If you don't have access to Tufts HPC, you will need to install [all required mo
 
 ### Computational skills needed
 - Introduction to [Linux](slides/Intro_To_Basic_Linux_SHARED.pdf)
-- Introduction to [HPC](slides/Tufts HPC Cluster New User Guide.pdf)
+- Introduction to [HPC](slides/Tufts_HPC_Cluster_New_User_Guide.pdf)
 - Introduction to [R](https://monashdatafluency.github.io/r-intro-2/index.html)
 
 ### Materials Needed
