@@ -226,6 +226,22 @@ Result:
 
 The top line is the column names for this table. They are the name of each individule aligned file. The left most line is the row names, or the statistics of the alignment. From the table, we see that most of the reads fall within "assigned" features, meaning most of the aligned reads were transformed into gene expression value.
 
+## Optional step. Counting reads: Visualize number of assigned reads in all samples using barplot
+To visualize the result, type:
+```
+module load R/3.5.0
+Rscript ./featurecounts/
+```
+If ran successfully, you will see the message below:
+```
+null device
+          1
+```
+This code will generate a pdf file named `Featurecount_stat.pdf`.
+
+<img src="../img/featurecount_stat.png" width=400>
+
+
 ## Counting reads: Feature count for each genes
 To take a look at the calculated feature count, type:
 ```

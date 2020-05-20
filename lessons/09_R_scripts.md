@@ -55,6 +55,25 @@ write.table(significant_results, file_name, quote=FALSE)
 # simple plot for a single gene YOR290C (SNF2)
 plotCounts(dds, gene="YOR290C", intgroup="condition")
 
+# heatmap  
+# plot top 50 genes in a heatmap: top 50 with most significant padj value
+significant_results_sorted <- significant_results[order(significant_results$padj), ]
+significant_genes_50 <- rownames(significant_results_sorted[1:50, ])
+# extract the counts from the rlog transformed object
+rld_counts <- assay(rld)
+# select by row name using the list of genes:
+rld_counts_sig <- rld_counts[significant_genes_50, ]
+# Plot multiple genes in a heatmap:
+pheatmap(rld_counts_sig,
+         cluster_rows = T,
+         show_rownames = T,
+         annotation = meta,
+         border_color = NA,
+         fontsize = 10,
+         scale = "row",
+         fontsize_row = 8,
+         height = 20)
+
 
 # volcano plot
 # load necessary library ggplot2
@@ -81,24 +100,26 @@ ggplot(res_table) +
         axis.title = element_text(size = rel(1.25)))
 
 
-# heatmap  
-# plot top 50 genes in a heatmap: top 50 with most significant padj value
-significant_results_sorted <- significant_results[order(significant_results$padj), ]
-significant_genes_50 <- rownames(significant_results_sorted[1:50, ])
-# extract the counts from the rlog transformed object
-rld_counts <- assay(rld)
-# select by row name using the list of genes:
-rld_counts_sig <- rld_counts[significant_genes_50, ]
-# Plot multiple genes in a heatmap:
-pheatmap(rld_counts_sig,
-         cluster_rows = T,
-         show_rownames = T,
-         annotation = meta,
-         border_color = NA,
-         fontsize = 10,
-         scale = "row",
-         fontsize_row = 8,
-         height = 20)
+
+
+# functional analysis using clusterprofiler
+# load library
+library(org.Sc.sgd.db)
+library(clusterProfiler)
+
+## Run GO enrichment analysis for the top 500 genes
+significant_results_sorted <- res[order(res$padj), ]
+significant_genes_500 <- rownames(significant_results_sorted[1:500, ])
+ego <- enrichGO(gene = significant_genes_500,
+                         keyType = "ENSEMBL",
+                         OrgDb = org.Sc.sgd.db)
+
+## Output results from GO analysis to a table
+cluster_summary <- data.frame(ego)
+## Dotplot
+dotplot(ego, showCategory=50)
+## Enrichmap clusters the 50 most significant (by padj) GO terms to visualize relationships between terms
+emapplot(ego, showCategory = 50)
 ```
 
 - [Review bash scripts](08_bash_scripts.md)

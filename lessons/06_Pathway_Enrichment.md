@@ -84,10 +84,45 @@ height = 20)
 ```
 <img src="../img/heatmap.png" width="400">
 
-## Next step: Functinal Enrichment
+## Next step: Functional Enrichment
+
 <img src="../img/workflow_cluster_profiler.png" width="400">
 
-If your organism happens to be within the clusterprofiler database as shown below, you can easily use cluster profiler for functional enrichment analysis.
+To run the functional enrichment analysis, we first need to select genes of interest. Here we are interested in the 500 genes with lowest padj value (or the 500 most significantly differentially regulated genes). To do this, we first rank the previous result using padj value, then we select the gene names for the top 500. The list of 500 genes will be passed into enrichGO program and be analyzed for GO enrichment. Below are the codes needed to perform enrichment analysis.
+```
+## load required library
+library(clusterProfiler)
+
+## load the proper database for your organism of interest
+library(org.Sc.sgd.db)
+
+## Run GO enrichment analysis for the top 500 genes
+significant_results_sorted <- res[order(res$padj), ]
+significant_genes_500 <- rownames(significant_results_sorted[1:500, ])
+ego <- enrichGO(gene = significant_genes_500,
+                         keyType = "ENSEMBL",
+                         OrgDb = org.Sc.sgd.db)
+
+## Output results from GO analysis to a table
+cluster_summary <- data.frame(ego)
+## Show a Dotplot
+dotplot(ego, showCategory=50)
+## Enrichmap clusters the 50 most significant (by padj) GO terms to visualize relationships between terms
+emapplot(ego, showCategory = 50)
+```
+After you ran these codes, a dotplot and a emapplot will be generated.
+
+<figure class="image">
+  <img src="../img/clusterprofiler_dotplot.png" width=600>
+  <figcaption>Dotplot of enrichment analysis</figcaption>
+</figure>
+
+<figure class="image">
+  <img src="../img/emapplot.png" width=600>
+  <figcaption>Emapplot of enrichment analysis</figcaption>
+</figure>
+
+If your organism happens to be within the clusterprofiler database as shown below, you can easily use the code above for functional enrichment analysis.
 
 <img src="../img/orgdb_annotation_databases.png" width="500">
 
@@ -95,6 +130,7 @@ A great tutorial to follow for functional enrichment can be found at
 [https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html](https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html)
 
 If your organism is not within the above database, you will have to pick your gene of interest (using log2 fold change cutoff and/or padj cutoff) and analyze the functional enrichment using [String](https://string-db.org) or [Blast2Go](https://www.blast2go.com).
+
 
 ## Review all Scripts
 - [Command line scripts](08_bash_scripts.md)

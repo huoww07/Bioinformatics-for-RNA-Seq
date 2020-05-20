@@ -6,11 +6,11 @@
 module load fastqc/0.11.8
 mkdir fastqc
 
-# Run fastqc on raw sequencing reads on input1.fastq.gz and input2.fastq
+# Run fastqc on raw sequencing reads. Each fastq file will be analyzed individually. For example, if we only have two sequencing results: input1.fastq.gz and input2.fastq
 fastqc input1.fastq.gz -o fastqc --extract
 fastqc input2.fastq -o fastqc --extract
 
-# run multiqc to compile individual fastqc files
+# run multiqc to compile individual fastqc files, this helps visualization of fastqc reports
 module load multiqc/1.7.0
 mkdir multiqc
 multiqc fastqc/ -o multiqc
@@ -34,12 +34,12 @@ STAR --genomeDir ./genome \
 --sjdbGTFfile annotation.gtf \
 --sjdbOverhang 49
 
-# Read alignment Step 3: generate bam index. The output.bam is output file from step 2.
+# Read alignment Step 3: generate bam index. The output.bam is output file from step 2. You will run this for individual samples following Step 2.
 module load samtools/1.2
 samtools index STAR/output.bam
 
 
-# Gene quantification using featureCounts
+# Gene quantification using featureCounts - This step compiles all alignment results together. This is done after alignment is finished for all samples.
 # Gene quantification step 1: load subread module
 module load subread/1.6.3
 # Gene quantification step 2: create output directory
@@ -49,6 +49,13 @@ featureCounts \
 -a /directory/to/where/you/store/annotation.gtf \
 -o featurecounts/featurecounts_results.txt \
 STAR/*bam
+
+
+# Check feature count results
+cat featurecounts/featurecounts_results.txt.summary
+head featurecounts/featurecounts_results.txt
+# Clean the column names in featurecounts_results.txt
+cat featurecounts/featurecounts_results.txt |sed "2s/STAR\///g" | sed "2s/\_Aligned.sortedByCoord.out.bam//g" > featurecounts/featurecounts_results.mod.txt
 
 # now you are ready to move on to R scripts.
 ```
