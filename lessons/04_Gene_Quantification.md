@@ -23,6 +23,8 @@ An example of a transcript with multiple exons:
 <img src="../img/featurecount_multi_exons.png" width="600">
 
 ## Counting reads: running the script
+Get an interaction session on a compute node by typing:
+`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
 Create a new script called `featureccounts.sh` using the vi text editor `vi featurecounts.sh` and enter the following
 content:
@@ -32,7 +34,7 @@ content:
 module load subread/1.6.3
 
 ## create output directory
-mkdir featurecounts
+mkdir -p featurecounts
 
 ## reference directory
 REF_DIR=/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3
@@ -50,10 +52,11 @@ To run the script, type in:
 ```
 sh featurecounts.sh
 ```
+If your script failed to run, try to run our prepared scripts by typing `sh scripts/featurecounts.sh`.  
 
 Result:
 ```
-(base) [whuo01@pcomp45 intro-to-RNA-seq]$ bash ./scripts/featurecounts.sh
+(base) [whuo01@pcomp45 intro-to-RNA-seq]$ sh ./scripts/featurecounts.sh
 
         ==========     _____ _    _ ____  _____  ______          _____  
         =====         / ____| |  | |  _ \|  __ \|  ____|   /\   |  __ \
@@ -230,7 +233,7 @@ The top line is the column names for this table. They are the name of each indiv
 To visualize the result, type:
 ```
 module load R/3.5.0
-Rscript ./featurecounts/
+Rscript ./scripts/featurecount_stat.R
 ```
 If ran successfully, you will see the message below:
 ```

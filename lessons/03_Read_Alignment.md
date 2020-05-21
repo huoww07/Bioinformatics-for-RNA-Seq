@@ -1,7 +1,7 @@
 Approximate time: 20 minutes
 
 ## Goals
-- Align short reads to a references genome using Spliced Transcripts Alignment to a Reference (STAR) aligner
+- Align short reads (one sample at a time) to a references genome using Spliced Transcripts Alignment to a Reference (STAR) aligner
 - Review Gene annotation and GTF format
 - View alignment using Integrative Genome Viewer (IGV)
 
@@ -9,18 +9,12 @@ Approximate time: 20 minutes
 
 # STAR Aligner
 
-The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the
-read alignment using one of several splice-aware alignment tools such as STAR or HISAT2.
-The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
+The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
 
-[STAR](https://github.com/alexdobin/STAR) is an aligner designed to specifically address many of the challenges of RNA-seq
-data mapping using a strategy to account for spliced alignments.
-STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is
-memory intensive.
+[STAR](https://github.com/alexdobin/STAR) is an aligner designed to specifically address many of the challenges of RNA-seq data mapping using a strategy to account for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed, but it is memory intensive.
 
 STAR algorithm consists of two major steps:
-- seed searching step: Find Maximum Mappable Prefixes
-(MMP) in a read. MMP can be extended by a. mismatches b. indels or c. soft-clipping
+- seed searching step: Find Maximum Mappable Prefixes (MMP) in a read. MMP can be extended by a. mismatches b. indels or c. soft-clipping
 - clustering/stitching/scoring step: determine finl read location and deal with a large number of mismatches, indels and splice junctions, as well as scalable with the read length.
 
 <img src="../img/STAR_mapping.jpeg" width="300">
@@ -32,6 +26,8 @@ Aligning reads using STAR is a two step process:
 - Map reads to the genome
 
 # STAR Index
+If using the same reference, the index step only needs to be done once.
+
 Tufts HPC hosts genome reference data from UCSC at the following location
 ```markdown
 /cluster/tufts/bio/data/genomes
@@ -149,7 +145,7 @@ The table shows the location of all types of features in a Gene (transcript, exo
 It also uses the last four columns to provide annotation about the transcript and gene identifiers.
 
 ## STAR alignment
-Let's check the usage instructions for STAR by typing `STAR`
+Let's first check the usage instructions for STAR by typing `STAR`
 
 ```
 Usage: STAR  [options]... --genomeDir REFERENCE   --readFilesIn R1.fq R2.fq
@@ -179,30 +175,33 @@ Since our alignment command will have multiple arguments, it will be convenient 
 
 Make a new directory for our results
 ```markdown
-mkdir STAR
+mkdir STAR_practice
 ```
 
-Open the script ./scripts/star_align.sh in a text editor with `vi`
+Open the script ./scripts/star_align_practice.sh in a text editor with `vi`
 
 ```
-## Use STAR aligner to align fastq files
+## Load STAR aligner
 module load STAR/2.7.0a
-mkdir -p STAR
+mkdir -p STAR_practice
 
-## Fastq files to align, separated by commas for multiple lanes of a single sample
-FASTQ="raw_data/WT_1/ERR458493.fastq.gz,raw_data/WT_1/ERR458494.fastq.gz,raw_data/WT_1/ERR458495.fastq.gz,raw_data/WT_1/ERR458496.fastq.gz,raw_data/WT_1/ERR458497.fastq.gz,raw_data/WT_1/ERR458498.fastq.gz,raw_data/WT_1/ERR458499.fastq.gz"
+## Assign the fastq file with its location. Extension with .fastq, .fq and .fastq.gz work the same
+FASTQ="raw_data/WT_1/ERR458493.fastq.gz"
+
+## If you have multiple fastq files for one same sample, you can compile them together by typing below
+#FASTQ="reads1.fastq, reads2.fastq"
 
 ## Name the output file
-OUT="WT_1"
+OUT="WT_ERR458493"
 
 ## Defing reference genome directory
 REF_DIR="/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3"
 
-# execute STAR in the runMode "alignReads"
+## execute STAR in the runMode "alignReads"
 STAR --genomeDir ${REF_DIR}/Sequence/STAR \
 --readFilesIn ${FASTQ} \
 --readFilesCommand zcat \
---outFileNamePrefix STAR_WT/${OUT}_ \
+--outFileNamePrefix STAR_practice/${OUT}_ \
 --outFilterMultimapNmax 1 \
 --outSAMtype BAM SortedByCoordinate \
 --runThreadN 4 \
@@ -231,69 +230,74 @@ intron size
 
 Exit vi by typing `ESC` and `:wq` to save and name the file.
 
-Now we can run our script using sbatch.
+Now we can run our script using sh.
 ```
-sh star_align.sh
+sh ./scripts/star_align_practice.sh
 ```
 Result:
 ```
-May 15 11:35:38 ..... started STAR run
-May 15 11:35:38 ..... loading genome
-May 15 11:35:39 ..... processing annotations GTF
-May 15 11:35:39 ..... inserting junctions into the genome indices
-May 15 11:35:47 ..... started mapping
-May 15 11:36:40 ..... started sorting BAM
-May 15 11:36:48 ..... finished successfully
+(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ sh ./scripts/star_align_practice.sh
+May 21 13:11:07 ..... started STAR run
+May 21 13:11:07 ..... loading genome
+May 21 13:11:09 ..... processing annotations GTF
+May 21 13:11:09 ..... inserting junctions into the genome indices
+May 21 13:11:17 ..... started mapping
+May 21 13:11:28 ..... started sorting BAM
+May 21 13:11:29 ..... finished successfully
 ```
 
 View result by typing in:
-`ls -lh STAR_WT/`
+`ls -lh STAR_practice/`
 ```markdown
--rw-rw-r-- 1 rbator01 biotools 272M Mar 25 15:45 WT_1_Aligned.sortedByCoord.out.bam
--rw-rw-r-- 1 rbator01 biotools 1.8K Mar 25 15:45 WT_1_Log.final.out
--rw-rw-r-- 1 rbator01 biotools 24K Mar 25 15:45 WT_1_Log.out
--rw-rw-r-- 1 rbator01 biotools 364 Mar 25 15:45 WT_1_Log.progress.out
--rw-rw-r-- 1 rbator01 biotools 46K Mar 25 15:45 WT_1_SJ.out.tab
-drwx------ 2 rbator01 biotools 4.0K Mar 25 15:43 WT_1__STARgenome
+(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ ls -lh STAR_practice/
+total 46M
+-rw-rw---- 1 whuo01 isberg  46M May 21 13:11 WT_ERR458493_Aligned.sortedByCoord.out.bam
+-rw-rw---- 1 whuo01 isberg  19K May 21 13:11 WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
+-rw-rw---- 1 whuo01 isberg 1.8K May 21 13:11 WT_ERR458493_Log.final.out
+-rw-rw---- 1 whuo01 isberg  21K May 21 13:11 WT_ERR458493_Log.out
+-rw-rw---- 1 whuo01 isberg  246 May 21 13:11 WT_ERR458493_Log.progress.out
+-rw-rw---- 1 whuo01 isberg  14K May 21 13:11 WT_ERR458493_SJ.out.tab
+drwx--S--- 2 whuo01 isberg 4.0K May 21 13:11 WT_ERR458493__STARgenome
 ```
-The file `WT_1_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
-`cat STAR_WT/WT_1_Log.final.out`
+The file `WT_ERR458493_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
+`cat STAR_practice/WT_ERR458493_Log.final.out`
 
 ```
-                                 Started job on |	May 15 12:11:50
-                             Started mapping on |	May 15 12:12:00
-                                    Finished on |	May 15 12:12:45
-       Mapping speed, Million of reads per hour |	561.17
+(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ cat STAR_practice/WT_ERR458493_Log.final.out
+                                 Started job on |       May 21 13:11:07
+                             Started mapping on |       May 21 13:11:17
+                                    Finished on |       May 21 13:11:29
+       Mapping speed, Million of reads per hour |       328.19
 
-                          Number of input reads |	7014609
-                      Average input read length |	51
+                          Number of input reads |       1093957
+                      Average input read length |       51
                                     UNIQUE READS:
-                   Uniquely mapped reads number |	6014703
-                        Uniquely mapped reads % |	85.75%
-                          Average mapped length |	50.72
-                       Number of splices: Total |	55354
-            Number of splices: Annotated (sjdb) |	47840
-                       Number of splices: GT/AG |	50848
-                       Number of splices: GC/AG |	50
-                       Number of splices: AT/AC |	3
-               Number of splices: Non-canonical |	4453
-                      Mismatch rate per base, % |	0.36%
-                         Deletion rate per base |	0.00%
-                        Deletion average length |	0.00
-                        Insertion rate per base |	0.00%
-                       Insertion average length |	1.04
+                   Uniquely mapped reads number |       938174
+                        Uniquely mapped reads % |       85.76%
+                          Average mapped length |       50.75
+                       Number of splices: Total |       8681
+            Number of splices: Annotated (sjdb) |       7530
+                       Number of splices: GT/AG |       8002
+                       Number of splices: GC/AG |       9
+                       Number of splices: AT/AC |       0
+               Number of splices: Non-canonical |       670
+                      Mismatch rate per base, % |       0.37%
+                         Deletion rate per base |       0.00%
+                        Deletion average length |       0.00
+                        Insertion rate per base |       0.00%
+                       Insertion average length |       1.05
                              MULTI-MAPPING READS:
-        Number of reads mapped to multiple loci |	0
-             % of reads mapped to multiple loci |	0.00%
-        Number of reads mapped to too many loci |	792806
-             % of reads mapped to too many loci |	11.30%
+        Number of reads mapped to multiple loci |       0
+             % of reads mapped to multiple loci |       0.00%
+        Number of reads mapped to too many loci |       123562
+             % of reads mapped to too many loci |       11.29%
                                   UNMAPPED READS:
-       % of reads unmapped: too many mismatches |	0.00%
-                 % of reads unmapped: too short |	2.92%
-                     % of reads unmapped: other |	0.04%
+       % of reads unmapped: too many mismatches |       0.00%
+                 % of reads unmapped: too short |       2.91%
+                     % of reads unmapped: other |       0.04%
                                   CHIMERIC READS:
-                       Number of chimeric reads |	0
-                            % of chimeric reads |	0.00%
+                       Number of chimeric reads |       0
+                            % of chimeric reads |       0.00%                                
 ```
 
 For well annotated genomes, it's expected that >75% of the reads to be uniquely mapped and
@@ -308,19 +312,20 @@ The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) fi
 Take a look at the output file:
 ```markdown
 module load samtools/1.9
-samtools view -h STAR_WT/WT_1_Aligned.sortedByCoord.out.bam | less
+samtools view -h STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam | less
 ```
-The file has two sections
+Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections
 
 Header:
 ```markdown
 @HD VN:1.4 SO:coordinate             <-- Format version (VN) and Sorting order of alignments (SO)
 @SQ SN:chrI LN:230218             <-- Reference sequence name (SN) and length (LN)
+...
 ```
 
 Alignment:
 ```markdown
-ERR458496.427513 16 chrI 3782 255 51M * 0 0 CAGTAAAGGCTTGGTAGTAACCATA     <-- Template name, FLAG, reference name, mapping position (start), mapping quality, CIGAR string, reference name of the paired read, position of the paired read, template length, read sequence
+ERR458493.243111  0 chrI 3873 255 51M * 0 0 TGAAAATATTCTGAGGTAAAAGCCATTAAGGTCCAGATAACCAAGGGACAA     <-- Template name, FLAG, reference name, mapping position (start), mapping quality, CIGAR string, reference name of the paired read, position of the paired read, template length, read sequence
 ...
 ```
 FLAG: The FLAG field is displayed as a single integer, but is the sum of bitwise flags to denote multiple attributes of a read alignment. For example, 16 means the read being reverse complemented.
@@ -329,17 +334,17 @@ CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example
 More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
 ## Create index for BAM file
-In order to visualize our BAM file in IGV we will need a BAM index.
-This enables fast searching and display.
+In order to visualize our BAM file in IGV we will need a BAM index. This enables fast searching and display.
 We'll generate one using `samtools`.
 
 ```
-samtools index STAR_WT/WT_1_Aligned.sortedByCoord.out.bam
+module load samtools/1.9
+samtools index STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam
 ```
 
 The result is a file with the extension `bai`:
 ```
-WT_1_Aligned.sortedByCoord.out.bam.bai
+WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 ```
 
 ## Visualizing reads using IGV (optional)
@@ -383,7 +388,7 @@ b. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
-`~/intro-to-RNA-seq/STAR_WT/WT_1_Aligned.sortedByCoord.out.bam`
+`~/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
 <img src="../img/IGV_select_bam.png" width="600">
 
@@ -398,14 +403,20 @@ We see in the `BAM` track that reads are spiced across the introns and that cove
 area of the intron is missing as expected.  
 
 
-## Break time: Pre-processing of all reads from two conditions (WT and SNF2)
+## Break time: Align all reads from two conditions (WT and SNF2)
 
-In the previous steps, we learned how to do quality control and read alignment using WT as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
 
-In order to process all reads for the following analysis, run the following commands:
-`sbatch ./scripts/sbatch_star_align_individual.sh`
+You can do so manually by changing the FASTQ name in the file `./scripts/star_align_practice.sh`, and run `sh ./scripts/star_align_practice.sh` one at a time. Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
 
-This step will automatically align individual fastq files to reference and use samtools to create indexes. This step will take a few hours to finish depending on how busy the computing resource is.
+Alternatively, we have prepared a script that will align all reads individually in a automatic manner. In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
+`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
+Note: If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
+
+After you get an interactive session, run the following commands:
+`sh ./scripts/star_align_individual.sh`
+
+This step will automatically align individual fastq files to reference and use samtools to create indexes. This step will take about 15-30min to finish.
 
 After the alignment is finished, type in
 `tree ./STAR`
@@ -444,6 +455,37 @@ STAR                                                                <--folder na
 │   └── transcriptInfo.tab
 ...
 ```
+
+## Optional step. Visualize number of mapped reads v.s. unmapped reads in all samples using barplot
+To visualize the result, type:
+```
+module load R/3.5.0
+Rscript ./scripts/mapping_percentage.R
+```
+If ran successfully, you will see the message below:
+```
+[1] "Processing file:  SNF2_ERR458500_Log.final.out"
+[1] "Processing file:  SNF2_ERR458501_Log.final.out"
+[1] "Processing file:  SNF2_ERR458502_Log.final.out"
+[1] "Processing file:  SNF2_ERR458503_Log.final.out"
+[1] "Processing file:  SNF2_ERR458504_Log.final.out"
+[1] "Processing file:  SNF2_ERR458505_Log.final.out"
+[1] "Processing file:  SNF2_ERR458506_Log.final.out"
+[1] "Processing file:  WT_1_ERR458493_Log.final.out"
+[1] "Processing file:  WT_1_ERR458494_Log.final.out"
+[1] "Processing file:  WT_1_ERR458495_Log.final.out"
+[1] "Processing file:  WT_1_ERR458496_Log.final.out"
+[1] "Processing file:  WT_1_ERR458497_Log.final.out"
+[1] "Processing file:  WT_1_ERR458498_Log.final.out"
+[1] "Processing file:  WT_1_ERR458499_Log.final.out"
+null device
+          1
+```
+This code will generate a pdf file named `Mapping_stat.pdf`.
+
+<img src="../img/Mapping_stat.png" width=400>
+
+
 
 Now you are ready for the next step.
 
