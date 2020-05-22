@@ -14,9 +14,11 @@ Approximate time: 20 minutes
 <img src="../img/od_terminal.png" width="400">
 
 4. Type your password at the prompt (the password will be hidden for security purposes):
+
 `whuo01@login.cluster.tufts.edu's password:`
 
 5. You'll see a welcome message and a bash prompt, for example for user `whuo01`:
+
 `[whuo01@login001 ~]$`
 This indicates you are logged in to the login node.
 
