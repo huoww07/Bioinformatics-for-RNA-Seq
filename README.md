@@ -1,18 +1,12 @@
 ### A Tufts University Research Technology Workshop
 
 ## Description:
-This tutorial will cover the basics of bioinformatics for RNA sequencing analysis using command line tools and R on
-the Tufts  High Performance Compute Cluster (HPC).
-The analysis pipeline includes quality control, read alignment, feature quantification, differential expression and pathway analysis.
-There will be a [1-hour introductory session on June 2nd 2020](https://tufts.libcal.com/event/6716203), after which students will follow this self-guided online material.
-The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account).
-If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
+This tutorial will cover the basics of bioinformatics for RNA sequencing analysis using command line tools and R on the Tufts  High Performance Compute Cluster (HPC). The analysis pipeline includes quality control, read alignment, feature quantification, differential expression and pathway analysis. There will be a [1-hour introductory session on June 2nd 2020](https://tufts.libcal.com/event/6716203), after which students will follow this self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
 
 ## Goals
 - Intro to RNA sequencing logistics
 - Write and run bash scripts
-- Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/),
-[STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
+- Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
 - Perform differential expression analysis using [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)  
 
 <img src="img/workflow.png" width="400">

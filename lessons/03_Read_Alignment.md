@@ -1,3 +1,5 @@
+### Session 3. Read alignment.
+
 Approximate time: 20 minutes
 
 ## Goals
@@ -7,7 +9,7 @@ Approximate time: 20 minutes
 
 <img src="../img/workflow_align.png" width="400">
 
-# STAR Aligner
+## STAR Aligner
 
 The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as STAR or HISAT2. The choice of aligner is often a personal preference and also dependent on the computational resources that are available to you.
 
@@ -25,7 +27,7 @@ Aligning reads using STAR is a two step process:
 - Create a genome index
 - Map reads to the genome
 
-# STAR Index
+# Step 1. Build STAR Index for reference genome.
 If using the same reference, the index step only needs to be done once.
 
 Tufts HPC hosts genome reference data from UCSC at the following location
@@ -100,7 +102,7 @@ When it's done, take a look at the files produced by typing `ls genome`:
 -rw-rw---- 1 whuo01 isberg 1.5G Apr 18 17:45 SAindex
 ```
 
-## Gene annotation source
+# Step 2. Find gene annotation file.
 
 STAR can use an annotation file gives the location and structure of genes in order to improve alignment in known splice junctions.
 Annotation is dynamic and there are at least three major sources of annotation: RefGene, Ensembl, and UCSC.
@@ -113,9 +115,6 @@ RefGene has the fewest unique genes, while more than 50% of genes in Ensembl are
 (Figure references [Zhao et al Bioinformatics 2015](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-1308-8))
 
 It is important to be consistent with your choice of annotation source throughout an analysis.
-
-
-## GTF files on the HPC
 
 Tufts HPC hosts genome reference data from various sources.
 The annotation information for `sacCer3` from `UCSCC` source can be found at the following location:
@@ -144,7 +143,7 @@ An example of the format is shown below, where header line is added for clarity.
 The table shows the location of all types of features in a Gene (transcript, exon, CDS, start_codon, and stop codons)
 It also uses the last four columns to provide annotation about the transcript and gene identifiers.
 
-## STAR alignment
+# Step 3. Align.
 Let's first check the usage instructions for STAR by typing `STAR`
 
 ```
@@ -246,6 +245,8 @@ May 21 13:11:28 ..... started sorting BAM
 May 21 13:11:29 ..... finished successfully
 ```
 
+# Step 4. View results.
+
 View result by typing in:
 `ls -lh STAR_practice/`
 ```markdown
@@ -305,7 +306,8 @@ that most splice junctions are annotated.
 Further QC options are available with `RSEQC` and `samtools` packages (see scripts/bamqc.sh).
 
 
-## BAM format
+# Step 5. Create index for BAM file.
+1. Bam format
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
 <img src="../img/BAM_format.png" width="500">
 
@@ -333,7 +335,7 @@ CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example
 
 More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
-## Create index for BAM file
+2. Create index for BAM file
 In order to visualize our BAM file in IGV we will need a BAM index. This enables fast searching and display.
 We'll generate one using `samtools`.
 
@@ -347,7 +349,7 @@ The result is a file with the extension `bai`:
 WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 ```
 
-## Visualizing reads using IGV (optional)
+## Visualizing reads using IGV
 1. Return to On Demand Dashboard tab: `https://ondemand.cluster.tufts.edu`
 
 2. On the top grey menu bar, choose `Interactive Apps->IGV`:
@@ -364,25 +366,25 @@ directory: < leave default>`
 
 5. Click: `Launch noVNC in New Tab` when it appears.
 
-<img src="../img/IGV_launch.png" width="600">
+<img src="../img/IGV_launch.png" width="400">
 
 6. If the genome browser is cut off, resize using Chrome:
 
-<img src="../img/IGV_zoom.png" width="600">
+<img src="../img/IGV_zoom.png" width="400">
 
 7. Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
 a. `View -> Preferences`
 
-<img src="../img/IGV_preference.png" width="600">
+<img src="../img/IGV_preference.png" width="400">
 
 b. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
-<img src="../img/IGV_alignment.png" width="600">
+<img src="../img/IGV_alignment.png" width="400">
 
 8. Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
 
 9. Scroll down to `Sacromyces ceerevicea (sacCer3)` -> leave `Download Sequence` UNchecked -> click `OK`
 
-<img src="../img/IGV_select_genome.png" width="600">
+<img src="../img/IGV_select_genome.png" width="200">
 
 9. Load BAM file:
 
@@ -390,20 +392,20 @@ Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
 `~/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
-<img src="../img/IGV_select_bam.png" width="600">
+<img src="../img/IGV_select_bam.png" width="400">
 
 In the genome coordinate box (shown below) type the gene name `SUS1`.
 We can see that another name of this gene is `YBR111W-A`.
 
 Here is a summary of the fields and tracks present in IGV:
-<img src="../img/Cluster_IGV.png" width="800">
+
+<img src="../img/IGV_track.png" width="800">
 
 If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
-We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the
-area of the intron is missing as expected.  
+We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the area of the intron is missing as expected.  
 
 
-## Break time: Align all reads from two conditions (WT and SNF2)
+## Process all samples: Align all reads from two conditions (WT and SNF2)
 
 In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
 
@@ -483,12 +485,13 @@ null device
 ```
 This code will generate a pdf file named `Mapping_stat.pdf`.
 
-<img src="../img/optional_mapping_stat.png" width=400>
+<img src="../img/optional_mapping_stat.png" width="400">
 
 
 Now you are ready for the next step.
 
 ## Summary
+
 <img src="../img/alignment_summary.png" width="500">
 
 ## Workshop Schedule

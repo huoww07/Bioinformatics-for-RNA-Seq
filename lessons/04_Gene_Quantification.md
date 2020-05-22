@@ -1,3 +1,5 @@
+### Session 4. Gene quantification.
+
 Approximate time: 20 minutes
 
 ## Learning Objectives
@@ -6,7 +8,7 @@ Approximate time: 20 minutes
 
 <img src="../img/workflow_gene_quant.png" width="400">
 
-## Counting reads: featureCounts
+## Introduction to featureCounts
 
 The mapped coordinates of each read are compared with the features in the GTF file.
 Reads that overlap with a gene by >=1 bp are counted as belonging to that feature.
@@ -22,7 +24,7 @@ An example of a transcript with multiple exons:
 
 <img src="../img/featurecount_multi_exons.png" width="600">
 
-## Counting reads: running the script
+## Step 1: write and run the script
 Get an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
@@ -217,8 +219,8 @@ featurecounts/
 └── featurecounts_results.txt.summary
 ```
 
-## Counting reads: Result summary
-To look at the result, type:
+## Step 2: View the summary statistics
+To look at the summary statistics, type:
 ```
 cat featurecounts/featurecounts_results.txt.summary
 ```
@@ -229,7 +231,7 @@ Result:
 
 The top line is the column names for this table. They are the name of each individule aligned file. The left most line is the row names, or the statistics of the alignment. From the table, we see that most of the reads fall within "assigned" features, meaning most of the aligned reads were transformed into gene expression value.
 
-## Optional step. Counting reads: Visualize number of assigned reads in all samples using barplot
+## Optional step. Visualize number of assigned reads in all samples using barplot.
 To visualize the result, type:
 ```
 module load R/3.5.0
@@ -242,10 +244,10 @@ null device
 ```
 This code will generate a pdf file named `Featurecount_stat.pdf`.
 
-<img src="../img/optional_featurecount_stat.png" width=400>
+<img src="../img/optional_featurecount_stat.png" width="400">
 
 
-## Counting reads: Feature count for each genes
+## Step 3: View the feature count result
 To take a look at the calculated feature count, type:
 ```
 head featurecounts/featurecounts_results.txt

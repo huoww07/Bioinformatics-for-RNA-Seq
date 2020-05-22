@@ -1,3 +1,5 @@
+### Session 1. Setup.
+
 Approximate time: 20 minutes
 
 ## Goals
@@ -24,10 +26,8 @@ This indicates you are logged in to the login node.
 6. Type `clear` to clear the screen
 
 # Set up for the analysis
-
-## Find 500M storage space
-
-1. Check how much available storage you have in your home directory by typing `showquota`.
+1. Find 500M storage space
+Check how much available storage you have in your home directory by typing `showquota`.
 
 Result:
 ```
@@ -49,7 +49,7 @@ Here, the user has used 1222M/5120M and has enough space for our 500M analysis.
 These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
 If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
 
-## Download the data
+# Download the data
 1. Get an interaction session on a compute node by typing:
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
@@ -120,9 +120,11 @@ intro-to-RNA-seq/
 
 ## Data for the class
 
-Project: European Nucleotide Archive Project number PRJEB5348
+Publication: [Statistical Models for RNA-seq Data Derived From a Two-Condition 48-replicate Experiment.](https://pubmed.ncbi.nlm.nih.gov/26206307/?utm_source=gquery&utm_medium=referral&utm_campaign=CitationSensor)
 
-Samples: WT v.s. SNF2 (a snf2 knock-out mutant cell line)
+Project access number: [PRJEB5348](https://www.ncbi.nlm.nih.gov/bioproject/PRJEB5348)
+
+Samples downloaded for our workshop: WT v.s. SNF2 (a snf2 knock-out mutant cell line)
 
 Organism: Saccharomyces cerevisiae
 
