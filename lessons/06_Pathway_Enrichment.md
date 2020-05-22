@@ -7,11 +7,13 @@ Approximate time: 40 minutes
 - Use R to visulize DESeq2 results
 - A few recommendations for functional enrichment analysis
 
+<img src="../img/workflow_cluster_profiler.png" width="400">
 
 ## Step 1. Start Rstudio on the Tufts HPC cluster via "On Demand"
 1. Open a Chrome browser and visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
 2. Log in with your Tufts Credentials
 3. On the top menu bar choose Interactive Apps -> Rstudio
+
 <img src="../img/rstudio.png" width="400">
 4. Choose:
 ```markdown
@@ -88,9 +90,7 @@ height = 20)
 
 ## Next step: Functional Enrichment
 
-<img src="../img/workflow_cluster_profiler.png" width="400">
-
-##### Functional enrichment using R library clusterProfiler**
+##### Functional enrichment using R library clusterProfiler
 
 To run the functional enrichment analysis, we first need to select genes of interest. Here we are interested in the 500 genes with lowest padj value (or the 500 most significantly differentially regulated genes). To do this, we first rank the previous result using padj value, then we select the gene names for the top 500. The list of 500 genes will be passed into enrichGO program and be analyzed for GO enrichment. Below are the codes needed to perform enrichment analysis.
 
@@ -134,7 +134,7 @@ If your organism happens to be within the clusterprofiler database as shown belo
 A great tutorial to follow for functional enrichment can be found at
 [https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html](https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html)
 
-##### Pathway analysis using other tools**
+##### Pathway analysis using other tools
 
 If your organism is not within the above database, you will have to pick your gene of interest (using log2 fold change cutoff and/or padj cutoff) and analyze the functional enrichment using [String](https://string-db.org) or [Blast2Go](https://www.blast2go.com).
 
