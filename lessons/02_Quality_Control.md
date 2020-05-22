@@ -10,7 +10,8 @@ Approximate time: 20 minutes
 
 Usually RNA sequencing is performed on Illumina machines. If you need to refresh your memory about Illumina sequencing technology, please take a look at [this video by Illumina](https://www.illumina.com/science/technology/next-generation-sequencing/sequencing-technology.html).
 
-- FASTQ format
+- **FASTQ format**
+
 Change into the`raw_data` directory inside our main course directory `intro-to-RNA-seq`:
 ```markdown
 cd intro-to-RNA-seq/raw_data
@@ -33,7 +34,8 @@ CGCAAGACAAGGCCCAAACGAGAGATTGAGCCCAATCGGCAGTGTAGTGAA          <-- Sequence
 B@@FFFFFHHHGHJJJJJJIJJGIGIIIGI9DGGIIIEIGIIFHHGGHJIB          <-- Quality String
 ```
 
-- Base Quality Scores
+- **Base Quality Scores**
+
 The fourth line of each read is called the *quality string*.
 Each symbol in the string is an encoding of the *quality score*, representing the inferred base call accuracy at that
 position in the read.
@@ -88,6 +90,7 @@ FastQC is run on each FASTQ file separately in order to be sensitive to the vari
 and paired-end files.
 
 - To see an example of FASTQC output, we'll run on one file.
+
 We add extra arguments `-o fastqc` to specify that the output should be placed in the directory we created and `--extract` to indicate that the input files are gzip compressed.
 
 ```bash
@@ -164,11 +167,13 @@ The y-axis on the graph shows the quality scores. The higher the score the bette
 
 
 - **Per sequence quality scores**
+
 The per sequence quality score report allows you to see if a subset of your sequences have universally low quality values. It is often the case that a subset of sequences will have universally poor quality, often because they are poorly imaged (on the edge of the field of view etc), however these should represent only a small percentage of the total sequences.
 
 <img src="../img/fastqc_per_sequence_qual.png" width="400">
 
 - **Per base sequence content**
+
 Per Base Sequence Content plots out the proportion of each base position in a file for which each of the four normal DNA bases has been called.
 
 <img src="../img/fastqc_per_seq_content.png" width="400">
@@ -189,11 +194,15 @@ and compares it to a modelled normal distribution of GC content.
 
 In a normal random library you would expect to see a roughly normal distribution of GC content where the central peak corresponds to the overall GC content of the underlying genome. Since we don't know the the GC content of the genome the modal GC content is calculated from the observed data and used to build a reference distribution. An unusually shaped distribution could indicate a contaminated library or some other kinds of biased subset. A normal distribution which is shifted indicates some systematic bias which is independent of base position. If there is a systematic bias which creates a shifted normal distribution then this won't be flagged as an error by the module since it doesn't know what your genome's GC content should be.
 
+
+
 - **Per base N content**
 
 If a sequencer is unable to make a base call with sufficient confidence then it will normally substitute an N rather than a conventional base call . This module plots out the percentage of base calls at each position for which an N was called.
 
 <img src="../img/fastqc_n.png" width="400">
+
+
 
 - **Sequence Length Distribution**
 
@@ -209,10 +218,14 @@ This module counts the degree of duplication for every sequence in the set and c
 
 <img src="../img/fastqc_dup.png" width="400">
 
+
+
 - **Overrepresented sequences**
 
 A normal high-throughput library will contain a diverse set of sequences, with no individual sequence making up a tiny fraction of the whole. Finding that a single sequence is very overrepresented in the set either means that it is highly biologically significant, or indicates that the library is contaminated, or not as diverse as you expected. This module lists all of the sequence which make up more than 0.1% of the total. To conserve memory only sequences which appear in the first 200,000 sequences are tracked to the end of the file. It is therefore possible that a sequence which is overrepresented but doesn't appear at the start of the file for some reason could be missed by this module. For each overrepresented sequence the program will look for matches in a database of common contaminants and will report the best hit it finds. Hits must be at least 20bp in length and have no more than 1 mismatch. Finding a hit doesn't necessarily mean that this is the source of the contamination, but may point you in the right direction. It's also worth pointing out that many adapter sequences are very similar to each other so you may get a hit reported which isn't technically correct, but which has very similar sequence to the actual match.
 Because the duplication detection requires an exact sequence match over the whole length of the sequence any reads over 75bp in length are truncated to 50bp for the purposes of this analysis. Even so, longer reads are more likely to contain sequencing errors which will artificially increase the observed diversity and will tend to underrepresent highly duplicated sequences.
+
+
 
 - **Adapter Content**
 
