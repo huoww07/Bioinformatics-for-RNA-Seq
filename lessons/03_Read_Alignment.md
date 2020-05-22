@@ -486,7 +486,6 @@ This code will generate a pdf file named `Mapping_stat.pdf`.
 <img src="../img/Mapping_stat.png" width=400>
 
 
-
 Now you are ready for the next step.
 
 ## Summary
