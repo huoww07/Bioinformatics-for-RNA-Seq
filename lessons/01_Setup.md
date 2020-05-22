@@ -7,24 +7,24 @@ Approximate time: 20 minutes
 - Download data
 
 # Log into the HPC cluster's On Demand interface
-1. Open a Chrome browser visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
-2. Log in with your Tufts Credentials
-3. On the top menu bar choose Clusters->HPC Shell Access
+- Open a Chrome browser visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
+- Log in with your Tufts Credentials
+- On the top menu bar choose Clusters->HPC Shell Access
 
 <img src="../img/od_terminal.png" width="400">
-4. Type your password at the prompt (the password will be hidden for security purposes):
+- Type your password at the prompt (the password will be hidden for security purposes):
 
 `whuo01@login.cluster.tufts.edu's password:`
 
-5. You'll see a welcome message and a bash prompt, for example for user `whuo01`:
+- You'll see a welcome message and a bash prompt, for example for user `whuo01`:
 
 `[whuo01@login001 ~]$`
 This indicates you are logged in to the login node.
 
-6. Type `clear` to clear the screen
+- Type `clear` to clear the screen
 
 # Set up for the analysis
-1. Find 500M storage space
+- Find 500M storage space
 Check how much available storage you have in your home directory by typing `showquota`.
 
 Result:
@@ -43,12 +43,12 @@ Group: facstaff	Usage: 16819478240KB	Quota: 214748364800KB	Percent Used: 7.00%
 Under `blocks` you will see the amount of storage you are using, and under quota you see your quota.
 Here, the user has used 1222M/5120M and has enough space for our 500M analysis.
 
-2. If you do not have 500M available, you may have space in a project directory for your lab.
+- If you do not have 500M available, you may have space in a project directory for your lab.
 These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
 If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
 
 # Download the data
-1. Get an interaction session on a compute node by typing:
+- Get an interaction session on a compute node by typing:
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
@@ -69,18 +69,18 @@ The success is indicated by the change of environment name after your username. 
 Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
 
 
-2. Change to your home directory
+- Change to your home directory
 `cd ~`
 Or, if you are using a project directory:
 `cd /cluster/tufts/labname/username/`
 
-3. Copy the course directory:
+- Copy the course directory:
 `cp /cluster/tufts/bio/tools/training/bioinformatics-for-rna-seq/intro-to-RNA-seq.tar.gz ./`
 
-4. Unzip the course directory:
+- Unzip the course directory:
 `tar -xvzf intro-to-RNA-seq.tar.gz`
 
-5. Take a look at the contents by typing:
+- Take a look at the contents by typing:
 `tree intro-to-RNA-seq`
 
 You'll see a list of all files
