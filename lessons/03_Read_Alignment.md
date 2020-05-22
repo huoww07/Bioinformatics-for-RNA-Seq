@@ -112,7 +112,7 @@ Annotation is dynamic and there are at least three major sources of annotation: 
 The intersection among the three sources is shown in the figure below.
 RefGene has the fewest unique genes, while more than 50% of genes in Ensembl are unique
 
-<img src="../img/ann_0.png" width="500">
+<img src="../img/ann_0.png" width="250">
 
 (Figure references [Zhao et al Bioinformatics 2015](https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-015-1308-8))
 
@@ -307,6 +307,7 @@ Further QC options are available with `RSEQC` and `samtools` packages (see scrip
 
 # Step 5. Create index for BAM file.
 - **Bam format**
+
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
 <img src="../img/BAM_format.png" width="500">
 
@@ -335,6 +336,7 @@ CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example
 More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
 - **Create index for BAM file**
+
 In order to visualize our BAM file in IGV (or any other visualization tool, such as Geneious) we will need a BAM index. This enables fast searching and display.
 
 We'll generate one using `samtools`.
