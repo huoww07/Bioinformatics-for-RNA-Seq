@@ -112,15 +112,14 @@ emapplot(ego, showCategory = 50)
 ```
 After you ran these codes, a dotplot and a emapplot will be generated.
 
-<figure class="image">
-  <img src="../img/clusterprofiler_dotplot.png" width=600>
-  <figcaption>Dotplot of enrichment analysis</figcaption>
-</figure>
+Dotplot: pathway enrichment
 
-<figure class="image">
-  <img src="../img/emapplot.png" width=600>
-  <figcaption>Emapplot of enrichment analysis</figcaption>
-</figure>
+<img src="../img/clusterprofiler_dotplot.png" width=600>
+
+
+emapplot: pathway interaction
+<img src="../img/emapplot.png" width=600>
+
 
 If your organism happens to be within the clusterprofiler database as shown below, you can easily use the code above for functional enrichment analysis.
 
