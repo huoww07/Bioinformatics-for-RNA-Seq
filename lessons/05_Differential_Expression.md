@@ -177,6 +177,7 @@ results <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ```
 
 - **Exploring results**
+
 The summary of results after shrinkage can be viewed by typing `summary(results)` or `head(results)`. If you used `head(results)` you will be viewing the top few lines of the result containing log2 fold change and p-value. log2FoldChange = log2(SNF2count/WTcount)Estimated from the model. padj - Adjusted pvalue for the probability that the log2FoldChange is not zero.
 
 <img src="../img/DESeq2_res.png" width="600">
@@ -203,6 +204,7 @@ write.table(significant_results, file_name, quote=FALSE)
 Now you have your analyzed result saved in txt file, which can be imported to Excel.
 
 - **Exit R and save the work space**
+
 If you want to take a break and exit R, type `q()`. The workspace will be automatically saved with the extension of `.Rproj`.
 
 ## Review DeSeq2 workflow

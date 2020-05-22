@@ -1,6 +1,6 @@
 ## Read alignment
 
-Approximate time: 20 minutes
+Approximate time: 60 minutes
 
 ## Goals
 - Align short reads (one sample at a time) to a references genome using Spliced Transcripts Alignment to a Reference (STAR) aligner
