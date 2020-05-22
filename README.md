@@ -1,25 +1,25 @@
 ### A Tufts University Research Technology Workshop
 
 ## Description:
-This course will cover the basics of bioinformatics for RNA sequencing and analysis using command line tools and R on
+This tutorial will cover the basics of bioinformatics for RNA sequencing analysis using command line tools and R on
 the Tufts  High Performance Compute Cluster (HPC).
-Topics covered include quality control, read alignment, feature quantification, differential expression and pathway analysis.
-There will be a 1-hour introductory session after which students will follow online self-guided online material.
+The analysis pipeline includes quality control, read alignment, feature quantification, differential expression and pathway analysis.
+There will be a [1-hour introductory session on June 2nd 2020](https://tufts.libcal.com/event/6716203), after which students will follow this self-guided online material.
 The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account).
 If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
 
 ## Goals
-- Writing and running bash scripts
 - Intro to RNA sequencing logistics
+- Write and run bash scripts
 - Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/),
 [STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
-- Differential expression analysis [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)
+- Perform differential expression analysis using [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)  
 
 <img src="img/workflow.png" width="400">
 
 ## Prerequisites
 
-### Computational skills needed
+### Basic understanding of computational skills
 - Introduction to [Linux](slides/Intro_To_Basic_Linux_SHARED.pdf)
 - Introduction to [HPC](slides/Tufts_HPC_Cluster_New_User_Guide.pdf)
 - Introduction to [R](https://monashdatafluency.github.io/r-intro-2/index.html)
