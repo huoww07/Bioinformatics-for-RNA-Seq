@@ -483,7 +483,7 @@ null device
 ```
 This code will generate a pdf file named `Mapping_stat.pdf`.
 
-<img src="../img/Mapping_stat.png" width=400>
+<img src="../img/Mapping_stat_barplot.png" width=400>
 
 
 Now you are ready for the next step.
