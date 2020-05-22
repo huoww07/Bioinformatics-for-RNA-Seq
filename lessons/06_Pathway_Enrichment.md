@@ -118,6 +118,7 @@ Dotplot: pathway enrichment
 
 
 emapplot: pathway interaction
+
 <img src="../img/emapplot.png" width=600>
 
 
