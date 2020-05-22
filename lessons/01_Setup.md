@@ -12,7 +12,6 @@ Approximate time: 20 minutes
 3. On the top menu bar choose Clusters->HPC Shell Access
 
 <img src="../img/od_terminal.png" width="400">
-
 4. Type your password at the prompt (the password will be hidden for security purposes):
 
 `whuo01@login.cluster.tufts.edu's password:`
