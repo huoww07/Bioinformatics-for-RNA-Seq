@@ -1,4 +1,4 @@
-### Session 5. Differential Expression using Rstudio.
+## Differential Expression using Rstudio
 
 Approximate time: 60 minutes
 
@@ -14,9 +14,7 @@ Approximate time: 60 minutes
 3. On the top menu bar choose Interactive Apps -> Rstudio
 
 <img src="../img/rstudio.png" width="400">
-
 4. Choose:
-
 ```markdown
 Number of hours: 4
 Number of cores: 1
@@ -31,7 +29,8 @@ Go to the File menu -> New File -> R Script, you should see:
 
 To save current session, click: File menu -> Save your file as intro.R
 
-1. Set up working directory and library
+- **Set up working directory and library**
+
 To run the code in the script editor, select a single line of code or highlight a block of code and click "Run".
 To see your current working directory:
 ```markdown
@@ -55,7 +54,8 @@ Now, you will be able to use all the libraries needed for this course. To load a
 library(tidyverse)
 ```
 
-2. Read in Data
+- **Read in Data**
+
 To read in the metadata for our experiment:
 ```markdown
 meta <- read.table("./raw_data/sample_info.txt", header=TRUE)
@@ -112,7 +112,8 @@ Behind the scenes these steps were run:
 The design formula `design = ~condition` tells DESeq2 which factors in the metadata to test, such as control v.s. treatment. Here our condition is WT v.s. SNF2 as shown in the `meta`.
 The design can include multiple factors that are columns in the metadata. In this case, the factor that you are testing for comes last, and factors that you want to account for come first. E.g. To test for differences in condition while accounting for sex and age: `design = ~ sex + age + condition`. It's also possible to include time series data and interactions.
 
-3. Normalization
+- **Normalization**
+
 The number of sequenced reads mapped to a gene depends on: Gene Length, Sequencing depth, The expression level of other genes in the sample and Its own expression level. Normalization using DESeq2 accounts for both sequencing depth and composition.
 Step 1: creates a pseudo-reference sample (row-wise geometric mean).
 For each gene, a pseudo-reference sample is created that is equal to the geometric mean across all samples.
@@ -139,13 +140,15 @@ SampleB normalization factor = 0.66
 ```
 <img src="../img/DESeq2_normalization.png" width="600">
 
-4. Unsupervised Clustering
+- **Unsupervised Clustering**
+
 This step is to asses overall similarity between samples:
 1.Which samples are similar to each other, which are different?
 2.Does this fit to the expectation from the experiment’s design?
 3.What are the major sources of variation in the dataset?
 
-5. Principle Components Analysis
+- **Principle Components Analysis**
+
 This uses the built in function plotPCA from DESeq2 (built on top of ggplot). The regularized log transform (rlog) improves clustering by log transforming the data.
 ```markdown
 rld <- rlog(dds, blind=TRUE)
@@ -154,7 +157,8 @@ plotPCA(rld, intgroup="condition") + geom_text(aes(label=name))
 <img src="../img/PCA.png" width="800">
 
 
-6. Creating contrasts and running a Wald test
+- **Creating contrasts and running a Wald test**
+
 The null hypothesis: log fold change = 0 for across conditions. P-values are the probability of rejecting the null hypothesis for a given gene, and adjusted p values take into account that we've made many comparisons:
 ```markdown
 contrast <- c("condition", "SNF2", "WT")
@@ -165,13 +169,14 @@ Here shows a summary of up- or down-regulated genes:
 
 <img src="../img/result_unshrunken.png" width="400">
 
-7. Shrinkage of the log2 fold changes
+- **Shrinkage of the log2 fold changes**
+
 One more step where information is used across genes to avoid overestimates of differences between genes with high dispersion. This is not done by default, so we run the code:
 ```markdown
 results <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ```
 
-8. Exploring results
+- **Exploring results**
 The summary of results after shrinkage can be viewed by typing `summary(results)` or `head(results)`. If you used `head(results)` you will be viewing the top few lines of the result containing log2 fold change and p-value. log2FoldChange = log2(SNF2count/WTcount)Estimated from the model. padj - Adjusted pvalue for the probability that the log2FoldChange is not zero.
 
 <img src="../img/DESeq2_res.png" width="600">
@@ -197,7 +202,7 @@ write.table(significant_results, file_name, quote=FALSE)
 ```
 Now you have your analyzed result saved in txt file, which can be imported to Excel.
 
-9. Exit R and save the work space
+- **Exit R and save the work space**
 If you want to take a break and exit R, type `q()`. The workspace will be automatically saved with the extension of `.Rproj`.
 
 ## Review DeSeq2 workflow

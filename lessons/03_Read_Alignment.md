@@ -1,4 +1,4 @@
-### Session 3. Read alignment.
+## Read alignment
 
 Approximate time: 20 minutes
 
@@ -43,21 +43,24 @@ In that directory there are both genome sequence, genome indicies for various al
 
 We'll re-create the STAR genome index in our own directory in order to practice:
 
-1. Get an interaction session on a compute node if you haven't done so
+- Get an interaction session on a compute node if you haven't done so
+
 `srun --pty -t 3:00:00  --mem 32G  -N 1 -n 4 bash`
 
-2. load the module
+- load the module
+
 `module load STAR/2.7.0a`
 
-3. create a directory to store the index in
+- create a directory to store the index in
+
 `mkdir genome`
 
-You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
+- You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
 ```
 head /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa
 ```
 
-Result, arrows on the right explain format:
+Result below shows an example of FASTA file. Arrows on the right explain format:
 ```
 >chrI                                                          <-- '>' charachter followed by sequence name
 CCACACCACACCCACACACCCACACACCACACCACACACCACACCACACC
@@ -67,9 +70,8 @@ CCTGTCCCATTCAACCATACCACTCCGAACCACCATCCATCCCTCTACTT
 ACTACCACTCACCCACCGTTACCCTCCAATTACCCATATCCAACCCACTG             <-- sequence
 …
 ```
-This is an example of FASTA format.
 
-4. Run STAR in "genomeGenerate" mode
+- Run STAR index in "genomeGenerate" mode
 ```
 STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 4
 ```
@@ -215,17 +217,14 @@ We have defined the following variables for convenience:
 - `REF_DIR` in order to give the location of the reference data.
 
 We've given the following arguments to `STAR`:
-1. `-runThreadsN 4`: STAR runs four parallel threads. Alignment is a task that is easy to parallelize
-because alignment of a read is independent of other reads.
+1. `--outFileNamePrefix`: specify output folder and prefix of the names
+2. `--outFilterMultimapNmax 1`: max number of multiple alignments allowed for a read: if exceeded, the read is considered unmapped. Here it is set to 1.
+3. `--outSAMtype BAM SortedByCoordinate`:  output sorted by coordinate Aligned.sortedByCoord.out.bam file, similar to samtools sort command
+4. `--runThreadsN 4`: STAR runs four parallel threads. Alignment is a task that is easy to parallelize because alignment of a read is independent of other reads.
+5. `--alignIntronMin/Max`: Minimal and Maximal intron length
+6. `--sjdbGTFfile" `: GTF annotation file for the gene expression calculation
+7. `--sjdbOverhang`:  specifies the length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database. Ideally, this length should be equal to the ReadLength-1, where ReadLength is the length of the reads. For instance, for Illumina 2x100b paired-end reads, the ideal value is 100-1=99. In case of reads of varying length, the ideal value is max(ReadLength)-1. In most cases, the default value of 100 will work as well as the ideal value.
 
-2. `-alignIntronMin/Max`: Optional arguments to specify novel
-intron size
-
-3. `-sjdbGTFfile" `: GTF annotation file for the gene expression calculation
-
-4. `-sjdbOverhang`:  Place the output in the results folder and give it a name
-
-5. `-outFileNamePrefix`: specify output folder and prefix of the names
 
 Exit vi by typing `ESC` and `:wq` to save and name the file.
 
@@ -307,7 +306,7 @@ Further QC options are available with `RSEQC` and `samtools` packages (see scrip
 
 
 # Step 5. Create index for BAM file.
-1. Bam format
+- **Bam format**
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
 <img src="../img/BAM_format.png" width="500">
 
@@ -335,8 +334,9 @@ CIGAR: Concise Idiosyncratic Gapped Alignment Report (CIGAR) string. For example
 
 More information on BAM format: [samtools on github](https://samtools.github.io/hts-specs/SAMv1.pdf) and [wikipedia: SAM_(file_format)](https://en.wikipedia.org/wiki/SAM_(file_format)).
 
-2. Create index for BAM file
-In order to visualize our BAM file in IGV we will need a BAM index. This enables fast searching and display.
+- **Create index for BAM file**
+In order to visualize our BAM file in IGV (or any other visualization tool, such as Geneious) we will need a BAM index. This enables fast searching and display.
+
 We'll generate one using `samtools`.
 
 ```
@@ -350,11 +350,13 @@ WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 ```
 
 ## Visualizing reads using IGV
-1. Return to On Demand Dashboard tab: `https://ondemand.cluster.tufts.edu`
+- Return to On Demand Dashboard tab:
+`https://ondemand.cluster.tufts.edu`
 
-2. On the top grey menu bar, choose `Interactive Apps->IGV`:
+- On the top grey menu bar, choose
+`Interactive Apps->IGV`
 
-3. Set the following parameters:
+- Set the following parameters:
 ```
 hours: 1
 cores: 4
@@ -362,31 +364,31 @@ memory: 64 Gb
 directory: < leave default>`
 ```
 
-4. Click: `Launch`
+- Click: `Launch`
 
-5. Click: `Launch noVNC in New Tab` when it appears.
+- Click: `Launch noVNC in New Tab` when it appears.
 
 <img src="../img/IGV_launch.png" width="400">
 
-6. If the genome browser is cut off, resize using Chrome:
+- If the genome browser is cut off, resize using Chrome:
 
 <img src="../img/IGV_zoom.png" width="400">
 
-7. Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
-a. `View -> Preferences`
+- Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
+  1. `View -> Preferences`
 
 <img src="../img/IGV_preference.png" width="400">
+  2. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
 
-b. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
 <img src="../img/IGV_alignment.png" width="400">
 
-8. Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
+- Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
 
-9. Scroll down to `Sacromyces ceerevicea (sacCer3)` -> leave `Download Sequence` UNchecked -> click `OK`
+- Scroll down to `Sacromyces ceerevicea (sacCer3)` -> leave `Download Sequence` UNchecked -> click `OK`
 
-<img src="../img/IGV_select_genome.png" width="200">
+<img src="../img/IGV_select_genome.png" width="300">
 
-9. Load BAM file:
+- Load BAM file:
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
@@ -399,7 +401,7 @@ We can see that another name of this gene is `YBR111W-A`.
 
 Here is a summary of the fields and tracks present in IGV:
 
-<img src="../img/IGV_track.png" width="800">
+<img src="../img/IGV_track.png" width="600">
 
 If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
 We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the area of the intron is missing as expected.  
@@ -485,7 +487,7 @@ null device
 ```
 This code will generate a pdf file named `Mapping_stat.pdf`.
 
-<img src="../img/optional_mapping_stat.png" width="400">
+<img src="../img/optional_mapping_stat.png" width="500">
 
 
 Now you are ready for the next step.

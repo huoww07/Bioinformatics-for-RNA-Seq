@@ -1,4 +1,4 @@
-### Session 6. Pathway enrichment analysis.
+## Pathway enrichment analysis
 
 Approximate time: 40 minutes
 
@@ -15,7 +15,6 @@ Approximate time: 40 minutes
 
 <img src="../img/rstudio.png" width="400">
 4. Choose:
-
 ```markdown
 Number of hours: 4
 Number of cores: 1
@@ -27,8 +26,9 @@ R version: 3.5.0
 You should automatically see the previous work. If not, you can load the previous session following these steps:
 Go to `File`, choose `Open Project...`, navigate to your folder and selected the previously saved file with extension of `.Rproj`. All previously saved variables and libraries will be loaded.
 
-1. Visualization of DeSeq2 result
-  1. Volcano plot to visualize up- and down- regulated Genes
+- **Visualization of DeSeq2 result**
+
+1. Use Volcano plot to visualize up- and down- regulated Genes
 ```markdown
 # load necessary library ggplot2
 library(ggplot2)
@@ -58,7 +58,7 @@ The commands will generate a volcano plot as shown below
 
 <img src="../img/volcanoplot.png" width="400">
 
-  2. Plot top 50 significant genes in a heatmap
+2. Plot top 50 significant genes in a heatmap
 Sort the rows from smallest to largest padj and take the top 50 genes:
 ```markdown
 significant_results_sorted <- significant_results[order(significant_results$padj), ]
@@ -90,8 +90,10 @@ height = 20)
 
 <img src="../img/workflow_cluster_profiler.png" width="400">
 
-1. Functional enrichment using R library clusterProfiler
+- **Functional enrichment using R library clusterProfiler**
+
 To run the functional enrichment analysis, we first need to select genes of interest. Here we are interested in the 500 genes with lowest padj value (or the 500 most significantly differentially regulated genes). To do this, we first rank the previous result using padj value, then we select the gene names for the top 500. The list of 500 genes will be passed into enrichGO program and be analyzed for GO enrichment. Below are the codes needed to perform enrichment analysis.
+
 ```
 ## load required library
 library(clusterProfiler)
@@ -115,12 +117,12 @@ emapplot(ego, showCategory = 50)
 ```
 After you ran these codes, a dotplot and a emapplot will be generated.
 
-Dotplot: pathway enrichment
+**Dotplot: pathway enrichment**
 
 <img src="../img/clusterprofiler_dotplot.png" width="600">
 
 
-emapplot: pathway interaction
+**emapplot: pathway interaction**
 
 <img src="../img/emapplot.png" width="600">
 
@@ -132,7 +134,8 @@ If your organism happens to be within the clusterprofiler database as shown belo
 A great tutorial to follow for functional enrichment can be found at
 [https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html](https://hbctraining.github.io/DGE_workshop/lessons/09_functional_analysis.html)
 
-2. Pathway analysis using other tools.
+- **Pathway analysis using other tools**
+
 If your organism is not within the above database, you will have to pick your gene of interest (using log2 fold change cutoff and/or padj cutoff) and analyze the functional enrichment using [String](https://string-db.org) or [Blast2Go](https://www.blast2go.com).
 
 

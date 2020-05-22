@@ -1,4 +1,4 @@
-### Session 4. Gene quantification.
+## Gene quantification
 
 Approximate time: 20 minutes
 
