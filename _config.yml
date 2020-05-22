@@ -3,7 +3,6 @@ description: [A Tufts University Research Technology Workshop]
 
 plugins:
   - jekyll-relative-links
-future: true
 relative_links:
   enabled: true
   collections: true
