@@ -242,7 +242,7 @@ null device
 ```
 This code will generate a pdf file named `Featurecount_stat.pdf`.
 
-<img src="../img/featurecount_stat.png" width=400>
+<img src="../img/optional_featurecount_stat.png" width=400>
 
 
 ## Counting reads: Feature count for each genes
