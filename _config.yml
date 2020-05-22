@@ -1,0 +1,11 @@
+title: [Introduction to RNA Sequencing Bioinformatics]
+description: [A Tufts University Research Technology Workshop]
+
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+include:
+  - README.md
+  - lessons/
