@@ -253,7 +253,6 @@ View result by typing in:
 (base) [whuo01@m4lmem01 intro-to-RNA-seq]$ ls -lh STAR_practice/
 total 46M
 -rw-rw---- 1 whuo01 isberg  46M May 21 13:11 WT_ERR458493_Aligned.sortedByCoord.out.bam
--rw-rw---- 1 whuo01 isberg  19K May 21 13:11 WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 -rw-rw---- 1 whuo01 isberg 1.8K May 21 13:11 WT_ERR458493_Log.final.out
 -rw-rw---- 1 whuo01 isberg  21K May 21 13:11 WT_ERR458493_Log.out
 -rw-rw---- 1 whuo01 isberg  246 May 21 13:11 WT_ERR458493_Log.progress.out
