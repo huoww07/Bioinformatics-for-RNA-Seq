@@ -45,15 +45,18 @@ We'll re-create the STAR genome index in our own directory in order to practice:
 
 - Get an interaction session on a compute node if you haven't done so
 
-`srun --pty -t 3:00:00  --mem 32G  -N 1 -n 4 bash`
+`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
 - load the module
 
 `module load STAR/2.7.0a`
 
-- create a directory to store the index in
+- Go back to the top of our course directory and create a directory to store the index:
 
-`mkdir genome`
+```
+cd ..
+mkdir genome
+```
 
 - You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
 ```
@@ -179,7 +182,7 @@ Make a new directory for our results
 mkdir STAR_practice
 ```
 
-Open the script ./scripts/star_align_practice.sh in a text editor with `vi`
+Open the script ./scripts/star_align_practice.sh in a text editor, for example `nano scripts/star_align_practice.sh`: 
 
 ```
 ## Load STAR aligner
@@ -187,7 +190,7 @@ module load STAR/2.7.0a
 mkdir -p STAR_practice
 
 ## Assign the fastq file with its location. Extension with .fastq, .fq and .fastq.gz work the same
-FASTQ="raw_data/WT_1/ERR458493.fastq.gz"
+FASTQ="raw_data/WT/ERR458493.fastq.gz"
 
 ## If you have multiple fastq files for one same sample, you can compile them together by typing below
 #FASTQ="reads1.fastq, reads2.fastq"
@@ -225,8 +228,7 @@ We've given the following arguments to `STAR`:
 6. `--sjdbGTFfile" `: GTF annotation file for the gene expression calculation
 7. `--sjdbOverhang`:  specifies the length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database. Ideally, this length should be equal to the ReadLength-1, where ReadLength is the length of the reads. For instance, for Illumina 2x100b paired-end reads, the ideal value is 100-1=99. In case of reads of varying length, the ideal value is max(ReadLength)-1. In most cases, the default value of 100 will work as well as the ideal value.
 
-
-Exit vi by typing `ESC` and `:wq` to save and name the file.
+Exit nano by typing `^X`.
 
 Now we can run our script using sh.
 ```
@@ -309,7 +311,7 @@ Further QC options are available with `RSEQC` and `samtools` packages (see scrip
 - **Bam format**
 
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
-<img src="../img/BAM_format.png" width="500">
+<img src="../img/BAM_format.png" width="700">
 
 Take a look at the output file:
 ```markdown
@@ -346,7 +348,7 @@ module load samtools/1.9
 samtools index STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam
 ```
 
-The result is a file with the extension `bai`:
+The result is a file with the extension `bai` in the same folder as our BAM file:
 ```
 WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 ```
@@ -370,19 +372,20 @@ directory: < leave default>`
 
 - Click: `Launch noVNC in New Tab` when it appears.
 
-<img src="../img/IGV_launch.png" width="400">
+<img src="../img/IGV_launch.png" width="500">
 
 - If the genome browser is cut off, resize using Chrome:
 
-<img src="../img/IGV_zoom.png" width="400">
+<img src="../img/IGV_zoom.png" width="500">
 
 - Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
   1. `View -> Preferences`
 
-<img src="../img/IGV_preference.png" width="400">
-  2. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
+<img src="../img/IGV_preference.png" width="500">
 
-<img src="../img/IGV_alignment.png" width="400">
+  2.`Alignments -> Track Display Options -> Splice Junction Track -> OK`
+
+<img src="../img/IGV_alignment.png" width="500">
 
 - Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
 
