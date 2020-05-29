@@ -258,7 +258,7 @@ This module looks for common adapters in the sequence. In this example, there ar
 
 <img src="../img/adapter_content.png" width="500">
 
-Explanations adapted from tthe [FastQC Manual][https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf]
+Explanations adapted from tthe [FastQC Manual](https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf)
 
 ## Workshop Schedule
 - [Course Home](../README.md)
