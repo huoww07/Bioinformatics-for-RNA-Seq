@@ -28,7 +28,7 @@ An example of a transcript with multiple exons:
 Get an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-Create a new script called `featureccounts.sh` using the vi text editor `vi featurecounts.sh` and enter the following
+Create a new script called `featureccounts.sh` using the `nano` text editor `nano featurecounts.sh` and enter the following
 content:
 
 ```

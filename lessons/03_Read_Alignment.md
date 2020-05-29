@@ -440,7 +440,9 @@ In order to use our pre-written scripts, first make sure you have an interaction
 Note: If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
 
 After you get an interactive session, run the following commands:
-`sh ./scripts/star_align_individual.sh`
+```
+sh ./scripts/star_align_individual.sh
+```
 
 This step will automatically align individual fastq files to reference and use samtools to create indexes. This step will take about 15-30min to finish.
 
@@ -448,7 +450,7 @@ After the alignment is finished, type in
 `tree ./STAR`
  and you will see the aligned reads in STAR folder:
  ```
- [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                <--command
+ [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                       <--command
 STAR                                                                <--folder name: STAR
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for SNF2 sample ERR458500
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
