@@ -261,7 +261,8 @@ This module looks for common adapters in the sequence. In this example, there ar
 Explanations adapted from tthe [FastQC Manual][https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf]
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](01_Setup.md)
 - Currently at: Quality Control
 - Next: [Read Alignment](03_Read_Alignment.md)

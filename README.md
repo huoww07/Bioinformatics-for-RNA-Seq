@@ -33,7 +33,8 @@ All scripts you will be using:
 
 
 ## Schedule
-- [Introduction](slides/Introduction.pdf)
+- Currently at:[Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](lessons/01_Setup.md)
 - [Quality Control](lessons/02_Quality_Control.md)
 - [Read Alignment](lessons/03_Read_Alignment.md)

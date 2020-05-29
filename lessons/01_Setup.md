@@ -120,7 +120,8 @@ Sequencing: Illumina HiSeq, Single End, 50bp read length
 
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - Currently at: Setup using Tufts HPC
 - Next: [Quality Control](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)

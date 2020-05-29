@@ -399,14 +399,14 @@ Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
 `~/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
-<img src="../img/IGV_select_bam.png" width="400">
+<img src="../img/IGV_select_bam.png" width="500">
 
 In the genome coordinate box (shown below) type the gene name `SUS1`.
 We can see that another name of this gene is `YBR111W-A`.
 
 Here is a summary of the fields and tracks present in IGV:
 
-<img src="../img/IGV_track.png" width="600">
+<img src="../img/IGV_track.png" width="700">
 
 If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
 We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the area of the intron is missing as expected.  
@@ -414,13 +414,30 @@ We see in the `BAM` track that reads are spiced across the introns and that cove
 
 ## Process all samples: Align all reads from two conditions (WT and SNF2)
 
-In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. 
+Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+You can do so manually by creating a new version of the script `./scripts/star_align_practice.sh` for each sample.
 
-You can do so manually by changing the FASTQ name in the file `./scripts/star_align_practice.sh`, and run `sh ./scripts/star_align_practice.sh` one at a time. Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
+This can be done by creating a copy of the script, e.g.:
+```
+cp ./scripts/star_align_practice.sh ./scripts/star_align_ERR458500.sh
+```
+Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g.:
+## Fastq files to align, separated by commas for multiple lanes of a single sample
+FASTQ="raw_data/SNF2/ERR458500.fastq.gz"
 
-Alternatively, we have prepared a script that will align all reads individually in a automatic manner. In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
+## Name the output file
+OUT="SNF2_ERR458500"
+
+Finally, run `sh ./scripts/star_align_ERR458500.sh`.
+Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
+
+We have also prepared a script that will align all reads individually in a automatic manner. 
+
+In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
-Note: If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
+
+Note: If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
 
 After you get an interactive session, run the following commands:
 `sh ./scripts/star_align_individual.sh`
@@ -431,7 +448,7 @@ After the alignment is finished, type in
 `tree ./STAR`
  and you will see the aligned reads in STAR folder:
  ```
- (base) [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                <--command
+ [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                <--command
 STAR                                                                <--folder name: STAR
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for SNF2 sample ERR458500
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
@@ -448,13 +465,13 @@ STAR                                                                <--folder na
 │   ├── sjdbList.out.tab
 │   └── transcriptInfo.tab
 ...
-├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for WT sample ERR458494
-├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
-├── WT_1_ERR458494_Log.final.out
-├── WT_1_ERR458494_Log.out
-├── WT_1_ERR458494_Log.progress.out
-├── WT_1_ERR458494_SJ.out.tab
-├── WT_1_ERR458494__STARgenome
+├── WT_ERR458494_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for WT sample ERR458494
+├── WT_ERR458494_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
+├── WT_ERR458494_Log.final.out
+├── WT_ERR458494_Log.out
+├── WT_ERR458494_Log.progress.out
+├── WT_ERR458494_SJ.out.tab
+├── WT_ERR458494__STARgenome
 │   ├── exonGeTrInfo.tab
 │   ├── exonInfo.tab
 │   ├── geneInfo.tab
@@ -480,13 +497,13 @@ If ran successfully, you will see the message below:
 [1] "Processing file:  SNF2_ERR458504_Log.final.out"
 [1] "Processing file:  SNF2_ERR458505_Log.final.out"
 [1] "Processing file:  SNF2_ERR458506_Log.final.out"
-[1] "Processing file:  WT_1_ERR458493_Log.final.out"
-[1] "Processing file:  WT_1_ERR458494_Log.final.out"
-[1] "Processing file:  WT_1_ERR458495_Log.final.out"
-[1] "Processing file:  WT_1_ERR458496_Log.final.out"
-[1] "Processing file:  WT_1_ERR458497_Log.final.out"
-[1] "Processing file:  WT_1_ERR458498_Log.final.out"
-[1] "Processing file:  WT_1_ERR458499_Log.final.out"
+[1] "Processing file:  WT_ERR458493_Log.final.out"
+[1] "Processing file:  WT_ERR458494_Log.final.out"
+[1] "Processing file:  WT_ERR458495_Log.final.out"
+[1] "Processing file:  WT_ERR458496_Log.final.out"
+[1] "Processing file:  WT_ERR458497_Log.final.out"
+[1] "Processing file:  WT_ERR458498_Log.final.out"
+[1] "Processing file:  WT_ERR458499_Log.final.out"
 null device
           1
 ```
@@ -502,7 +519,8 @@ Now you are ready for the next step.
 <img src="../img/alignment_summary.png" width="500">
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](01_Setup.md)
 - [Process Raw Reads](02_Quality_Control.md)
 - Currently at: Read Alignment

@@ -144,7 +144,8 @@ If your organism is not within the above database, you will have to pick your ge
 - [R scripts](09_R_scripts.md)
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](01_Setup.md)
 - [Process Raw Reads](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
