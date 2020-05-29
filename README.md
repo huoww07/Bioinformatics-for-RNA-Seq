@@ -9,14 +9,14 @@ This tutorial will cover the basics of bioinformatics for RNA sequencing analysi
 - Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
 - Perform differential expression analysis using [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)  
 
-<img src="img/workflow.png" width="400">
+<img src="img/workflow.png" width="500">
 
 ## Prerequisites
 
 ### Basic understanding of computational skills
 - Introduction to [Linux](slides/Intro_To_Basic_Linux_SHARED.pdf)
 - Introduction to [HPC](slides/Tufts_HPC_Cluster_New_User_Guide.pdf)
-- Introduction to [R](https://monashdatafluency.github.io/r-intro-2/index.html)
+- Introduction to R [workshop materials](https://tufts.app.box.com/v/IntroR) and [recording](https://sites.tufts.edu/datalab/recorded-data-lab-workshops/)
 
 ### Materials Needed
 If you are a Tufts member and have access to Tufts HPC:
@@ -33,7 +33,8 @@ All scripts you will be using:
 
 
 ## Schedule
-- [Introduction](slides/Introduction.pdf)
+- Currently at: Course Home
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](lessons/01_Setup.md)
 - [Quality Control](lessons/02_Quality_Control.md)
 - [Read Alignment](lessons/03_Read_Alignment.md)

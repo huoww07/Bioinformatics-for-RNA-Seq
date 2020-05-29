@@ -45,15 +45,17 @@ We'll re-create the STAR genome index in our own directory in order to practice:
 
 - Get an interaction session on a compute node if you haven't done so
 
-`srun --pty -t 3:00:00  --mem 32G  -N 1 -n 4 bash`
+`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
 - load the module
 
 `module load STAR/2.7.0a`
 
-- create a directory to store the index in
+- Create a directory to store the index (directory should be created in the top level of the course directory `intro-to-RNA-seq`:
 
-`mkdir genome`
+```
+mkdir genome
+```
 
 - You can take a peak at the first 10 lines of the file `genome.fa` using the `head` command
 ```
@@ -179,7 +181,7 @@ Make a new directory for our results
 mkdir STAR_practice
 ```
 
-Open the script ./scripts/star_align_practice.sh in a text editor with `vi`
+Open the script ./scripts/star_align_practice.sh in a text editor, for example `nano scripts/star_align_practice.sh`: 
 
 ```
 ## Load STAR aligner
@@ -187,7 +189,7 @@ module load STAR/2.7.0a
 mkdir -p STAR_practice
 
 ## Assign the fastq file with its location. Extension with .fastq, .fq and .fastq.gz work the same
-FASTQ="raw_data/WT_1/ERR458493.fastq.gz"
+FASTQ="raw_data/WT/ERR458493.fastq.gz"
 
 ## If you have multiple fastq files for one same sample, you can compile them together by typing below
 #FASTQ="reads1.fastq, reads2.fastq"
@@ -225,8 +227,7 @@ We've given the following arguments to `STAR`:
 6. `--sjdbGTFfile" `: GTF annotation file for the gene expression calculation
 7. `--sjdbOverhang`:  specifies the length of the genomic sequence around the annotated junction to be used in constructing the splice junctions database. Ideally, this length should be equal to the ReadLength-1, where ReadLength is the length of the reads. For instance, for Illumina 2x100b paired-end reads, the ideal value is 100-1=99. In case of reads of varying length, the ideal value is max(ReadLength)-1. In most cases, the default value of 100 will work as well as the ideal value.
 
-
-Exit vi by typing `ESC` and `:wq` to save and name the file.
+Exit nano by typing `^X`.
 
 Now we can run our script using sh.
 ```
@@ -309,18 +310,18 @@ Further QC options are available with `RSEQC` and `samtools` packages (see scrip
 - **Bam format**
 
 The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) file.
-<img src="../img/BAM_format.png" width="500">
+<img src="../img/BAM_format.png" width="700">
 
 Take a look at the output file:
 ```markdown
 module load samtools/1.9
 samtools view -h STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam | less
 ```
-Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections
+Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections:
 
 Header:
 ```markdown
-@HD VN:1.4 SO:coordinate             <-- Format version (VN) and Sorting order of alignments (SO)
+@HD VN:1.4 SO:coordinate          <-- Format version (VN) and Sorting order of alignments (SO)
 @SQ SN:chrI LN:230218             <-- Reference sequence name (SN) and length (LN)
 ...
 ```
@@ -346,7 +347,7 @@ module load samtools/1.9
 samtools index STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam
 ```
 
-The result is a file with the extension `bai`:
+The result is a file with the extension `bai` in the same folder as our BAM file:
 ```
 WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 ```
@@ -363,26 +364,27 @@ WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 hours: 1
 cores: 4
 memory: 64 Gb
-directory: < leave default>`
+directory: < leave default >`
 ```
 
 - Click: `Launch`
 
 - Click: `Launch noVNC in New Tab` when it appears.
 
-<img src="../img/IGV_launch.png" width="400">
+<img src="../img/IGV_launch.png" width="500">
 
 - If the genome browser is cut off, resize using Chrome:
 
-<img src="../img/IGV_zoom.png" width="400">
+<img src="../img/IGV_zoom.png" width="500">
 
 - Enable RNA-seq-specific Splice Junction track by making the following selections in the IGV menu:
   1. `View -> Preferences`
 
-<img src="../img/IGV_preference.png" width="400">
-  2. `Alignments -> Track Display Options -> Splice Junction Track -> OK`
+<img src="../img/IGV_preference.png" width="500">
 
-<img src="../img/IGV_alignment.png" width="400">
+  2.`Alignments -> Track Display Options -> Splice Junction Track -> OK`
+
+<img src="../img/IGV_alignment.png" width="500">
 
 - Choose reference genome by clicking the `Genomes` menu and selecting `Load Genome from Server...`
 
@@ -394,16 +396,16 @@ directory: < leave default>`
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
-`~/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
+`/cluster/tufts/bio/tools/training/users/username/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
-<img src="../img/IGV_select_bam.png" width="400">
+<img src="../img/IGV_select_bam.png" width="500">
 
 In the genome coordinate box (shown below) type the gene name `SUS1`.
 We can see that another name of this gene is `YBR111W-A`.
 
 Here is a summary of the fields and tracks present in IGV:
 
-<img src="../img/IGV_track.png" width="600">
+<img src="../img/IGV_track.png" width="700">
 
 If we zoom in on the `YBR111W-A` gene, we see in the `Gene` track at the bottom that the gene contains two introns.
 We see in the `BAM` track that reads are spiced across the introns and that coverage track that read coverage in the area of the intron is missing as expected.  
@@ -411,16 +413,36 @@ We see in the `BAM` track that reads are spiced across the introns and that cove
 
 ## Process all samples: Align all reads from two conditions (WT and SNF2)
 
-In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. 
+Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
+You can do so manually by creating a new version of the script `./scripts/star_align_practice.sh` for each sample.
 
-You can do so manually by changing the FASTQ name in the file `./scripts/star_align_practice.sh`, and run `sh ./scripts/star_align_practice.sh` one at a time. Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
+This can be done by creating a copy of the script, e.g.:
+```
+cp ./scripts/star_align_practice.sh ./scripts/star_align_ERR458500.sh
+```
+Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g. by using `nano` to create the modified lines:
+```
+## Fastq files to align, separated by commas for multiple lanes of a single sample
+FASTQ="raw_data/SNF2/ERR458500.fastq.gz"
 
-Alternatively, we have prepared a script that will align all reads individually in a automatic manner. In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
+## Name the output file
+OUT="SNF2_ERR458500"
+```
+Finally, run `sh ./scripts/star_align_ERR458500.sh`.
+Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
+
+We have also prepared a script that will align all reads individually in a automatic manner. 
+
+In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
-Note: If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
+
+Note: If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
 
 After you get an interactive session, run the following commands:
-`sh ./scripts/star_align_individual.sh`
+```
+sh ./scripts/star_align_individual.sh
+```
 
 This step will automatically align individual fastq files to reference and use samtools to create indexes. This step will take about 15-30min to finish.
 
@@ -428,7 +450,7 @@ After the alignment is finished, type in
 `tree ./STAR`
  and you will see the aligned reads in STAR folder:
  ```
- (base) [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                <--command
+ [whuo01@pcomp45 intro-to-RNA-seq]$ tree STAR                       <--command
 STAR                                                                <--folder name: STAR
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for SNF2 sample ERR458500
 ├── SNF2_ERR458500_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
@@ -445,13 +467,13 @@ STAR                                                                <--folder na
 │   ├── sjdbList.out.tab
 │   └── transcriptInfo.tab
 ...
-├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for WT sample ERR458494
-├── WT_1_ERR458494_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
-├── WT_1_ERR458494_Log.final.out
-├── WT_1_ERR458494_Log.out
-├── WT_1_ERR458494_Log.progress.out
-├── WT_1_ERR458494_SJ.out.tab
-├── WT_1_ERR458494__STARgenome
+├── WT_ERR458494_Aligned.sortedByCoord.out.bam                    <--Aligned bam file for WT sample ERR458494
+├── WT_ERR458494_Aligned.sortedByCoord.out.bam.bai                <--Indexed bam.bai file
+├── WT_ERR458494_Log.final.out
+├── WT_ERR458494_Log.out
+├── WT_ERR458494_Log.progress.out
+├── WT_ERR458494_SJ.out.tab
+├── WT_ERR458494__STARgenome
 │   ├── exonGeTrInfo.tab
 │   ├── exonInfo.tab
 │   ├── geneInfo.tab
@@ -477,13 +499,13 @@ If ran successfully, you will see the message below:
 [1] "Processing file:  SNF2_ERR458504_Log.final.out"
 [1] "Processing file:  SNF2_ERR458505_Log.final.out"
 [1] "Processing file:  SNF2_ERR458506_Log.final.out"
-[1] "Processing file:  WT_1_ERR458493_Log.final.out"
-[1] "Processing file:  WT_1_ERR458494_Log.final.out"
-[1] "Processing file:  WT_1_ERR458495_Log.final.out"
-[1] "Processing file:  WT_1_ERR458496_Log.final.out"
-[1] "Processing file:  WT_1_ERR458497_Log.final.out"
-[1] "Processing file:  WT_1_ERR458498_Log.final.out"
-[1] "Processing file:  WT_1_ERR458499_Log.final.out"
+[1] "Processing file:  WT_ERR458493_Log.final.out"
+[1] "Processing file:  WT_ERR458494_Log.final.out"
+[1] "Processing file:  WT_ERR458495_Log.final.out"
+[1] "Processing file:  WT_ERR458496_Log.final.out"
+[1] "Processing file:  WT_ERR458497_Log.final.out"
+[1] "Processing file:  WT_ERR458498_Log.final.out"
+[1] "Processing file:  WT_ERR458499_Log.final.out"
 null device
           1
 ```
@@ -499,7 +521,8 @@ Now you are ready for the next step.
 <img src="../img/alignment_summary.png" width="500">
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](01_Setup.md)
 - [Process Raw Reads](02_Quality_Control.md)
 - Currently at: Read Alignment

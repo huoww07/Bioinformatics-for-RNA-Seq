@@ -11,7 +11,7 @@ Approximate time: 20 minutes
 - Log in with your Tufts Credentials
 - On the top menu bar choose Clusters->HPC Shell Access
 
-<img src="../img/od_terminal.png" width="400">
+<img src="../img/od_terminal.png" width="500">
 
 - Type your password at the prompt (the password will be hidden for security purposes):
 
@@ -24,67 +24,59 @@ This indicates you are logged in to the login node.
 
 - Type `clear` to clear the screen
 
-# Set up for the analysis
-- Find 500M storage space
-Check how much available storage you have in your home directory by typing `showquota`.
-
-Result:
-```
-Home Directory Quota
-Disk quotas for user whuo01 (uid 31394):
-     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
-hpcstore03:/hpc_home/home
-                  1222M   5120M   5120M            2161   4295m   4295m        
-
-
-Listing quotas for all groups you are a member of
-Group: facstaff	Usage: 16819478240KB	Quota: 214748364800KB	Percent Used: 7.00%
-```
-
-Under `blocks` you will see the amount of storage you are using, and under quota you see your quota.
-Here, the user has used 1222M/5120M and has enough space for our 500M analysis.
-
-- If you do not have 500M available, you may have space in a project directory for your lab.
-These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
-If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
-
-# Download the data
-- Get an interaction session on a compute node by typing:
+# Compute node allocation
+- Get an interactive session on a compute node by typing:
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-Once you hit enter, you will see something like below showing it is requesting for the session:
+Once you hit enter, you will see something like below showing that the job is queued:
 ```
-(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
+[whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
 srun: job 55918493 queued and waiting for resources
 ```
-If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
-
+If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
+You can press `Ctrl-C` to cancel your request and try again with different options, e.g.:
 ```
-(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p preempt bash
-(base) [whuo01@pcomp45 ~]$
+[whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
+[whuo01@pcomp45 ~]$
 ```
 
-The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. This is an indication that you may proceed to the next step.
-
+The success is indicated by the change of node name after your username. Here it was changed from `login001` to `pcomp45`. 
+This is an indication that you may proceed to the next step.
 Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
 
+# Course data
+- Since our home directory will likely not have enough space for the analysis (> 3Gb), we'll work in a course directory. 
+Your work will be saved here for 30 days.**  Change to the course directory
 
-- Change to your home directory
-`cd ~`
-Or, if you are using a project directory:
-`cd /cluster/tufts/labname/username/`
+```
+cd /cluster/tufts/bio/tools/training/intro-to-rnaseq/users/
+```
 
-- Copy the course directory:
-`cp /cluster/tufts/bio/tools/training/bioinformatics-for-rna-seq/intro-to-RNA-seq.tar.gz ./`
+**Note: If you have a project directory for your lab, you may use this instead.
+These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
+If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
+
+- Make a directory for your work (replace `whuo01` in the below commands with your username)
+```
+mkdir whuo01
+cd whuo01
+```
+
+- Copy the course files into your own directory:
+```
+cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz .
+```
 
 - Unzip the course directory:
-`tar -xvzf intro-to-RNA-seq.tar.gz`
+```
+tar -xvzf intro-to-RNA-seq-May-2020.tar.gz
+```
 
-- Take a look at the contents by typing:
+- Take a look at the contents of the unzipped directory by typing:
 `tree intro-to-RNA-seq`
 
-You'll see a list of all files
+Result:
 ```
 intro-to-RNA-seq/
 ├── ERP004763_info.txt                 <-- sample description
@@ -98,7 +90,7 @@ intro-to-RNA-seq/
 │   │   ├── ERR458504.fastq.gz
 │   │   ├── ERR458505.fastq.gz
 │   │   └── ERR458506.fastq.gz
-│   └── WT_1
+│   └── WT
 │       ├── ERR458493.fastq.gz
 │       ├── ERR458494.fastq.gz
 │       ├── ERR458495.fastq.gz
@@ -121,17 +113,21 @@ intro-to-RNA-seq/
 
 Publication: [Statistical Models for RNA-seq Data Derived From a Two-Condition 48-replicate Experiment.](https://pubmed.ncbi.nlm.nih.gov/26206307/?utm_source=gquery&utm_medium=referral&utm_campaign=CitationSensor)
 
+Purpose: The experiment seeks to compare a wild type Saccharomyces cerevisiae with a mutant that contains a knock-out in the gene SNF2.
+The purpose of the study is to analyze variability in sequencing replicates.
+
 Project access number: [PRJEB5348](https://www.ncbi.nlm.nih.gov/bioproject/PRJEB5348)
 
-Samples downloaded for our workshop: WT v.s. SNF2 (a snf2 knock-out mutant cell line)
+Samples: The `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from a yeast sample with a knock-out mutation in the gene SNF2.
+Note that for the workshop purposes we are treating the 7 sequencing files as if they originate from separate biological replicates.
 
 Organism: Saccharomyces cerevisiae
 
 Sequencing: Illumina HiSeq, Single End, 50bp read length
 
-
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - Currently at: Setup using Tufts HPC
 - Next: [Quality Control](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)

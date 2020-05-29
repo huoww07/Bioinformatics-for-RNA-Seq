@@ -28,7 +28,7 @@ An example of a transcript with multiple exons:
 Get an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-Create a new script called `featureccounts.sh` using the vi text editor `vi featurecounts.sh` and enter the following
+Create a new script called `featureccounts.sh` using the `nano` text editor `nano featurecounts.sh` and enter the following
 content:
 
 ```
@@ -78,13 +78,13 @@ Result:
 ||                           S SNF2_ERR458504_Aligned.sortedByCoord.out.bam   ||
 ||                           S SNF2_ERR458505_Aligned.sortedByCoord.out.bam   ||
 ||                           S SNF2_ERR458506_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458493_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458494_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458495_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458496_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458497_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458498_Aligned.sortedByCoord.out.bam   ||
-||                           S WT_1_ERR458499_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458493_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458494_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458495_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458496_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458497_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458498_Aligned.sortedByCoord.out.bam   ||
+||                           S WT_ERR458499_Aligned.sortedByCoord.out.bam   ||
 ||                                                                            ||
 ||             Output file : featurecounts_results.txt                        ||
 ||                 Summary : featurecounts_results.txt.summary                ||
@@ -156,49 +156,49 @@ Result:
 ||    Successfully assigned alignments : 1481499 (87.8%)                      ||
 ||    Running time : 0.03 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458493_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458493_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 938174                                               ||
 ||    Successfully assigned alignments : 842074 (89.8%)                       ||
 ||    Running time : 0.02 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458494_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458494_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 924491                                               ||
 ||    Successfully assigned alignments : 829144 (89.7%)                       ||
 ||    Running time : 0.02 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458495_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458495_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 914201                                               ||
 ||    Successfully assigned alignments : 820229 (89.7%)                       ||
 ||    Running time : 0.01 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458496_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458496_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 844737                                               ||
 ||    Successfully assigned alignments : 757537 (89.7%)                       ||
 ||    Running time : 0.01 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458497_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458497_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 725805                                               ||
 ||    Successfully assigned alignments : 651026 (89.7%)                       ||
 ||    Running time : 0.01 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458498_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458498_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 730269                                               ||
 ||    Successfully assigned alignments : 654642 (89.6%)                       ||
 ||    Running time : 0.01 minutes                                             ||
 ||                                                                            ||
-|| Process BAM file WT_1_ERR458499_Aligned.sortedByCoord.out.bam...           ||
+|| Process BAM file WT_ERR458499_Aligned.sortedByCoord.out.bam...           ||
 ||    Single-end reads are included.                                          ||
 ||    Assign alignments to features...                                        ||
 ||    Total alignments : 937026                                               ||
@@ -266,7 +266,8 @@ cat featurecounts/featurecounts_results.txt |sed "2s/STAR\///g" | sed "2s/\_Alig
 This line of command will modify the column names to simplified names. Now you are ready for the next step.
 
 ## Workshop Schedule
-- [Introduction](../README.md)
+- [Course Home](../README.md)
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](01_Setup.md)
 - [Process Raw Reads](02_Quality_Control.md)
 - [Read Alignment](03_Read_Alignment.md)
