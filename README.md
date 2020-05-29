@@ -9,7 +9,7 @@ This tutorial will cover the basics of bioinformatics for RNA sequencing analysi
 - Intro to command line bioinformatics tools: [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/), [STAR](https://github.com/alexdobin/STAR), [SAMtools](http://samtools.sourceforge.net/)
 - Perform differential expression analysis using [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html) in [Rstudio](https://rstudio.com/)  
 
-<img src="img/workflow.png" width="600">
+<img src="img/workflow.png" width="500">
 
 ## Prerequisites
 

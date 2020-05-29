@@ -25,35 +25,35 @@ This indicates you are logged in to the login node.
 - Type `clear` to clear the screen
 
 # Compute node allocation
-- Get an interaction session on a compute node by typing:
+- Get an interactive session on a compute node by typing:
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-- Get an interaction session on a compute node by typing:
-
-`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
-
-Once you hit enter, you will see something like below showing it is requesting for the session:
+Once you hit enter, you will see something like below showing that the job is queued:
 ```
-(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
+[whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
 srun: job 55918493 queued and waiting for resources
 ```
-If wait times are very long, you can try a different partitions by adding, e.g. -p interactive before bash.
+If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
 
 ```
-(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
-(base) [whuo01@pcomp45 ~]$
+[whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
+[whuo01@pcomp45 ~]$
 ```
 
 The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. 
 This is an indication that you may proceed to the next step.
 Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
 
-# Course data and working directory
-- Change to the course directory*
-`cd /cluster/tufts/bio/tools/training/intro-to-rnaseq/users/`
+# Course data
+- Since our home directory will likely not have enough space for the analysis (> 3Gb), we'll work in a course directory. 
+Your work will be saved here for 30 days.**  Change to the course directory
 
-* If you have a project directory for your lab, you may use this instead.
+```
+cd /cluster/tufts/bio/tools/training/intro-to-rnaseq/users/
+```
+
+**Note: If you have a project directory for your lab, you may use this instead.
 These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
 If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
 
@@ -65,13 +65,14 @@ cd whuo01
 
 - Copy the course files into your own directory
 `cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz .`
+
 - Unzip the course directory:
 `tar -xvzf intro-to-RNA-seq.tar.gz`
 
-- Take a look at the contents by typing:
+- Take a look at the contents of the unzipped directory by typing:
 `tree intro-to-RNA-seq`
 
-You'll see a list of all files
+Result:
 ```
 intro-to-RNA-seq/
 ├── ERP004763_info.txt                 <-- sample description
@@ -110,7 +111,7 @@ Publication: [Statistical Models for RNA-seq Data Derived From a Two-Condition 4
 
 Project access number: [PRJEB5348](https://www.ncbi.nlm.nih.gov/bioproject/PRJEB5348)
 
-Samples downloaded for our workshop: `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from our mutant yeast sample.
+Samples: `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from a yeast sample with a knock-out mutation in the gene SNF2.
 Note that for the workshop purposes we are treating the 7 sequencing files as if they originate from separate biological replicates.
 
 Organism: Saccharomyces cerevisiae
