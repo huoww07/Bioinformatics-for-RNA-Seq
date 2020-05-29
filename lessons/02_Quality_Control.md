@@ -134,13 +134,13 @@ Return to the tab [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
 
 On the top menu bar choose `Files->Projects`
 
-<img src="../img/od_files_projects.png" width="400">
+<img src="../img/od_files_projects.png" width="300">
 
 A new tab will open listing all the project folders in `/cluster/tufts/`.
 Navigate to the `fastqc` folder in course directory, e.g.: `bio/tools/training/intro-to-rnaseq/users/username/intro-to-RNA-seq/fastqc/`
 Right click on the file `ERR458493_fastqc.html` and select `Open in new tab`.
 
-<img src="../img/od_newtab_1.png" width="600">
+<img src="../img/od_newtab_1.png" width="400">
 
 The new tab that opens in the browser has the results of FastQC for the sample.
 
@@ -154,7 +154,7 @@ Explanations adapted from [https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf](h
 
 This view shows an overview of the range of quality values across all bases at each position in the FastQ file
 
-<img src="../img/fastqc_per_base_qual.png" width="400">
+<img src="../img/fastqc_per_base_qual.png" width="500">
 
 For each position a BoxWhisker type plot is drawn. The elements of the plot are as follows:
 - The central red line is the median value
@@ -171,14 +171,14 @@ The quality of calls on most platforms will degrade as the run progresses, so it
 The Per Sequence Quality Score plots the distribution of mean sequence quality.
 This plot allows will show a peak toward lower mean quality if there is a subset of sequences with  low quality values. 
 
-<img src="../img/fastqc_per_sequence_qual.png" width="400">
+<img src="../img/fastqc_per_sequence_qual.png" width="500">
 
 - **Per base sequence content**
 
 The Per Base Sequence Content plot shows the the proportion of each base called at each position in the read, 
 for all reads in the file.
 
-<img src="../img/fastqc_per_seq_content.png" width="400">
+<img src="../img/fastqc_per_seq_content.png" width="500">
 
 In a random library you would expect that there would be little to no difference between the different bases of a sequence run, so the lines in this plot should run parallel with each other. 
 In our results, you can clearly see the biased sequence in the first ~12 bases of the run. 
@@ -200,7 +200,7 @@ Also the biases are very similar between libraries, so any artifacts which were 
 This module measures the GC content across the whole length of each sequence in a file
 and compares it to a modelled normal distribution of GC content.
 
-<img src="../img/fastqc_gc.png" width="400">
+<img src="../img/fastqc_gc.png" width="500">
 
 In a normal random library you would expect to see a roughly normal distribution of GC content where the central peak corresponds to the overall GC content of the underlying genome. Since we don't know the the GC content of the genome the modal GC content is calculated from the observed data and used to build a reference distribution. An unusually shaped distribution could indicate a contaminated library or some other kinds of biased subset. A normal distribution which is shifted indicates some systematic bias which is independent of base position. If there is a systematic bias which creates a shifted normal distribution then this won't be flagged as an error by the module since it doesn't know what your genome's GC content should be.
 
@@ -209,7 +209,7 @@ In a normal random library you would expect to see a roughly normal distribution
 If a sequencer is unable to make a base call with sufficient confidence then it will normally substitute an N rather than a conventional base call . 
 This plot shows the percentage of base calls at each position for which an N was substituted.
 
-<img src="../img/fastqc_n.png" width="400">
+<img src="../img/fastqc_n.png" width="500">
 
 
 - **Sequence Length Distribution**
@@ -219,7 +219,7 @@ Depending on the sequencing method and whether reads have been post-processed, i
 uniform length or varying lengths.
 For our data we see a sharp peak at 51 basepairs.
 
-<img src="../img/fastqc_length.png" width="400">
+<img src="../img/fastqc_length.png" width="500">
 
 - **Sequence Duplication Levels**
 
@@ -229,7 +229,7 @@ This level of duplication is expected for RNAseq, due to the vastly different le
 RNAseq libraries tend to have higher levels of duplication than DNA libraries, due to the presence of highly expressed transcripts.
 Deduplication is not recommended for RNAseq sequencing files.
 
-<img src="../img/fastqc_dedup_1.png" width="400">
+<img src="../img/fastqc_dedup_1.png" width="500">
 
 - **Overrepresented sequences**
 
@@ -256,7 +256,7 @@ If overrepresented sequences are found but not identified by FastQC, try a
 
 This module looks for common adapters in the sequence. In this example, there are no adapters found.
 
-<img src="../img/adapter_content.png" width="400">
+<img src="../img/adapter_content.png" width="500">
 
 Explanations adapted from tthe [FastQC Manual][https://dnacore.missouri.edu/PDF/FastQC_Manual.pdf]
 
