@@ -175,21 +175,22 @@ This plot allows will show a peak toward lower mean quality if there is a subset
 
 - **Per base sequence content**
 
-Per Base Sequence Content plots out the proportion of each base position in a file for which each of the four normal DNA bases has been called.
+The Per Base Sequence Content plot shows the the proportion of each base called at each position in the read, 
+for all reads in the file.
 
 <img src="../img/fastqc_per_seq_content.png" width="400">
 
 In a random library you would expect that there would be little to no difference between the different bases of a sequence run, so the lines in this plot should run parallel with each other. 
 In our results, you can clearly see the biased sequence in the first ~12 bases of the run. 
-This bias then dissipates over the rest of the run which shows the expected parallel tracks in the base content for each base.  
+This bias then dissipates over the rest of the run which shows the expected parallel tracks in the base content for each base.
 This happens in pretty much all RNA-Seq libraries to a greater or lesser extent.
 
-The cause of this bias is the random priming step in library production. 
-The priming should be driven by a selection of random hexamers which in theory should all be present with equal frequency in the priming mix and should all prime with equal efficiency. 
+The cause of this bias is the random priming step in library production.
+The priming should be driven by a selection of random hexamers which in theory should all be present with equal frequency in the priming mix and should all prime with equal efficiency.
 In the real world it turns out that this isn’t the case and that certain hexamers are favoured during the priming step, resulting in the based composition over the region of the library primed by the random primers.
 
-The biased selection though doesn’t appear to be strong enough to cause major headaches in downstream quantitation of data. 
-A strong bias would result in a very uneven coverage of different parts of a transcript based on its sequence content, and most RNA-Seq libraries do not show these types of localised biases (excepting biases from mappability and other factors beyond this effect).  
+The biased selection though doesn’t appear to be strong enough to cause major headaches in downstream quantitation of data.
+A strong bias would result in a very uneven coverage of different parts of a transcript based on its sequence content, and most RNA-Seq libraries do not show these types of localised biases (excepting biases from mappability and other factors beyond this effect).
 Also the biases are very similar between libraries, so any artifacts which were introduced should cancel out when doing any kind of differential analysis.
 
 [This article](https://sequencing.qcfail.com/articles/positional-sequence-bias-in-random-primed-libraries/) has more details.
