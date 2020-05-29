@@ -11,7 +11,7 @@ Approximate time: 20 minutes
 - Log in with your Tufts Credentials
 - On the top menu bar choose Clusters->HPC Shell Access
 
-<img src="../img/od_terminal.png" width="400">
+<img src="../img/od_terminal.png" width="500">
 
 - Type your password at the prompt (the password will be hidden for security purposes):
 
@@ -24,31 +24,11 @@ This indicates you are logged in to the login node.
 
 - Type `clear` to clear the screen
 
-# Set up for the analysis
-- Find 500M storage space
-Check how much available storage you have in your home directory by typing `showquota`.
+# Compute node allocation
+- Get an interaction session on a compute node by typing:
 
-Result:
-```
-Home Directory Quota
-Disk quotas for user whuo01 (uid 31394):
-     Filesystem  blocks   quota   limit   grace   files   quota   limit   grace
-hpcstore03:/hpc_home/home
-                  1222M   5120M   5120M            2161   4295m   4295m        
+`srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
 
-
-Listing quotas for all groups you are a member of
-Group: facstaff	Usage: 16819478240KB	Quota: 214748364800KB	Percent Used: 7.00%
-```
-
-Under `blocks` you will see the amount of storage you are using, and under quota you see your quota.
-Here, the user has used 1222M/5120M and has enough space for our 500M analysis.
-
-- If you do not have 500M available, you may have space in a project directory for your lab.
-These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
-If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
-
-# Download the data
 - Get an interaction session on a compute node by typing:
 
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`
@@ -58,26 +38,33 @@ Once you hit enter, you will see something like below showing it is requesting f
 (base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
 srun: job 55918493 queued and waiting for resources
 ```
-If wait times are very long, you can try a different partitions by adding, e.g. -p preempt or -p interactive before bash.
+If wait times are very long, you can try a different partitions by adding, e.g. -p interactive before bash.
 
 ```
-(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p preempt bash
+(base) [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
 (base) [whuo01@pcomp45 ~]$
 ```
 
-The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. This is an indication that you may proceed to the next step.
-
+The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. 
+This is an indication that you may proceed to the next step.
 Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
 
+# Course data and working directory
+- Change to the course directory*
+`cd /cluster/tufts/bio/tools/training/intro-to-rnaseq/users/`
 
-- Change to your home directory
-`cd ~`
-Or, if you are using a project directory:
-`cd /cluster/tufts/labname/username/`
+* If you have a project directory for your lab, you may use this instead.
+These are located in `/cluster/tufts` with names like `/cluster/tufts/labname/username/`.
+If you don't know whether you have project space, please email [tts-research@tufts.edu](mailto:tts-research@tufts.edu).
 
-- Copy the course directory:
-`cp /cluster/tufts/bio/tools/training/bioinformatics-for-rna-seq/intro-to-RNA-seq.tar.gz ./`
+- Make a directory for your work (replace `whuo01` in the below commands with your username)
+```
+mkdir whuo01
+cd whuo01
+```
 
+- Copy the course files into your own directory
+`cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz .`
 - Unzip the course directory:
 `tar -xvzf intro-to-RNA-seq.tar.gz`
 
@@ -98,7 +85,7 @@ intro-to-RNA-seq/
 │   │   ├── ERR458504.fastq.gz
 │   │   ├── ERR458505.fastq.gz
 │   │   └── ERR458506.fastq.gz
-│   └── WT_1
+│   └── WT
 │       ├── ERR458493.fastq.gz
 │       ├── ERR458494.fastq.gz
 │       ├── ERR458495.fastq.gz
@@ -123,7 +110,8 @@ Publication: [Statistical Models for RNA-seq Data Derived From a Two-Condition 4
 
 Project access number: [PRJEB5348](https://www.ncbi.nlm.nih.gov/bioproject/PRJEB5348)
 
-Samples downloaded for our workshop: WT v.s. SNF2 (a snf2 knock-out mutant cell line)
+Samples downloaded for our workshop: `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from our mutant yeast sample.
+Note that for the workshop purposes we are treating the 7 sequencing files as if they originate from separate biological replicates.
 
 Organism: Saccharomyces cerevisiae
 
