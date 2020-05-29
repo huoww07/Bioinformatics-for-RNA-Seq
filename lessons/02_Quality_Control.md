@@ -13,7 +13,7 @@ If you need to refresh your memory about Illumina sequencing technology, please 
 - **FASTQ format**
 
 Change into the`raw_data` directory inside our main course directory `intro-to-RNA-seq`:
-```markdown
+```
 cd intro-to-RNA-seq/raw_data
 ```
 
@@ -21,7 +21,7 @@ First, we'll take a look at our raw data.
 Since our data it gzip compressed, we'll use the command `zcat` to read the file without decompressing.
 We'll follow that command by the bash pip `|` and `head` in order to show only the first few lines
 
-```markdown
+```
 zcat WT/ERR458493.fastq.gz | head
 ```
 
@@ -140,7 +140,7 @@ A new tab will open listing all the project folders in `/cluster/tufts/`.
 Navigate to the `fastqc` folder in course directory, e.g.: `bio/tools/training/intro-to-rnaseq/users/username/intro-to-RNA-seq/fastqc/`
 Right click on the file `ERR458493_fastqc.html` and select `Open in new tab`.
 
-<img src="../img/od_new_tab_1.png" width="600">
+<img src="../img/od_newtab_1.png" width="600">
 
 The new tab that opens in the browser has the results of FastQC for the sample.
 
