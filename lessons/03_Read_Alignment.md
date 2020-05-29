@@ -178,15 +178,15 @@ Since our alignment command will have multiple arguments, it will be convenient 
 
 Make a new directory for our results
 ```markdown
-mkdir STAR_practice
+mkdir STAR
 ```
 
-Open the script ./scripts/star_align_practice.sh in a text editor, for example `nano scripts/star_align_practice.sh`: 
+Open the script ./scripts/star_align_practice.sh in a text editor, for example `nano scripts/star_align_practice.sh`:
 
 ```
 ## Load STAR aligner
 module load STAR/2.7.0a
-mkdir -p STAR_practice
+mkdir -p STAR
 
 ## Assign the fastq file with its location. Extension with .fastq, .fq and .fastq.gz work the same
 FASTQ="raw_data/WT/ERR458493.fastq.gz"
@@ -204,7 +204,7 @@ REF_DIR="/cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3"
 STAR --genomeDir ${REF_DIR}/Sequence/STAR \
 --readFilesIn ${FASTQ} \
 --readFilesCommand zcat \
---outFileNamePrefix STAR_practice/${OUT}_ \
+--outFileNamePrefix STAR/${OUT}_ \
 --outFilterMultimapNmax 1 \
 --outSAMtype BAM SortedByCoordinate \
 --runThreadN 4 \
@@ -248,9 +248,9 @@ May 21 13:11:29 ..... finished successfully
 # Step 4. View results.
 
 View result by typing in:
-`ls -lh STAR_practice/`
+`ls -lh STAR/`
 ```markdown
-(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ ls -lh STAR_practice/
+(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ ls -lh STAR/
 total 46M
 -rw-rw---- 1 whuo01 isberg  46M May 21 13:11 WT_ERR458493_Aligned.sortedByCoord.out.bam
 -rw-rw---- 1 whuo01 isberg 1.8K May 21 13:11 WT_ERR458493_Log.final.out
@@ -260,10 +260,10 @@ total 46M
 drwx--S--- 2 whuo01 isberg 4.0K May 21 13:11 WT_ERR458493__STARgenome
 ```
 The file `WT_ERR458493_Log.final.out` will give us a summary of the run. Take a look at the summary by running:
-`cat STAR_practice/WT_ERR458493_Log.final.out`
+`cat STAR/WT_ERR458493_Log.final.out`
 
 ```
-(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ cat STAR_practice/WT_ERR458493_Log.final.out
+(base) [whuo01@m4lmem01 intro-to-RNA-seq]$ cat STAR/WT_ERR458493_Log.final.out
                                  Started job on |       May 21 13:11:07
                              Started mapping on |       May 21 13:11:17
                                     Finished on |       May 21 13:11:29
@@ -314,7 +314,7 @@ The BAM file is a binary compressed version of a Sequence Alignment Map (SAM) fi
 Take a look at the output file:
 ```markdown
 module load samtools/1.9
-samtools view -h STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam | less
+samtools view -h STAR/WT_ERR458493_Aligned.sortedByCoord.out.bam | less
 ```
 Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections:
 
@@ -343,7 +343,7 @@ We'll generate one using `samtools`.
 
 ```
 module load samtools/1.9
-samtools index STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam
+samtools index STAR/WT_ERR458493_Aligned.sortedByCoord.out.bam
 ```
 
 The result is a file with the extension `bai` in the same folder as our BAM file:
@@ -395,7 +395,7 @@ directory: < leave default >`
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
-`/cluster/tufts/bio/tools/training/users/username/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
+`/cluster/tufts/bio/tools/training/users/YOUR_USERNAME/intro-to-RNA-seq/STAR/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
 <img src="../img/IGV_select_bam.png" width="500">
 
@@ -412,7 +412,7 @@ We see in the `BAM` track that reads are spiced across the introns and that cove
 
 ## Process all samples: Align all reads from two conditions (WT and SNF2)
 
-In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example. 
+In the previous steps, we learned how to do quality control and read alignment using one WT fastq file as an example.
 Here, before we continue to the next step, we wanted to do the same procedure for all samples in both WT and SNF2 conditions so that we can performed the differential expression analysis.
 You can do so manually by creating a new version of the script `./scripts/star_align_practice.sh` for each sample.
 
@@ -420,7 +420,7 @@ This can be done by creating a copy of the script, e.g.:
 ```
 cp ./scripts/star_align_practice.sh ./scripts/star_align_ERR458500.sh
 ```
-Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g. by using `nano` to create the modified lines:
+Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g. by using `nano ./scripts/star_align_ERR458500.sh` to create the modified lines:
 ```
 ## Fastq files to align, separated by commas for multiple lanes of a single sample
 FASTQ="raw_data/SNF2/ERR458500.fastq.gz"
@@ -428,10 +428,10 @@ FASTQ="raw_data/SNF2/ERR458500.fastq.gz"
 ## Name the output file
 OUT="SNF2_ERR458500"
 ```
-Finally, run `sh ./scripts/star_align_ERR458500.sh`.
+Exit by pressing Crtl and X and save the file by entering Y when prompt. Finally, run `sh ./scripts/star_align_ERR458500.sh`.
 Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
 
-We have also prepared a script that will align all reads individually in a automatic manner. 
+We have also prepared a script that will align all reads individually in a automatic manner.
 
 In order to use our pre-written scripts, first make sure you have an interaction session on a compute node by typing:
 `srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash`

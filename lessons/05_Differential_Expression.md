@@ -38,7 +38,7 @@ getwd()
 ```
 To change to our workshop directory:
 ```markdown
-setwd('~/into-to-RNA-seq/')
+setwd('/cluster/tufts/bio/tools/training/intro-to-rnaseq/users/YOUR_USERNAME/into-to-RNA-seq/')
 ```
 
 Check which paths on the cluster R will use to find library locations:
