@@ -35,13 +35,13 @@ Once you hit enter, you will see something like below showing that the job is qu
 srun: job 55918493 queued and waiting for resources
 ```
 If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
-
+You can press `Ctrl-C` to cancel your request and try again with different options, e.g.:
 ```
 [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
 [whuo01@pcomp45 ~]$
 ```
 
-The success is indicated by the change of environment name after your username. Here it was changed from `login001` to `pcomp45`. 
+The success is indicated by the change of node name after your username. Here it was changed from `login001` to `pcomp45`. 
 This is an indication that you may proceed to the next step.
 Note: If you go through this workshop in multiple steps, you will have to rerun this step each time you log in.
 
@@ -63,11 +63,15 @@ mkdir whuo01
 cd whuo01
 ```
 
-- Copy the course files into your own directory
-`cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz .`
+- Copy the course files into your own directory:
+```
+cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz .
+```
 
 - Unzip the course directory:
-`tar -xvzf intro-to-RNA-seq.tar.gz`
+```
+tar -xvzf intro-to-RNA-seq-May-2020.tar.gz
+```
 
 - Take a look at the contents of the unzipped directory by typing:
 `tree intro-to-RNA-seq`
@@ -109,15 +113,17 @@ intro-to-RNA-seq/
 
 Publication: [Statistical Models for RNA-seq Data Derived From a Two-Condition 48-replicate Experiment.](https://pubmed.ncbi.nlm.nih.gov/26206307/?utm_source=gquery&utm_medium=referral&utm_campaign=CitationSensor)
 
+Purpose: The experiment seeks to compare a wild type Saccharomyces cerevisiae with a mutant that contains a knock-out in the gene SNF2.
+The purpose of the study is to analyze variability in sequencing replicates.
+
 Project access number: [PRJEB5348](https://www.ncbi.nlm.nih.gov/bioproject/PRJEB5348)
 
-Samples: `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from a yeast sample with a knock-out mutation in the gene SNF2.
+Samples: The `WT` folder contains 7 sequencing files from a wild type yeast sample, `SNF2` contains 7 sequencing files from a yeast sample with a knock-out mutation in the gene SNF2.
 Note that for the workshop purposes we are treating the 7 sequencing files as if they originate from separate biological replicates.
 
 Organism: Saccharomyces cerevisiae
 
 Sequencing: Illumina HiSeq, Single End, 50bp read length
-
 
 ## Workshop Schedule
 - [Course Home](../README.md)

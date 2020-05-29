@@ -51,10 +51,9 @@ We'll re-create the STAR genome index in our own directory in order to practice:
 
 `module load STAR/2.7.0a`
 
-- Go back to the top of our course directory and create a directory to store the index:
+- Create a directory to store the index (directory should be created in the top level of the course directory `intro-to-RNA-seq`:
 
 ```
-cd ..
 mkdir genome
 ```
 
@@ -318,11 +317,11 @@ Take a look at the output file:
 module load samtools/1.9
 samtools view -h STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam | less
 ```
-Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections
+Press `space` to scroll down to the file, and press `q` to exit viewing the file. The file has two sections:
 
 Header:
 ```markdown
-@HD VN:1.4 SO:coordinate             <-- Format version (VN) and Sorting order of alignments (SO)
+@HD VN:1.4 SO:coordinate          <-- Format version (VN) and Sorting order of alignments (SO)
 @SQ SN:chrI LN:230218             <-- Reference sequence name (SN) and length (LN)
 ...
 ```
@@ -365,7 +364,7 @@ WT_ERR458493_Aligned.sortedByCoord.out.bam.bai
 hours: 1
 cores: 4
 memory: 64 Gb
-directory: < leave default>`
+directory: < leave default >`
 ```
 
 - Click: `Launch`
@@ -397,7 +396,7 @@ directory: < leave default>`
 
 Click `File-> Load from File`
 Choose the sorted and indexed BAM files we generated:
-`~/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
+`/cluster/tufts/bio/tools/training/users/username/intro-to-RNA-seq/STAR_practice/WT_ERR458493_Aligned.sortedByCoord.out.bam`
 
 <img src="../img/IGV_select_bam.png" width="500">
 
@@ -422,13 +421,14 @@ This can be done by creating a copy of the script, e.g.:
 ```
 cp ./scripts/star_align_practice.sh ./scripts/star_align_ERR458500.sh
 ```
-Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g.:
+Then, change the name of the input `FASTQ` and output `OUT` to match the sample you are aligning, e.g. by using `nano` to create the modified lines:
+```
 ## Fastq files to align, separated by commas for multiple lanes of a single sample
 FASTQ="raw_data/SNF2/ERR458500.fastq.gz"
 
 ## Name the output file
 OUT="SNF2_ERR458500"
-
+```
 Finally, run `sh ./scripts/star_align_ERR458500.sh`.
 Eventually, we want to align 7 WT samples and 7 SNF2 samples individually and generate 14 bam files in total.
 

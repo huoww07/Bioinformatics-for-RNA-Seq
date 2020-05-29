@@ -16,7 +16,7 @@ This tutorial will cover the basics of bioinformatics for RNA sequencing analysi
 ### Basic understanding of computational skills
 - Introduction to [Linux](slides/Intro_To_Basic_Linux_SHARED.pdf)
 - Introduction to [HPC](slides/Tufts_HPC_Cluster_New_User_Guide.pdf)
-- Introduction to [R](https://tufts.app.box.com/v/IntroR) and [recorded version](https://sites.tufts.edu/datalab/recorded-data-lab-workshops/)
+- Introduction to R [workshop materials](https://tufts.app.box.com/v/IntroR) and [recording](https://sites.tufts.edu/datalab/recorded-data-lab-workshops/)
 
 ### Materials Needed
 If you are a Tufts member and have access to Tufts HPC:
@@ -33,7 +33,7 @@ All scripts you will be using:
 
 
 ## Schedule
-- Currently at:[Course Home](../README.md)
+- Currently at: Course Home
 - [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
 - [Setup using Tufts HPC](lessons/01_Setup.md)
 - [Quality Control](lessons/02_Quality_Control.md)
