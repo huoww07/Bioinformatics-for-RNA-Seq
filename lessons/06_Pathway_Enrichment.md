@@ -37,7 +37,7 @@ Go to `File`, choose `Open Project...`, navigate to your folder and selected the
 library(ggplot2)
 
 # add another column in the results table to label the significant genes using threshold of padj<0.05 and absolute value of log2foldchange >=1
-res_table <- results %>%
+res_table <- res %>%
   data.frame() %>%
   rownames_to_column(var="gene") %>%
   as_tibble()
