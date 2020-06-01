@@ -2,8 +2,8 @@
 ## These scripts are used to calculate differential expression using featurecounts data
 
 ```markdown
-# set to work directory: make sure to set directory to where you store featurecounts result
-setwd("~/into-to-RNA-seq/")
+# set to work directory: make sure to set directory to project folder. Change whuo01 to your own username below
+setwd("/cluster/tufts/bio/tools/training/intro-to-rnaseq/users/whuo01/intro-to-RNA-seq/")
 
 # load shared Tufts bio library path; if you don't have access to tufts HPC, skip this step
 .libPaths('/cluster/tufts/bio/tools/R_libs/3.5')
@@ -22,6 +22,9 @@ library(pheatmap)
 meta <- read.table("raw_data/sample_info.txt", header=TRUE)
 feature_count <- read.table("./featurecounts/featurecounts_results.mod.txt",
                             header=TRUE, row.names = 1)
+# remove first 6 columns by select the column 6 to 19
+data <- feature_count[,6:19]
+
 # check to make sure that all rows labels in meta are columns in data
 all(colnames(data) == rownames(meta))
 
@@ -79,7 +82,7 @@ pheatmap(rld_counts_sig,
 # load necessary library ggplot2
 library(ggplot2)
 # add another column in the results table to label the significant genes using threshold of padj<0.05 and absolute value of log2foldchange >=1
-res_table <- results %>%
+res_table <- res %>%
   data.frame() %>%
   rownames_to_column(var="gene") %>%
   as_tibble()
@@ -91,7 +94,7 @@ view(res_table)
 ggplot(res_table) +
   geom_point(aes(x = log2FoldChange, y = -log10(padj), colour = threshold_OE)) +
   scale_color_manual(values=c("black", "red")) +  # black v.s. red dots
-  ggtitle("WT v.s. SNF2") +                       # this line defines the title of the plot
+  ggtitle("SNF2 against WT") +                       # this line defines the title of the plot
   xlab("log2 fold change") +                      # this line defines the name of the x-axis
   ylab("-log10 adjusted p-value") +               # name of y-axis
   scale_x_continuous(limits = c(-7.5,7.5)) +      # the axis range is set to be from -7.5 to 7.5
