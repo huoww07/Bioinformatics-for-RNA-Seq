@@ -15,6 +15,7 @@ Approximate time: 60 minutes
 
 <img src="../img/rstudio.png" width="400">
 4. Choose:
+
 ```markdown
 Number of hours: 4
 Number of cores: 1
