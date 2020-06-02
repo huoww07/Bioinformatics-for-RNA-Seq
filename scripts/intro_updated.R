@@ -1,24 +1,34 @@
-## R scripts for differential expression
-## These scripts are used to calculate differential expression using featurecounts data
+# get current directory
+getwd()
 
-```markdown
-# set to work directory: make sure to set directory to project folder. Change whuo01 to your own username below
-setwd("/cluster/tufts/bio/tools/training/intro-to-rnaseq/users/whuo01/intro-to-RNA-seq/")
+# set to work directory, make sure to change whuo01 to your own username below
+setwd("/cluster/tufts/bio/tools/training/intro-to-rnaseq/
+      users/whuo01/intro-to-RNA-seq/")
 
-# load shared Tufts bio library path; if you don't have access to tufts HPC, skip this step
+# check current library path
+.libPaths()
+
+# load shared Tufts bio library path
 .libPaths('/cluster/tufts/bio/tools/R_libs/3.5')
 
+# load library
+library(tidyverse)
+
+# Put HPC biotools R libraries on your R path
+.libPaths(c('', '/cluster/tufts/bio/tools/R_libs/3.5/'))
 # load required libraries
 library(DESeq2)
 library(vsn)
+library(ggplot2)
 library(dplyr)
 library(tidyverse)
 library(ggrepel)
 library(DEGreport)
 library(pheatmap)
+library(org.Sc.sgd.db)
+library(clusterProfiler)
 
-
-# load data.
+# load data
 meta <- read.table("raw_data/sample_info.txt", header=TRUE)
 feature_count <- read.table("./featurecounts/featurecounts_results.mod.txt",
                             header=TRUE, row.names = 1)
@@ -28,45 +38,44 @@ data <- feature_count[,6:19]
 # check to make sure that all rows labels in meta are columns in data
 all(colnames(data) == rownames(meta))
 
-# Differntial expression using DESeq2
+# DESeq2
 dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ condition)
 dds <- DESeq(dds)
-# Creating contrasts and running a Wald test
-contrast <- c("condition", "SNF2", "WT")
-res_unshrunken <- results(dds, contrast=contrast)
-summary(res_unshrunken)
-# Shrinkage of the log2 fold changes
-res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
-summary(res)
 
-# Quality control: Principle Components Analysis
-# regularized log transformation (rlog)
+# PCA analysis
 rld <- rlog(dds, blind=TRUE)
 plotPCA(rld, intgroup="condition") + geom_text(aes(label=name))
 
-# Filtering to find significant genes using FDR cutoff of 0.05
+## Creating contrasts and running a Wald test
+contrast <- c("condition", "SNF2", "WT")
+res_unshrunken <- results(dds, contrast=contrast)
+summary(res_unshrunken)
+
+# Shrinkage of the log2 fold changes
+res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
+summary(res)
+head(res)
+
+## Filtering to find significant genes
 padj.cutoff <- 0.05 # False Discovery Rate cutoff
 significant_results <- res[which(res$padj < padj.cutoff),]
-# save results using customized file_name
+## save results using customized file_name
 file_name = 'significant_padj_0.05.txt'
 write.table(significant_results, file_name, quote=FALSE)
 
 
 
 # Visualization
-
-# simple plot for a single gene YOR290C (SNF2)
+## simple plot for a single gene YOR290C (SNF2)
 plotCounts(dds, gene="YOR290C", intgroup="condition")
-
-# heatmap  
-# plot top 50 genes in a heatmap: top 50 with most significant padj value
+## plot multiple genes in a heatmap
 significant_results_sorted <- significant_results[order(significant_results$padj), ]
 significant_genes_50 <- rownames(significant_results_sorted[1:50, ])
-# extract the counts from the rlog transformed object
+## extract the counts from the rlog transformed object
 rld_counts <- assay(rld)
-# select by row name using the list of genes:
+## select by row name using the list of genes:
 rld_counts_sig <- rld_counts[significant_genes_50, ]
-# Plot multiple genes in a heatmap:
+## Plot multiple genes in a heatmap: 
 pheatmap(rld_counts_sig,
          cluster_rows = T,
          show_rownames = T,
@@ -77,10 +86,15 @@ pheatmap(rld_counts_sig,
          fontsize_row = 8,
          height = 20)
 
+# load previously saved result
+significant_results_test <- read.table("significant_padj_0.05.txt", 
+                                  header=TRUE, row.names = 1)
 
-# volcano plot
+
+## volcano plot
 # load necessary library ggplot2
 library(ggplot2)
+
 # add another column in the results table to label the significant genes using threshold of padj<0.05 and absolute value of log2foldchange >=1
 res_table <- res %>%
   data.frame() %>%
@@ -100,7 +114,7 @@ ggplot(res_table) +
   scale_x_continuous(limits = c(-7.5,7.5)) +      # the axis range is set to be from -7.5 to 7.5
   theme(legend.position = "none", #c(0.9, 0.9),
         plot.title = element_text(size = rel(1.5), hjust = 0.5),
-        axis.title = element_text(size = rel(1.25)))
+        axis.title = element_text(size = rel(1.25)))  
 
 
 
@@ -114,8 +128,8 @@ library(clusterProfiler)
 significant_results_sorted <- res[order(res$padj), ]
 significant_genes_500 <- rownames(significant_results_sorted[1:500, ])
 ego <- enrichGO(gene = significant_genes_500,
-                         keyType = "ENSEMBL",
-                         OrgDb = org.Sc.sgd.db)
+                keyType = "ENSEMBL",
+                OrgDb = org.Sc.sgd.db)
 
 ## Output results from GO analysis to a table
 cluster_summary <- data.frame(ego)
@@ -123,15 +137,3 @@ cluster_summary <- data.frame(ego)
 dotplot(ego, showCategory=50)
 ## Enrichmap clusters the 50 most significant (by padj) GO terms to visualize relationships between terms
 emapplot(ego, showCategory = 50)
-```
-
-- [Review bash scripts](08_bash_scripts.md)
-
-## Go back to workshop schedule
-- [Introduction](../README.md)
-- [Setup using Tufts HPC](01_Setup.md)
-- [Process Raw Reads](02_Quality_Control.md)
-- [Read Alignment](03_Read_Alignment.md)
-- [Gene Quantification](04_Gene_Quantification.md)
-- [Differential Expression](05_Differential_Expression.md)
-- [Pathway Enrichment](06_Pathway_Enrichment.md)

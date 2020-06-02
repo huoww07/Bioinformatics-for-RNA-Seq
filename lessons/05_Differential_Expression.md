@@ -47,7 +47,7 @@ getwd()
 ```
 To change to our workshop directory:
 ```markdown
-setwd('~/into-to-RNA-seq/')
+setwd('/cluster/tufts/bio/tools/training/intro-to-rnaseq/users/YOUR_USERNAME/into-to-RNA-seq/')
 ```
 
 Check which paths on the cluster R will use to find library locations:
@@ -182,12 +182,12 @@ Here shows a summary of up- or down-regulated genes:
 
 One more step where information is used across genes to avoid overestimates of differences between genes with high dispersion. This is not done by default, so we run the code:
 ```markdown
-results <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
+res <- lfcShrink(dds, contrast=contrast, res=res_unshrunken)
 ```
 
 - **Exploring results**
 
-The summary of results after shrinkage can be viewed by typing `summary(results)` or `head(results)`. If you used `head(results)` you will be viewing the top few lines of the result containing log2 fold change and p-value. log2FoldChange = log2(SNF2count/WTcount)Estimated from the model. padj - Adjusted pvalue for the probability that the log2FoldChange is not zero.
+The summary of results after shrinkage can be viewed by typing `summary(res)` or `head(res)`. If you used `head(res)` you will be viewing the top few lines of the result containing log2 fold change and p-value. log2FoldChange = log2(SNF2count/WTcount)Estimated from the model. padj - Adjusted pvalue for the probability that the log2FoldChange is not zero.
 
 <img src="../img/DESeq2_res.png" width="600">
 

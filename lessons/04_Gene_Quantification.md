@@ -48,7 +48,7 @@ featureCounts \
 STAR/*bam
 ```
 
-Exit vi by typing `ESC` and `:wq` to save and name the file.
+Exit editor by typing `Control and X` and `Y` to save.
 
 To run the script, type in:
 ```
