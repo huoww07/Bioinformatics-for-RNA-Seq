@@ -11,16 +11,24 @@ Approximate time: 60 minutes
 ## Step 1. Setup Rstudio on the Tufts HPC cluster via "On Demand"
 1. Open a Chrome browser and visit [ondemand.cluster.tufts.edu](ondemand.cluster.tufts.edu)
 2. Log in with your Tufts Credentials
-3. On the top menu bar choose Interactive Apps -> Rstudio
-
+3. On the top menu bar choose `Interactive Apps -> Rstudio`
 <img src="../img/rstudio.png" width="400">
 4. Choose:
 
-```markdown
-Number of hours: 4
-Number of cores: 1
-Amount of Memory: 32 Gb
-R version: 3.5.0
+```
+Number of hours  : 4
+Number of cores  : 1
+Amount of Memory : 32 Gb
+R version        : 3.5.0
+Partition        : Default
+Reservation      : Default
+```
+
+Note if you are registered for the workshop, you may instead choose the following options in order to take advantage of 
+a reservation that will be available for one week after the workshop start date:
+```
+Partition        : Preempt
+Reservation      : Bioworkshop
 ```
 
 ## Step 2. Working with Rstudio Interface

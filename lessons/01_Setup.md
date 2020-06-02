@@ -34,7 +34,9 @@ Once you hit enter, you will see something like below showing that the job is qu
 [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 bash
 srun: job 55918493 queued and waiting for resources
 ```
-If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before bash.
+If wait times are very long, you can try a different partitions by adding, e.g. `-p interactive` before `bash`.
+Or, if you are you registered for the workshop, you can use following option before `bash`: `-p preempt --reservation=bioworkshop`.
+This reservation will be available for one week after the workshop start.
 You can press `Ctrl-C` to cancel your request and try again with different options, e.g.:
 ```
 [whuo01@login001 ~]$ srun --pty -t 3:00:00  --mem 16G  -N 1 -n 4 -p interactive bash
