@@ -2,6 +2,23 @@
 ## These scripts are used to process raw reads, align processed reads and quantify gene expression using feature counts
 
 ```markdown
+# For Tufts HPC users who attended our 1-hr zoom workshop, please run following command to get a compute node
+srun -t 3:00:00 --mem 16G -N 1 -n 4 -p preempt --reservation bioworkshop --pty bash
+
+# For other HPC users, please use below command
+srun -t 3:00:00 --mem 16G -N 1 -n 4 -p preempt --pty bash
+
+# Navigate to project folder
+cd /cluster/tufts/bio/tools/training/intro-to-rnaseq/users/
+
+# make a new directory using your username for your practice, and enter that directory
+mkdir YOUR_USERNAME
+cd YOUR_USERNAME
+# copy course material to your directory, unzip it and enter the course material directory
+cp /cluster/tufts/bio/tools/training/intro-to-rnaseq/intro-to-RNA-seq-May-2020.tar.gz ./
+tar -xvzf intro-to-RNA-seq-May-2020.tar.gz
+cd intro-to-RNA-seq
+
 # load fastqc module
 module load fastqc/0.11.8
 mkdir fastqc
