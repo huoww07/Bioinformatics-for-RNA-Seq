@@ -1,7 +1,7 @@
 ### A Tufts University Research Technology Workshop
 
 ## Description:
-This tutorial will cover the basics of bioinformatics for RNA sequencing analysis using command line tools and R on the Tufts  High Performance Compute Cluster (HPC). The analysis pipeline includes quality control, read alignment, feature quantification, differential expression and pathway analysis. There will be a [1-hour introductory session on June 2nd 2020](https://tufts.libcal.com/event/6716203), after which students will follow this self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
+This tutorial will cover the basics of bioinformatics for RNA sequencing analysis using command line tools and R on the Tufts  High Performance Compute Cluster (HPC). The analysis pipeline includes quality control, read alignment, feature quantification, differential expression and pathway analysis. There was a [1-hour introductory session](slides/pipeline_walthrough.pdf), after which students will follow this self-guided online material. The material is designed to run on [Tufts High Performance Compute (HPC) Cluster](https://access.tufts.edu/research-cluster-account). If you don't have access to Tufts HPC, you will need to install [all required modules on your own computer](lessons/07_dependencies.md).
 
 ## Goals
 - Intro to RNA sequencing logistics
@@ -31,6 +31,9 @@ All scripts you will be using:
 - [Command line scripts](lessons/08_bash_scripts.md)
 - [R scripts](lessons/09_R_scripts.md)
 
+1-hr introduction session slides:
+- [Introduction](slides/RNAseq_intro_RB_28May20.pdf)
+- [Pipeline walkthrough](slides/pipeline_walthrough.pdf)
 
 ## Schedule
 - Currently at: Course Home
