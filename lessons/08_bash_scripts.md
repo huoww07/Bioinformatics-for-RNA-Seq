@@ -23,7 +23,7 @@ cd intro-to-RNA-seq
 module load fastqc/0.11.8
 mkdir fastqc
 
-# Run fastqc on raw sequencing reads. Each fastq file will be analyzed individually. * is a wild card. *.fastq.gz indicates fastqc to process everything with an extension of .fastq.gz
+# Run fastqc on raw sequencing reads. Each fastq file will be analyzed individually. * is a wild card. 
 fastqc raw_data/WT/*.fastq.gz -o fastqc --extract
 fastqc raw_data/SNF2/*.fastq.gz -o fastqc --extract
 
