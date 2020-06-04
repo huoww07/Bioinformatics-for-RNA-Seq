@@ -35,7 +35,7 @@ multiqc fastqc/ -o multiqc
 # Read alignment Step 1: prepare reference genomes. Your input will be genome.fa.
 module load STAR/2.6.1d
 mkdir genome
-STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles genome.fa --runThreadN 12
+STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 4
 
 # Read alignment Step 2: align. You will need your own annotation file in gtf format. You will run this step for individual samples.
 mkdir STAR
