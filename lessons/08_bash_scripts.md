@@ -23,9 +23,9 @@ cd intro-to-RNA-seq
 module load fastqc/0.11.8
 mkdir fastqc
 
-# Run fastqc on raw sequencing reads. Each fastq file will be analyzed individually. For example, if we only have two sequencing results: input1.fastq.gz and input2.fastq
-fastqc input1.fastq.gz -o fastqc --extract
-fastqc input2.fastq -o fastqc --extract
+# Run fastqc on raw sequencing reads. Each fastq file will be analyzed individually. * is a wild card. *.fastq.gz indicates fastqc to process everything with an extension of .fastq.gz
+fastqc raw_data/WT/*.fastq.gz -o fastqc --extract
+fastqc raw_data/SNF2/*.fastq.gz -o fastqc --extract
 
 # run multiqc to compile individual fastqc files, this helps visualization of fastqc reports
 module load multiqc/1.7.0
@@ -37,10 +37,10 @@ module load STAR/2.6.1d
 mkdir genome
 STAR --runMode genomeGenerate --genomeDir ./genome --genomeFastaFiles /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Sequence/WholeGenomeFasta/genome.fa --runThreadN 4
 
-# Read alignment Step 2: align. You will need your own annotation file in gtf format. You will run this step for individual samples.
+# Read alignment Step 2: align. You will need your own annotation file in gtf format. You will run this step for individual samples. Here we are using ERR458493.fastq.gz as an example.
 mkdir STAR
 STAR --genomeDir ./genome \
---readFilesIn input1.fastq.gz \
+--readFilesIn raw_data/WT/ERR458493.fastq.gz \
 --readFilesCommand zcat \
 --outFileNamePrefix STAR/ \
 --outFilterMultimapNmax 1 \
@@ -54,6 +54,9 @@ STAR --genomeDir ./genome \
 # Read alignment Step 3: generate bam index. The output.bam is output file from step 2. You will run this for individual samples following Step 2.
 module load samtools/1.2
 samtools index STAR/output.bam
+
+
+# Before moving on to next step, make sure your STAR folder contains 14 bam files, one for each replicate.
 
 
 # Gene quantification using featureCounts - This step compiles all alignment results together. This is done after alignment is finished for all samples.
