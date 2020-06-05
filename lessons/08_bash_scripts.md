@@ -57,6 +57,8 @@ samtools index STAR/output.bam
 
 
 # Before moving on to next step, make sure your STAR folder contains 14 bam files, one for each replicate.
+# You can do so by running
+sh ./scripts/star_align_individual.sh
 
 
 # Gene quantification using featureCounts - This step compiles all alignment results together. This is done after alignment is finished for all samples.
@@ -66,9 +68,9 @@ module load subread/1.6.3
 mkdir featurecounts
 # Gene quantification step 3: Run featurecounts
 featureCounts \
--a /directory/to/where/you/store/annotation.gtf \
+-a /cluster/tufts/bio/data/genomes/Saccharomyces_cerevisiae/UCSC/sacCer3/Annotation/Genes/sacCer3.gtf \
 -o featurecounts/featurecounts_results.txt \
-STAR/*bam
+STAR/*.bam
 
 
 # Check feature count results
@@ -78,6 +80,17 @@ head featurecounts/featurecounts_results.txt
 cat featurecounts/featurecounts_results.txt |sed "2s/STAR\///g" | sed "2s/\_Aligned.sortedByCoord.out.bam//g" > featurecounts/featurecounts_results.mod.txt
 
 # now you are ready to move on to R scripts.
+
+
+
+# Optional step 1. Visualize number of mapped reads v.s. unmapped reads in all samples using barplot. This code will generate a pdf file named Mapping_stat.pdf.
+module load R/3.5.0
+Rscript ./scripts/mapping_percentage.R
+
+# Optional step 2. Visualize number of assigned reads in all samples using barplot. This code will generate a pdf file named Featurecount_stat.pdf.
+module load R/3.5.0
+Rscript ./scripts/featurecount_stat.R
+
 ```
 
 - [Next: R scripts](09_R_scripts.md)
